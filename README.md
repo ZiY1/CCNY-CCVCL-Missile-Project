@@ -19,7 +19,8 @@ Other issues is that for the camera tracking the missile/rocket, there is a limi
 
 ## ChangeLog
 ### Jun 28
-- Tried to follow the Perception Tutorial in their github but found out that there were some essential files missing that were missing. So instead of guessing which files are missing, I recreated it and tested some of the scenes to make sure everything was in order. 
+- Tried to follow the Perception Tutorial in their github but found out that there were some essential files missing that were missing. So instead of guessing which files are missing, I recreated it and tested some of the scenes to make sure everything was in order.
+- Also, there is a Perception folder where I started their github tutorial. 
 ### Jun 24
 - Combined Kelvin's work with mine.
 - testing out a new smoke trail with lighting effects for a more realistic rocket engine
