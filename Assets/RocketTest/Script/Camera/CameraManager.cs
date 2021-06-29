@@ -4,46 +4,46 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] Camera cam;
     [SerializeField] SpawnRocket spawnRocket;
+    [SerializeField] CameraPlacement cameraPlacement;
 
     public GameObject[] cameraLocations;
 
     public GameObject missile_obj;
 
-    bool lock_on = true;
+    public bool lock_on = true;
 
     public float focusedCamMissileHeight;
     public float wideCamMissileHeight;
 
     float missile_height;
 
-    private void Awake()
+    private void Start()
     {
         missile_height = focusedCamMissileHeight;
         cam.transform.SetPositionAndRotation(cameraLocations[0].transform.position, cameraLocations[0].transform.rotation);
-    }
-
-    private void Start()
-    {
         missile_obj = spawnRocket.GetRocket();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (!cameraPlacement.editingMode)
         {
-            switchToFocusedCamera(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            switchToFocusedCamera(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            switchToWideCam(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            switchToWideCam(1);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                switchToFocusedCamera(0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                switchToFocusedCamera(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                switchToWideCam(0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                switchToWideCam(1);
+            }
         }
 
         if (lock_on)
@@ -55,7 +55,7 @@ public class CameraManager : MonoBehaviour
 
     }
 
-    float GetFieldOfView(Vector3 objectPosition, float objectHeight)
+    public float GetFieldOfView(Vector3 objectPosition, float objectHeight)
     {
         Vector3 diff = objectPosition - Camera.main.transform.position;
         float distance = Vector3.Dot(diff, Camera.main.transform.forward);
@@ -80,5 +80,10 @@ public class CameraManager : MonoBehaviour
         missile_height = wideCamMissileHeight;
         cam.fieldOfView = GetFieldOfView(spawnRocket.spawn.transform.position, missile_height);
 
+    }
+
+    public Transform GetSpawnRocketTransform()
+    {
+        return spawnRocket.transform;
     }
 }
