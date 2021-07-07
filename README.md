@@ -18,9 +18,11 @@ Other issues is that for the camera tracking the missile/rocket, there is a limi
 - Learn to use Machine Learning program
 
 ## ChangeLog
+### Jul 7
+- Added some custom randomizers for Perception. These scripts alter how many foreground objects spawn, what position they spawn in, and the rotation.
 ### Jun 28
 - Tried to follow the Perception Tutorial in their github but found out that there were some essential files missing that were missing. So instead of guessing which files are missing, I recreated it and tested some of the scenes to make sure everything was in order.
-- Also, there is a Perception folder where I started their github tutorial. 
+- Also, there is a Perception folder where I started their github tutorial.
 ### Jun 24
 - Combined Kelvin's work with mine.
 - testing out a new smoke trail with lighting effects for a more realistic rocket engine
