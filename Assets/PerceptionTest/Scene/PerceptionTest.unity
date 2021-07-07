@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028416, g: 0.22571412, b: 0.30692232, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,886 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &19996828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 19996830}
+  - component: {fileID: 19996829}
+  m_Layer: 0
+  m_Name: 'Rocket: Simulation Scenario'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &19996829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19996828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50076aff0af4515b4422166496fdd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Randomizers:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  - id: 4
+  - id: 5
+  - id: 6
+  - id: 7
+  constants:
+    randomSeed: 539662031
+    totalIterations: 100
+    instanceCount: 1
+    instanceIndex: 0
+    framesPerIteration: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: BackgroundObjectPlacementRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 0
+        collapsed: 1
+        depth: 0
+        layerCount: 2
+        separationDistance: 0.5
+        placementArea: {x: 6, y: 6}
+        prefabs:
+          collapsed: 0
+          probabilities:
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          uniform: 1
+          m_Sampler:
+            id: 8
+          m_Categories:
+          - {fileID: 6030332796725836435, guid: ac13094c75c784f18a0f55955f9bad54, type: 3}
+          - {fileID: 6016821248533432811, guid: 164ac1ed2da6843e8a9dfdba035eba59, type: 3}
+          - {fileID: 7535916074495424930, guid: fe943ecc60c684bd5b7926dba166d965, type: 3}
+          - {fileID: 1612028945025414013, guid: 9e23c843902bb4d528bcb174b93338aa, type: 3}
+          - {fileID: 5386884732880815627, guid: 408c94eac961e46299dd57f027dd6325, type: 3}
+          - {fileID: 5842636318379591388, guid: fffdfd5a739bc408ab080299bc01f0bf, type: 3}
+          - {fileID: 8136010092614499041, guid: b40dfabea7df9422385afe5ca0168743, type: 3}
+          - {fileID: 5598400054666850249, guid: 8b472a9f425c4445bb7d141e0b32b1ab, type: 3}
+          - {fileID: 4016244083471174794, guid: d3924c064f08647f28ee7b0ea8a6cd36, type: 3}
+          - {fileID: 1846734885985130355, guid: 5f57443882fe8412184ca2a5f1a8a7cd, type: 3}
+    00000001:
+      type: {class: TextureRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 0
+        collapsed: 1
+        texture:
+          collapsed: 0
+          probabilities:
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          - 0.025
+          uniform: 1
+          m_Sampler:
+            id: 9
+          m_Categories:
+          - {fileID: 2800000, guid: d836c1f63a42d4a15afdb9018c65127f, type: 3}
+          - {fileID: 2800000, guid: 15f01964ac4d740c7b9f782e9f2f5d2a, type: 3}
+          - {fileID: 2800000, guid: 7bfedb47913f34bd6b8e6a68cd20db6f, type: 3}
+          - {fileID: 2800000, guid: ce1f1c5be4c2d46ab9f68d655629d3ad, type: 3}
+          - {fileID: 2800000, guid: 62f362872994348f4a8bf1c80be78f1b, type: 3}
+          - {fileID: 2800000, guid: 70a0def182aa344168195163a57ba26b, type: 3}
+          - {fileID: 2800000, guid: ea6392a8614d14d99b9e865a598b4f86, type: 3}
+          - {fileID: 2800000, guid: ba03660a03e39456fbd53c1f79a3df69, type: 3}
+          - {fileID: 2800000, guid: 0325b8e659d4e4761b89225cd57d6355, type: 3}
+          - {fileID: 2800000, guid: 7026716b4374c4dbfb66b896239651df, type: 3}
+          - {fileID: 2800000, guid: f5b5f6872c93c4a7eb87b164fdf8d983, type: 3}
+          - {fileID: 2800000, guid: 6cdf514d5cc804405a31409ebde56c5d, type: 3}
+          - {fileID: 2800000, guid: 1725d9989d7334026ac51d1e582034ab, type: 3}
+          - {fileID: 2800000, guid: 342df8f3c375a43a5a10caec185740d7, type: 3}
+          - {fileID: 2800000, guid: 59473546f003444d7b129998a1dbf35d, type: 3}
+          - {fileID: 2800000, guid: 0c0afdac9a3b848fe890b097d844a6ce, type: 3}
+          - {fileID: 2800000, guid: debca3b6d60bf4b5694d690778e2a00d, type: 3}
+          - {fileID: 2800000, guid: 654d12f85aa6247e5a4865c90117704a, type: 3}
+          - {fileID: 2800000, guid: bea1bbf6a1d814c9f9ef227175199281, type: 3}
+          - {fileID: 2800000, guid: 240aa080bc5184d31afeff197aad8e42, type: 3}
+          - {fileID: 2800000, guid: 6bd8b5d29c0674e9ea414dcbcc334cf6, type: 3}
+          - {fileID: 2800000, guid: e0848cd86c2b24da2a4997b35bd64dae, type: 3}
+          - {fileID: 2800000, guid: dab1afe11802b4bf7a4769aa6e5c6d04, type: 3}
+          - {fileID: 2800000, guid: 643cc0c761d384f3880f092c612ed837, type: 3}
+          - {fileID: 2800000, guid: 085302a57e87249d19c6871a63472e5b, type: 3}
+          - {fileID: 2800000, guid: 8c25e063a680f435f8089bdb5431ef9a, type: 3}
+          - {fileID: 2800000, guid: b5fa6bb41bb874d38b0652c0d1e60724, type: 3}
+          - {fileID: 2800000, guid: b978e42dc0666477c83df1a9626db232, type: 3}
+          - {fileID: 2800000, guid: b6db00bcad3a544abb0b76c5abe745c5, type: 3}
+          - {fileID: 2800000, guid: d5d0c564f308e4fd0b2a5d70ee25ea97, type: 3}
+          - {fileID: 2800000, guid: 88e20550970e64e258748036ab7504b4, type: 3}
+          - {fileID: 2800000, guid: 3ba5f1b25ea1e47e79137bf9edc72c94, type: 3}
+          - {fileID: 2800000, guid: 12205844d9c8b455795add485304878f, type: 3}
+          - {fileID: 2800000, guid: 0fefda65f2b01490bb1c26d26058976d, type: 3}
+          - {fileID: 2800000, guid: e908caf0a4386489aa91736f13a22eab, type: 3}
+          - {fileID: 2800000, guid: 1b166f4ae9c9a4503bf8c3453998143e, type: 3}
+          - {fileID: 2800000, guid: e47adfd43db56483a833b3101d2a1f10, type: 3}
+          - {fileID: 2800000, guid: dd11eb144f39a4c3ea16b481265dcc7b, type: 3}
+          - {fileID: 2800000, guid: 2f3a422198cff4d01a465ea2be715657, type: 3}
+          - {fileID: 2800000, guid: 971dfea36dfcf451eb5d14da24a79a8c, type: 3}
+    00000002:
+      type: {class: HueOffsetRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 0
+        collapsed: 1
+        hueOffset:
+          collapsed: 0
+          value:
+            id: 10
+    00000003:
+      type: {class: ForegroundObjectPlacementRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 0
+        collapsed: 1
+        depth: -3
+        separationDistance: 1.5
+        placementArea: {x: 5, y: 5}
+        prefabs:
+          collapsed: 0
+          probabilities:
+          - 1
+          uniform: 1
+          m_Sampler:
+            id: 11
+          m_Categories:
+          - {fileID: 3956545706807500900, guid: a241b07e32e8b4519bd26f19b2a19ba1, type: 3}
+    00000004:
+      type: {class: RotationRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 0
+        collapsed: 1
+        rotation:
+          collapsed: 0
+          x:
+            id: 12
+          y:
+            id: 13
+          z:
+            id: 14
+    00000005:
+      type: {class: MyLightRandomizer, ns: , asm: Assembly-CSharp}
+      data:
+        m_Enabled: 0
+        collapsed: 1
+        lightIntensityParameter:
+          collapsed: 0
+          value:
+            id: 15
+        lightColorParameter:
+          collapsed: 0
+          probabilities:
+          - 0.33333334
+          - 0.33333334
+          - 0.33333334
+          uniform: 1
+          m_Sampler:
+            id: 16
+          m_Categories:
+          - {r: 1, g: 0, b: 0, a: 0}
+          - {r: 0, g: 1, b: 0.04225135, a: 0}
+          - {r: 0, g: 0.0552845, b: 1, a: 0}
+    00000006:
+      type: {class: CustomForegroundPlacement, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Assembly-CSharp}
+      data:
+        m_Enabled: 1
+        collapsed: 0
+        depth: -3
+        separationDistance: 2
+        placementArea: {x: 5, y: 5}
+        prefabs:
+          collapsed: 0
+          probabilities:
+          - 1
+          uniform: 1
+          m_Sampler:
+            id: 17
+          m_Categories:
+          - {fileID: 3956545706807500900, guid: a241b07e32e8b4519bd26f19b2a19ba1, type: 3}
+    00000007:
+      type: {class: CustomRandomizer, ns: , asm: Assembly-CSharp}
+      data:
+        m_Enabled: 1
+        collapsed: 1
+    00000008:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    00000009:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    0000000A:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: -180
+          maximum: 180
+    0000000B:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    0000000C:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 360
+    0000000D:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 360
+    0000000E:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 360
+    0000000F:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    00000010:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    00000011:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+--- !u!4 &19996830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19996828}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.917288, y: 21.27782, z: 35.455807}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &408149023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 408149025}
+  - component: {fileID: 408149024}
+  m_Layer: 0
+  m_Name: Simulation Scenario
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &408149024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408149023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50076aff0af4515b4422166496fdd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Randomizers:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  - id: 4
+  - id: 5
+  constants:
+    randomSeed: 539662031
+    totalIterations: 100
+    instanceCount: 1
+    instanceIndex: 0
+    framesPerIteration: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: BackgroundObjectPlacementRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 1
+        collapsed: 1
+        depth: 0
+        layerCount: 2
+        separationDistance: 0.5
+        placementArea: {x: 6, y: 6}
+        prefabs:
+          collapsed: 0
+          probabilities:
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          uniform: 1
+          m_Sampler:
+            id: 6
+          m_Categories:
+          - {fileID: 6030332796725836435, guid: ac13094c75c784f18a0f55955f9bad54, type: 3}
+          - {fileID: 6016821248533432811, guid: 164ac1ed2da6843e8a9dfdba035eba59, type: 3}
+          - {fileID: 7535916074495424930, guid: fe943ecc60c684bd5b7926dba166d965, type: 3}
+          - {fileID: 1612028945025414013, guid: 9e23c843902bb4d528bcb174b93338aa, type: 3}
+          - {fileID: 5386884732880815627, guid: 408c94eac961e46299dd57f027dd6325, type: 3}
+          - {fileID: 5842636318379591388, guid: fffdfd5a739bc408ab080299bc01f0bf, type: 3}
+          - {fileID: 8136010092614499041, guid: b40dfabea7df9422385afe5ca0168743, type: 3}
+          - {fileID: 5598400054666850249, guid: 8b472a9f425c4445bb7d141e0b32b1ab, type: 3}
+          - {fileID: 4016244083471174794, guid: d3924c064f08647f28ee7b0ea8a6cd36, type: 3}
+          - {fileID: 1846734885985130355, guid: 5f57443882fe8412184ca2a5f1a8a7cd, type: 3}
+    00000001:
+      type: {class: TextureRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 1
+        collapsed: 1
+        texture:
+          collapsed: 0
+          probabilities:
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          - 0.007142857
+          uniform: 1
+          m_Sampler:
+            id: 7
+          m_Categories:
+          - {fileID: 2800000, guid: e84cb0e2a2e1947aeb0c136f30a19792, type: 3}
+          - {fileID: 2800000, guid: e32bdaf24909c4909a65354408418b78, type: 3}
+          - {fileID: 2800000, guid: d763bb9b9c7fe45a6b413c0d8821c8cc, type: 3}
+          - {fileID: 2800000, guid: dca5e74c4ca0242449200f78b3d0ec8e, type: 3}
+          - {fileID: 2800000, guid: 9996a7fc092a449db9e65c6bac0b953d, type: 3}
+          - {fileID: 2800000, guid: 5538aee15ec57481c894570962f93c16, type: 3}
+          - {fileID: 2800000, guid: 173d091adc88f4d0287355101fadb4ce, type: 3}
+          - {fileID: 2800000, guid: a630f0a9bc9f4498aa19195497428672, type: 3}
+          - {fileID: 2800000, guid: 6df7a6daa12a64b5fbbf3ba57ba257f0, type: 3}
+          - {fileID: 2800000, guid: 88d3788d2b9794eecbdcd03b501714d4, type: 3}
+          - {fileID: 2800000, guid: 3adf45611f5b04f76abee0fce9671623, type: 3}
+          - {fileID: 2800000, guid: 3dff6b228ba5f45ddb81aabff3bc057b, type: 3}
+          - {fileID: 2800000, guid: 0c95d7b2cb92444e492467c780761b6b, type: 3}
+          - {fileID: 2800000, guid: 28fe92c3b5625431a88bbeb250c11eff, type: 3}
+          - {fileID: 2800000, guid: b670dc2f20289453584e1c3a201480f6, type: 3}
+          - {fileID: 2800000, guid: 76256ac9b3e7842d681249dc15d446e1, type: 3}
+          - {fileID: 2800000, guid: 2e2aa7ca95cf54f4a8bcbebd32871e4e, type: 3}
+          - {fileID: 2800000, guid: b5b1ffbc195a845ad96698b01dfe82ca, type: 3}
+          - {fileID: 2800000, guid: 71737e54a8c6440558743e2cf833fae0, type: 3}
+          - {fileID: 2800000, guid: c32a506f3232f446681941581e7e27a4, type: 3}
+          - {fileID: 2800000, guid: 1eb9e799e6f8a4964bab0656c42ed714, type: 3}
+          - {fileID: 2800000, guid: 88240b011f2304309ab2ca817a2bdef6, type: 3}
+          - {fileID: 2800000, guid: cec5fd03c63a74e669a678f09a93767c, type: 3}
+          - {fileID: 2800000, guid: 62e6fc526bdba43b6985014a1eb93391, type: 3}
+          - {fileID: 2800000, guid: 6d1c1a876ec444b19b5e357ffd102623, type: 3}
+          - {fileID: 2800000, guid: 077b774f65ec942f3bb87206a3902ee3, type: 3}
+          - {fileID: 2800000, guid: 433987bea16c04280ab27e2811642330, type: 3}
+          - {fileID: 2800000, guid: 5060bcd3da8e648eabe9874445fca5b6, type: 3}
+          - {fileID: 2800000, guid: af4e967567c0340fe9c909bfac765c1f, type: 3}
+          - {fileID: 2800000, guid: a52767391515e4bb8994c7868c76f8c3, type: 3}
+          - {fileID: 2800000, guid: c43e18fd0a5b245f2999544a49f1f27c, type: 3}
+          - {fileID: 2800000, guid: 668e00d183f134518a207fd2cc2bf9ce, type: 3}
+          - {fileID: 2800000, guid: 69bf11963592d461480843a420837be1, type: 3}
+          - {fileID: 2800000, guid: 8db1d90363b3b434fb73fe8b9c3dc15d, type: 3}
+          - {fileID: 2800000, guid: af28509496f8749f9b6dff15a3284281, type: 3}
+          - {fileID: 2800000, guid: db8a47f36a93c459886047e258b1dcd7, type: 3}
+          - {fileID: 2800000, guid: e48caa09f6dad4c34b315eb9fe2556a9, type: 3}
+          - {fileID: 2800000, guid: 9c3f07c1075c5475da94c990c5e64049, type: 3}
+          - {fileID: 2800000, guid: f5d8299ad54d745b19f8b9975e0ee5d6, type: 3}
+          - {fileID: 2800000, guid: 9ada612e7f85141d889086ed4ae9ebb8, type: 3}
+          - {fileID: 2800000, guid: 2141a2bd8005743b696e628425482637, type: 3}
+          - {fileID: 2800000, guid: e3ee49b9402aa4fd5812670f6e532e7a, type: 3}
+          - {fileID: 2800000, guid: cd29977b496a14f718b0f14040d9843c, type: 3}
+          - {fileID: 2800000, guid: e944bc18052c847c6bdb3efc36dfc75d, type: 3}
+          - {fileID: 2800000, guid: 88648f40cfaef4c7989f5cad2ba662ae, type: 3}
+          - {fileID: 2800000, guid: 15db3f35b0caf4837937b9540486a326, type: 3}
+          - {fileID: 2800000, guid: 5b97c120b295848f5873431fe295856f, type: 3}
+          - {fileID: 2800000, guid: 11518bbaabc0b4bb1b362e42123314db, type: 3}
+          - {fileID: 2800000, guid: 606111781981e47da872bacf4f9e0f71, type: 3}
+          - {fileID: 2800000, guid: 47c34beae2b7a47988ec7bb0308d14c8, type: 3}
+          - {fileID: 2800000, guid: 51a5122c645cc42f794a64c277094c5a, type: 3}
+          - {fileID: 2800000, guid: ac94dfe5a5b9f4219a03e38bb424d58a, type: 3}
+          - {fileID: 2800000, guid: 50a4605136be8434395380418ae006d7, type: 3}
+          - {fileID: 2800000, guid: c303b7dead322409db391d7fcba9606c, type: 3}
+          - {fileID: 2800000, guid: 863e32b60a4c84fa0840fda0e66b65ce, type: 3}
+          - {fileID: 2800000, guid: 37e55157936954c1582001c751d4187f, type: 3}
+          - {fileID: 2800000, guid: 415d74d1065f74bbbae49e522e49cefc, type: 3}
+          - {fileID: 2800000, guid: 3e555bbcd23e94b41a05207a2013aebc, type: 3}
+          - {fileID: 2800000, guid: bdba848f006d545ffa0566643072b736, type: 3}
+          - {fileID: 2800000, guid: 17dacfa2bafa14ea6970dc3419013841, type: 3}
+          - {fileID: 2800000, guid: 084d06b546852444cb59aeb4dbdcd400, type: 3}
+          - {fileID: 2800000, guid: e4477a734a4604ddc97485d1e8b3a7e4, type: 3}
+          - {fileID: 2800000, guid: ad23a8eb3fb254c03ba9eca8faea6ca7, type: 3}
+          - {fileID: 2800000, guid: b5505c9de22b344d2812ba20fc8faad8, type: 3}
+          - {fileID: 2800000, guid: 1b75517871c424440a26d8adb8ad45a2, type: 3}
+          - {fileID: 2800000, guid: 4c2c39a743dba4737857c2e69e0886aa, type: 3}
+          - {fileID: 2800000, guid: 2ddcdfa7f6e5f455fbde4f8c5aee527e, type: 3}
+          - {fileID: 2800000, guid: 312ee2a3aab9e45769220d2caa42d9df, type: 3}
+          - {fileID: 2800000, guid: eca57e382886d45b9bd2e6379124755f, type: 3}
+          - {fileID: 2800000, guid: 6cf376fa5f7614ab58222cd1a0e5db53, type: 3}
+          - {fileID: 2800000, guid: 9ae905b6ea76b4ee1b2177bc512efcac, type: 3}
+          - {fileID: 2800000, guid: 67290dbd27c78486581202ab4e95650a, type: 3}
+          - {fileID: 2800000, guid: 24f56826e54134b2eb1666f918518370, type: 3}
+          - {fileID: 2800000, guid: bfb710acbcc144a63af2f9e0ae038b28, type: 3}
+          - {fileID: 2800000, guid: e8fd7d172ed6e41368a7a01d3fad9a6c, type: 3}
+          - {fileID: 2800000, guid: ef3681697413846c79e5e50ca4d7d205, type: 3}
+          - {fileID: 2800000, guid: 00bc135eadd3048ec9884ae7f3e484f3, type: 3}
+          - {fileID: 2800000, guid: e599f6e71c3fb47c187f20668d04f942, type: 3}
+          - {fileID: 2800000, guid: a1510726d514e4dec81cfd882972fa5b, type: 3}
+          - {fileID: 2800000, guid: 457066131c23e457094e3bcf64400f0b, type: 3}
+          - {fileID: 2800000, guid: 329880741ae034845a90505c3116a669, type: 3}
+          - {fileID: 2800000, guid: 5a624691fc58c4435a9f7774f6d8db60, type: 3}
+          - {fileID: 2800000, guid: 5098d7e9cac614f93ad54b444f038b29, type: 3}
+          - {fileID: 2800000, guid: 7cc847c2b07be47cd94152cff9df8112, type: 3}
+          - {fileID: 2800000, guid: 8f20f27b3ca0e49b5955cb98e2b4b546, type: 3}
+          - {fileID: 2800000, guid: 0a07522820fe04bf885cc329b6e2712a, type: 3}
+          - {fileID: 2800000, guid: c03e790e33b5d4f37baad34fc96c52df, type: 3}
+          - {fileID: 2800000, guid: 59ced9c9508fa4e318ff7226330f1dcd, type: 3}
+          - {fileID: 2800000, guid: c9ce555eea3364b0d9bb4537225e84d5, type: 3}
+          - {fileID: 2800000, guid: bc78e5da59f7d4d90b3dc4aca7e67a92, type: 3}
+          - {fileID: 2800000, guid: e7c30f3978d8a4bc5932df6a3255d510, type: 3}
+          - {fileID: 2800000, guid: adfca34be57d7483eac30465e28345a9, type: 3}
+          - {fileID: 2800000, guid: 53904240b4f7649b2aea5017d62be62a, type: 3}
+          - {fileID: 2800000, guid: 7ff384a44118c477680798a38aad98fa, type: 3}
+          - {fileID: 2800000, guid: ced72924c1771415ab627385f8feb810, type: 3}
+          - {fileID: 2800000, guid: fa699c5b9e15e4e5c8592ff434830e6e, type: 3}
+          - {fileID: 2800000, guid: 9c470241ebe07447d9d3d118b9eb3c4f, type: 3}
+          - {fileID: 2800000, guid: a9cfdd247e9a64dd49d47a2aa9d07f70, type: 3}
+          - {fileID: 2800000, guid: a4a10ce26fb73408398a30d1ea35b8bd, type: 3}
+          - {fileID: 2800000, guid: 72fb3920215834da48f4e5dbb5953d52, type: 3}
+          - {fileID: 2800000, guid: be92cf5506f16483ca7dcac66a63526f, type: 3}
+          - {fileID: 2800000, guid: 00ff047f2d5474ac0b50565138a1edb6, type: 3}
+          - {fileID: 2800000, guid: d3fc5289a40db493fa02878bf68320ac, type: 3}
+          - {fileID: 2800000, guid: 3131c37d3b5e2495384213daf2a2cb92, type: 3}
+          - {fileID: 2800000, guid: 14ac260d02d344e5782132aa461ce469, type: 3}
+          - {fileID: 2800000, guid: c8dc1c9d107e54c52b86f1d2289343c5, type: 3}
+          - {fileID: 2800000, guid: 31ce519600e784c86a1fb45726e1c5c7, type: 3}
+          - {fileID: 2800000, guid: b396be84dea154b9782b3ae5162cef1e, type: 3}
+          - {fileID: 2800000, guid: 549f0b8fed0824bc28a7f67d491c9ed0, type: 3}
+          - {fileID: 2800000, guid: 254afd1fa51b44395a64395a5fad9de7, type: 3}
+          - {fileID: 2800000, guid: 6d675a0e5a6d84302a5709a877ff05c5, type: 3}
+          - {fileID: 2800000, guid: 702c8959ac389490ab0e93f2227514da, type: 3}
+          - {fileID: 2800000, guid: 1d3542b57b5874f07b3e023aac8f4af5, type: 3}
+          - {fileID: 2800000, guid: 84060200c125c432f9461e4f3189f7b5, type: 3}
+          - {fileID: 2800000, guid: 88e1ac85243604c6889d7113989b38ab, type: 3}
+          - {fileID: 2800000, guid: 690df20f5b26d4f9c88ce47c976a5645, type: 3}
+          - {fileID: 2800000, guid: 315fcf7f412df47b5ac11622b05acf09, type: 3}
+          - {fileID: 2800000, guid: 4d278f86008c742879e61cb99074b676, type: 3}
+          - {fileID: 2800000, guid: 0586c2426d8b5497cb985a31a7e3f298, type: 3}
+          - {fileID: 2800000, guid: 4e5b22ad8c1434d77b70a55e63e25798, type: 3}
+          - {fileID: 2800000, guid: fca3da6b37c4c462da94913f734ab46e, type: 3}
+          - {fileID: 2800000, guid: ddc7274a365c04a259796aefc2a19ba5, type: 3}
+          - {fileID: 2800000, guid: 5c917a820e7634d63af9b9b5c909e15b, type: 3}
+          - {fileID: 2800000, guid: 2e956d05aef894500807fbaf92cb485b, type: 3}
+          - {fileID: 2800000, guid: d895a07b27826452c90a7fe51f6752da, type: 3}
+          - {fileID: 2800000, guid: 380c6f41d5b1146a5a539d99d9a405db, type: 3}
+          - {fileID: 2800000, guid: 890c0ba94e5d94ad8ba297b087b60b67, type: 3}
+          - {fileID: 2800000, guid: a8af253b17bfb47ae933ee80348f6f91, type: 3}
+          - {fileID: 2800000, guid: 1361840b626304e8a8da4c03c6b8d35d, type: 3}
+          - {fileID: 2800000, guid: 73cb999b3ada64aad8ba84a36b86145f, type: 3}
+          - {fileID: 2800000, guid: 911cf49163e4f453f82b1edfc182ac4c, type: 3}
+          - {fileID: 2800000, guid: 2dea933765ff64371bc4a6c158a10b8e, type: 3}
+          - {fileID: 2800000, guid: 512f95094d0be4204b7a159bd5d703d4, type: 3}
+          - {fileID: 2800000, guid: 9aaaf9ec5d3384fb7b3783622c549d3a, type: 3}
+          - {fileID: 2800000, guid: a96c6a05551184d8488633346091125e, type: 3}
+          - {fileID: 2800000, guid: 61b324519dc4b48a09920c665ed5bee4, type: 3}
+          - {fileID: 2800000, guid: fdc09d94568f04b98a32253b2c56547a, type: 3}
+          - {fileID: 2800000, guid: 647dd5e37a79f4b4da497f9ca4cc171e, type: 3}
+          - {fileID: 2800000, guid: 2011eb1378dbe45b5b5fa1c4ad704192, type: 3}
+          - {fileID: 2800000, guid: c2defc73434d344788daa20e9f0a0061, type: 3}
+    00000002:
+      type: {class: HueOffsetRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 1
+        collapsed: 1
+        hueOffset:
+          collapsed: 0
+          value:
+            id: 8
+    00000003:
+      type: {class: ForegroundObjectPlacementRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 1
+        collapsed: 1
+        depth: -3
+        separationDistance: 1.5
+        placementArea: {x: 5, y: 5}
+        prefabs:
+          collapsed: 0
+          probabilities:
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          - 0.1
+          uniform: 1
+          m_Sampler:
+            id: 9
+          m_Categories:
+          - {fileID: 2773633367666246751, guid: 47aca50bd055f4490a77cd4a127a046a, type: 3}
+          - {fileID: 2400950709556236671, guid: 1e7593da62a054993a46637b75b1ce20, type: 3}
+          - {fileID: 6412728006855290542, guid: 677c6457fc8e94c7bbb556cff953d168, type: 3}
+          - {fileID: 866966809272873950, guid: f649591c0ed9a404da068d08d7a13ec1, type: 3}
+          - {fileID: 6137753057435845323, guid: 1045b66a13df14d09a1749b57f9ec83b, type: 3}
+          - {fileID: 1802650044563462002, guid: 2463959bc33b84854913d8a61c950927, type: 3}
+          - {fileID: 5556524163090864896, guid: 0edde9b48e3b4409585490477caa52a6, type: 3}
+          - {fileID: 2397180601860837402, guid: 97de07a6371554bcd9264fa3b58f1705, type: 3}
+          - {fileID: 7372355771327797137, guid: c487a039f1639415895e225f82d57fe0, type: 3}
+          - {fileID: 8529758173120915318, guid: 8c95163109fe6470cbd7328c0bf0dc35, type: 3}
+    00000004:
+      type: {class: RotationRandomizer, ns: UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers,
+        asm: Unity.Perception.Runtime}
+      data:
+        m_Enabled: 1
+        collapsed: 1
+        rotation:
+          collapsed: 0
+          x:
+            id: 10
+          y:
+            id: 11
+          z:
+            id: 12
+    00000005:
+      type: {class: MyLightRandomizer, ns: , asm: Assembly-CSharp}
+      data:
+        m_Enabled: 1
+        collapsed: 1
+        lightIntensityParameter:
+          collapsed: 0
+          value:
+            id: 13
+        lightColorParameter:
+          collapsed: 0
+          probabilities:
+          - 0.33333334
+          - 0.33333334
+          - 0.33333334
+          uniform: 1
+          m_Sampler:
+            id: 14
+          m_Categories:
+          - {r: 1, g: 0, b: 0, a: 0}
+          - {r: 0, g: 1, b: 0.04225135, a: 0}
+          - {r: 0, g: 0.0552845, b: 1, a: 0}
+    00000006:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    00000007:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    00000008:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: -180
+          maximum: 180
+    00000009:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    0000000A:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 360
+    0000000B:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 360
+    0000000C:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 360
+    0000000D:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+    0000000E:
+      type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
+        asm: Unity.Perception.Runtime}
+      data:
+        range:
+          minimum: 0
+          maximum: 1
+--- !u!4 &408149025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408149023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.917288, y: 21.27782, z: 35.455807}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &549443499
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +1013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 549443501}
   - component: {fileID: 549443500}
+  - component: {fileID: 549443502}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -209,82 +1090,310 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 549443499}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.36599812, y: -0.45315388, z: 0.2113091, w: 0.7848855}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &1472908484
-PrefabInstance:
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 50, y: -60, z: 0}
+--- !u!114 &549443502
+MonoBehaviour:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549443499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14189e276b9b34d8ca841df3d4233e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minIntensity: 0.5
+  maxIntensity: 3
+--- !u!1 &982063143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 982063148}
+  - component: {fileID: 982063147}
+  - component: {fileID: 982063146}
+  - component: {fileID: 982063145}
+  - component: {fileID: 982063144}
+  m_Layer: 0
+  m_Name: 'Rocket: Main Camera '
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &982063144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982063143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4467405dbcbd3d64ab4363e9ae8bb813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Labelers:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  description: 
+  captureRgbImages: 1
+  firstCaptureFrame: 0
+  captureTriggerMode: 0
+  manualSensorAffectSimulationTiming: 0
+  simulationDeltaTime: 0.0166
+  framesBetweenCaptures: 0
+  showVisualizations: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: BoundingBox2DLabeler, ns: UnityEngine.Perception.GroundTruth,
+        asm: Unity.Perception.Runtime}
+      data:
+        enabled: 1
+        annotationId: f9f22e05-443f-4602-a422-ebe4ea9b55cb
+        idLabelConfig: {fileID: 11400000, guid: 0950cd7951437462db5acc34d2cd2db9,
+          type: 2}
+    00000001:
+      type: {class: ObjectCountLabeler, ns: UnityEngine.Perception.GroundTruth, asm: Unity.Perception.Runtime}
+      data:
+        enabled: 1
+        objectCountMetricId: 51da3c27-369d-4929-aea6-d01614635ce2
+        m_LabelConfig: {fileID: 11400000, guid: 0950cd7951437462db5acc34d2cd2db9,
+          type: 2}
+    00000002:
+      type: {class: RenderedObjectInfoLabeler, ns: UnityEngine.Perception.GroundTruth,
+        asm: Unity.Perception.Runtime}
+      data:
+        enabled: 1
+        objectInfoMetricId: 5ba92024-b3b7-41a7-9d3f-c03a6a8ddd01
+        idLabelConfig: {fileID: 11400000, guid: 0950cd7951437462db5acc34d2cd2db9,
+          type: 2}
+    00000003:
+      type: {class: SemanticSegmentationLabeler, ns: UnityEngine.Perception.GroundTruth,
+        asm: Unity.Perception.Runtime}
+      data:
+        enabled: 1
+        annotationId: 12f94d8d-5425-4deb-9b21-5e53ad957d66
+        labelConfig: {fileID: 11400000, guid: b54fe4723156d499683b85d8cc77bf8a, type: 2}
+        m_TargetTextureOverride: {fileID: 0}
+--- !u!114 &982063145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982063143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+--- !u!81 &982063146
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982063143}
+  m_Enabled: 1
+--- !u!20 &982063147
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982063143}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660344110676222828, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2400950709556236671, guid: 1e7593da62a054993a46637b75b1ce20,
-        type: 3}
-      propertyPath: m_Name
-      value: cereal_cheerios_honeynut
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1e7593da62a054993a46637b75b1ce20, type: 3}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 10
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &982063148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982063143}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1028733545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028733548}
+  - component: {fileID: 1028733547}
+  - component: {fileID: 1028733546}
+  m_Layer: 0
+  m_Name: Directional Light (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1028733546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028733545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14189e276b9b34d8ca841df3d4233e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minIntensity: 0
+  maxIntensity: 0.4
+--- !u!108 &1028733547
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028733545}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1028733548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028733545}
+  m_LocalRotation: {x: 0.8660254, y: 0, z: -0.5, w: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 180, y: 60, z: 0}
 --- !u!1 &1713049786
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +1413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1713049787
 AudioListener:
   m_ObjectHideFlags: 0
@@ -364,7 +1473,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713049786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -377,7 +1486,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713049786}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4467405dbcbd3d64ab4363e9ae8bb813, type: 3}
   m_Name: 
@@ -460,72 +1569,3 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!1001 &1989011226
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5556524163090864896, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_Name
-      value: lotion_essentially_nivea
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883320104409966867, guid: 1235a6a7e60bd4fb49f7fe43925b064d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1235a6a7e60bd4fb49f7fe43925b064d, type: 3}
