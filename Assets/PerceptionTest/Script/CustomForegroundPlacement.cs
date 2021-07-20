@@ -45,8 +45,12 @@ namespace UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers
         /// <inheritdoc/>
         protected override void OnAwake()
         {
+            //Debug.Log("Category Count: " + prefabs.GetCategoryCount());
+            //Debug.Log("Category: " + prefabs.GetCategory(prefabs.GetCategoryCount() - 1).name);
+
             m_Container = new GameObject("Foreground Objects");
             m_Container.transform.parent = scenario.transform;
+            prefabs.GetCategory(0).transform.parent = m_Container.transform;
             m_GameObjectOneWayCache = new GameObjectOneWayCache(
                 m_Container.transform, prefabs.categories.Select(element => element.Item1).ToArray());
         }
@@ -72,8 +76,8 @@ namespace UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers
             //controls where the missle will be placed. This depends on the Placement Area set in Randomizer in Inspector.
             if (i == 5)
                 i = 0;
-            var instance = m_GameObjectOneWayCache.GetOrInstantiate(prefabs.Sample());
-            instance.transform.position = new Vector3(i, i++, depth) + offset;
+            //var instance = m_GameObjectOneWayCache.GetOrInstantiate(prefabs.Sample());
+            prefabs.GetCategory(0).transform.position = new Vector3(i, i++, depth) + offset; //uses existing gameobject
             placementSamples.Dispose();
         }
 
