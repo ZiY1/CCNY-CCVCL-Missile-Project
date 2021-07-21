@@ -9,6 +9,8 @@ public class TimeController : MonoBehaviour
     [SerializeField] SkyboxDefinitionScriptableObject skyboxDefinition;
     [SerializeField] InputField input_hour;
     [SerializeField] InputField input_minutes;
+    [SerializeField] Text hour_text;
+    [SerializeField] Text minute_text;
 
     public int time_hour;
     public int time_minutes;
@@ -33,6 +35,9 @@ public class TimeController : MonoBehaviour
         time_hour = Mathf.Clamp(hour, 0, 23);
         time_minutes = Mathf.Clamp(minutes, 0, 59);
 
-        skyboxDefinition.timeOfDay = Mathf.Clamp(hour + minutes / 60f, 0f, 24f);
+        skyboxDefinition.timeOfDay = Mathf.Clamp(time_hour + time_minutes / 60f, 0f, 24f);
+
+        hour_text.text = time_hour.ToString();
+        minute_text.text = time_minutes.ToString();
     }
 }

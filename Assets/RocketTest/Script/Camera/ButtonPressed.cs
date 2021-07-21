@@ -15,6 +15,7 @@ public class ButtonPressed : MonoBehaviour
 
     public void OnPress()
     {
+        num = int.Parse(GetComponentInChildren<Text>().text.ToString());
         cs.ChangeCameraPlacement(num - 1);
     }
 
