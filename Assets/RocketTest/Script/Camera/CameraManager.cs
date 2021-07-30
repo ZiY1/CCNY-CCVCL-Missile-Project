@@ -26,10 +26,10 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
+        createCamSelectionButtons();
         missile_height = focusedCamMissileHeight;
         switchToFocusedCamera(0);
         //missile_obj = spawnRocket.GetRocket();
-        createCamSelectionButtons();
     }
 
     void Update()
@@ -52,11 +52,11 @@ public class CameraManager : MonoBehaviour
 
         if (lock_on)
         {
-            foreach(GameObject camera in cameraPlacement.playerCamera) {
-                camera.GetComponent<Camera>().transform.LookAt(missile_obj.transform);
+            //foreach(GameObject camera in cameraPlacement.playerCamera) {
+                cam.GetComponent<Camera>().transform.LookAt(missile_obj.transform);
 
-                camera.GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, camera.GetComponent<Camera>());
-            }
+                cam.GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam.GetComponent<Camera>());
+            //}
         }
 
     }
@@ -76,10 +76,10 @@ public class CameraManager : MonoBehaviour
             camButtons[cameraPlacement.selectedCamIndex].image.color = Color.white;
         }
         lock_on = true;
-        //cam.transform.SetPositionAndRotation(cameraLocations[i].transform.position, cameraLocations[i].transform.rotation);
-        cam.depth = -1;
-        cam = cameraPlacement.playerCamera[i].GetComponent<Camera>();
-        cam.depth = 0;
+        cam.transform.SetPositionAndRotation(cameraLocations[i].transform.position, cameraLocations[i].transform.rotation);
+        //cam.depth = -1;
+        //cam = cameraPlacement.playerCamera[i].GetComponent<Camera>();
+        //cam.depth = 0;
         missile_height = focusedCamMissileHeight;
         cameraPlacement.selectedCamIndex = i;
         camButtons[cameraPlacement.selectedCamIndex].image.color = Color.yellow;
@@ -99,10 +99,18 @@ public class CameraManager : MonoBehaviour
 
     public void createCamSelectionButtons()
     {
-        for(int i = camButtons.Count; i < PlayerPrefs.GetInt("numberOfCams"); i++)
+        for(int i = 0; i < camButtons.Count; i++)
+        {
+            Destroy(camButtons[i].gameObject);
+        }
+
+        camButtons.Clear();
+        cameraLocations.Clear();
+
+        for (int i = 0; i < cameraPlacement.camPlacement.Count; i++)
         {
             GameObject new_button = GameObject.Instantiate(camSelectionButtonPrefab, camSelectionButtonsParent.transform);
-
+            
             int index = i;
 
             new_button.name = "Placement" + (i + 1).ToString();
@@ -111,28 +119,25 @@ public class CameraManager : MonoBehaviour
             {
                 camButtons[j].transform.position += new Vector3(-40, 0, 0);
             }
-            new_button.transform.position = camButtons[i - 1].transform.position + new Vector3(40, 0, 0);
+            if (i == 0)
+            {
+                new_button.GetComponent<RectTransform>().localPosition = new Vector3(365, 520, 0);
+            }
+            else
+            {
+                new_button.GetComponent<RectTransform>().localPosition = camButtons[i - 1].GetComponent<RectTransform>().localPosition + new Vector3(40, 0, 0);
+            }
 
             camButtons.Add(new_button.GetComponent<Button>());
 
             cameraLocations.Add(cameraPlacement.camPlacement[i]);
 
-            camButtons[i].GetComponentInChildren<Text>().text = camButtons.Count.ToString();
+            camButtons[i].GetComponentInChildren<Text>().text = (index + 1).ToString();
             camButtons[i].onClick.AddListener(() => { int tmp = index; this.switchToFocusedCamera(tmp); });
 
-            camButtons[i].GetComponent<ButtonPressed>().cs = camButtons[0].GetComponent<CameraSettings>();
+            //camButtons[i].GetComponent<ButtonPressed>().cs = camButtons[0].GetComponent<CameraSettings>();
         }
-    }
-
-    public void destroyExtraButtons()
-    {
-        if(camButtons.Count > cameraPlacement.playerCamera.Count)
-        {
-            for(int i = cameraPlacement.playerCamera.Count; i < camButtons.Count; i++)
-            {
-
-            }
-        }
+        switchToFocusedCamera(0);
     }
 
     /*public Transform GetSpawnRocketTransform()
