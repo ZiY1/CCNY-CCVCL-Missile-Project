@@ -180,6 +180,7 @@ public class CameraPlacement : MonoBehaviour
 
     public void loadCamPlacement()
     {
+        removeExtraPlacements();
         addMissingPlacements();
         for(int i = 0; i < PlayerPrefs.GetInt("numberOfCams"); i++)
         {
@@ -202,7 +203,7 @@ public class CameraPlacement : MonoBehaviour
                 camPlacement.Add(new GameObject("Location " + (i+1).ToString()));
 
                 GameObject new_button = GameObject.Instantiate(camSelectionButtonPrefab, newButtonParent.transform);
-                new_button.transform.position = camSelectionButtons[i - 1].gameObject.transform.position + new Vector3(40, 0, 0);
+                new_button.GetComponent<RectTransform>().anchoredPosition = camSelectionButtons[i - 1].GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
                 new_button.name = "Select placement " + (i + 1).ToString() + " button";
 
                 camSelectionButtons.Add(new_button.gameObject.GetComponent<Button>());
@@ -212,7 +213,7 @@ public class CameraPlacement : MonoBehaviour
                 camSelectionButtons[i].gameObject.GetComponentInChildren<Text>().text = camSelectionButtons.Count.ToString();
                 camSelectionButtons[i].onClick.AddListener(() => { int tmp = j; this.selectCameraPlacement(tmp); });
 
-                addNewLocationButton.gameObject.transform.position = addNewLocationButton.gameObject.transform.position + new Vector3(40, 0, 0);
+                addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
 
                 wideCamFoVs.Add(70f);
             }
@@ -226,6 +227,7 @@ public class CameraPlacement : MonoBehaviour
         {
             b.image.color = Color.white;
         }
+        resetTransform();
         characterController = playerCamera.GetComponent<CharacterController>();
         editingMode = true;
         cameraManager.lock_on = false;
@@ -266,7 +268,6 @@ public class CameraPlacement : MonoBehaviour
 
     public void resetTransform()
     {
-        removeExtraPlacements();
         loadCamPlacement();
         if (selectedCamIndex > -1 && selectedCamIndex < PlayerPrefs.GetInt("numberOfCams")) 
         {
@@ -278,9 +279,23 @@ public class CameraPlacement : MonoBehaviour
             selectedCamIndex = -1;
             selectCameraPlacement(0);
         }
+
         if (camPlacement.Count < 5)
         {
             addNewLocationButton.gameObject.SetActive(true);
+        }
+        if(camPlacement.Count == 5)
+        {
+            addNewLocationButton.gameObject.SetActive(false);
+        }
+
+        if(camPlacement.Count > 1)
+        {
+            removeLocationButton.gameObject.SetActive(true);
+        }
+        if(camPlacement.Count == 1)
+        {
+            removeLocationButton.gameObject.SetActive(false);
         }
     }
 
@@ -335,7 +350,7 @@ public class CameraPlacement : MonoBehaviour
         int newButtonIndex = camSelectionButtons.Count;
 
         GameObject new_button = GameObject.Instantiate(camSelectionButtonPrefab, newButtonParent.transform);
-        new_button.transform.position = camSelectionButtons[newButtonIndex - 1].gameObject.transform.position + new Vector3(40, 0, 0);
+        new_button.GetComponent<RectTransform>().anchoredPosition = camSelectionButtons[newButtonIndex - 1].GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
         new_button.name = "Select placement " + (newButtonIndex + 1).ToString() + " button";
 
         camSelectionButtons.Add(new_button.gameObject.GetComponent<Button>());
@@ -343,7 +358,7 @@ public class CameraPlacement : MonoBehaviour
         camSelectionButtons[newButtonIndex].gameObject.GetComponentInChildren<Text>().text = camSelectionButtons.Count.ToString();
         camSelectionButtons[newButtonIndex].onClick.AddListener(() => { int tmp = newButtonIndex; this.selectCameraPlacement(tmp); });
 
-        addNewLocationButton.gameObject.transform.position = addNewLocationButton.gameObject.transform.position + new Vector3(40, 0, 0);
+        addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
 
         camPlacement.Add(new GameObject("Location " + (newButtonIndex + 1).ToString()));
         camPlacement[newButtonIndex].transform.SetPositionAndRotation(playerCamera.transform.position, playerCamera.transform.rotation);
@@ -378,7 +393,7 @@ public class CameraPlacement : MonoBehaviour
             
             for(int i = camToRemove + 1; i < camSelectionButtons.Count; i++)
             {
-                camSelectionButtons[i].transform.position -= new Vector3(40, 0, 0);
+                camSelectionButtons[i].GetComponent<RectTransform>().anchoredPosition -= new Vector2(40, 0);
                 camSelectionButtons[i].GetComponentInChildren<Text>().text = i.ToString();
                 camSelectionButtons[i].onClick.RemoveAllListeners();
 
@@ -394,7 +409,7 @@ public class CameraPlacement : MonoBehaviour
             Destroy(camPlacement[camToRemove], 1f);
             camPlacement.RemoveAt(camToRemove);
 
-            addNewLocationButton.gameObject.transform.position -= new Vector3(40, 0, 0);
+            addNewLocationButton.GetComponent<RectTransform>().anchoredPosition -= new Vector2(40, 0);
 
             Destroy(camSelectionButtons[camToRemove].gameObject);
             camSelectionButtons.RemoveAt(camToRemove);
@@ -437,7 +452,7 @@ public class CameraPlacement : MonoBehaviour
 
                 wideCamFoVs.RemoveAt(i);
 
-                addNewLocationButton.gameObject.transform.position = addNewLocationButton.gameObject.transform.position + new Vector3(-40, 0, 0);
+                addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(-40, 0);
             }
         }
     }
