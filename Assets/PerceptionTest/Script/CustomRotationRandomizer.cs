@@ -15,28 +15,38 @@ namespace UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers
         /// <summary>
         /// The range of random rotations to assign to target objects
         /// </summary>
-        //[Tooltip("The range of random rotations to assign to target objects.")]
-        //public Vector3Parameter rotation = new Vector3Parameter
-        //{
-        //    x = new UniformSampler(0, 360),
-        //    y = new UniformSampler(0, 360),
-        //    z = new UniformSampler(0, 360)
-        //};
+        [Tooltip("The range of random rotations to assign to target objects.")]
+        public Vector3Parameter rotation = new Vector3Parameter
+        {
+            x = new UniformSampler(-5, 5),
+            y = new UniformSampler(-5, 5),
+            z = new UniformSampler(-5, 5)
+        };
 
-        int i = 0;
-        Vector3 rotation;
+        public float iniFloatX = 0;
+        public Vector3 initRocketRotation;
+        public GameObject rocket;
+
+        /// <summary>
+        /// Get initial rotation settings for rocket so randomize rotation does not rotate too much
+        /// </summary>
+        protected override void OnScenarioStart()
+        {
+            base.OnScenarioStart();
+            //get init rotation for x;
+            initRocketRotation = rocket.transform.eulerAngles;
+            Debug.Log("InitRocketRotataion: " + initRocketRotation);
+        }
 
         /// <summary>
         /// Randomizes the rotation of tagged objects at the start of each scenario iteration
+        /// Note: changing the rockets rotation does not change the rockets course.
         /// </summary>
-        /// 
         protected override void OnIterationStart()
         {
-            //controls the rotation of the missle
-            rotation = new Vector3(i, i, i++);
             var tags = tagManager.Query<RotationRandomizerTag>();
             foreach (var tag in tags)
-                tag.transform.rotation = Quaternion.Euler(rotation);
+                tag.transform.rotation = Quaternion.Euler(rotation.Sample() + initRocketRotation);
         }
     }
 }
