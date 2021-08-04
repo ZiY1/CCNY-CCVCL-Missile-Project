@@ -16,8 +16,11 @@ Other issues is that for the camera tracking the missile/rocket, there is a limi
 - Add a filter for the camera
 - Learn to use Perception and create multiple images to be fed to a Machine Learning program
 - Learn to use Machine Learning program
+- Find a way to index the information
 
 ## ChangeLog
+### Aug 4
+- Created a simple scene for testing.
 ### Jul 7
 - Added some custom randomizers for Perception. These scripts alter how many foreground objects spawn, what position they spawn in, and the rotation.
 ### Jun 28
