@@ -25,8 +25,8 @@ public class CameraPlacement : MonoBehaviour
     public int selectedCamIndex = -1;
 
     public bool editingMode = false;
-    public float moveSpeed = 100f;
-    public float rotSpeed = 25f;
+    public float moveSpeed = 50f;
+    public float rotSpeed = 50f;
 
     public bool startWithEditorPlacements = false;
     public GameObject camSelectionButtonPrefab;
@@ -34,6 +34,12 @@ public class CameraPlacement : MonoBehaviour
 
     public Button addNewLocationButton;
     public Button removeLocationButton;
+
+    public EditMissilePosition editMissilePositionManager;
+
+    public GameObject missileEditPanelObj;
+    public GameObject missilePositionKeyboardControlsObj;
+    public GameObject openEditMissilePositinModeButtonObj;
 
     private void Awake()
     {
@@ -227,6 +233,16 @@ public class CameraPlacement : MonoBehaviour
         {
             b.image.color = Color.white;
         }
+
+        if (editMissilePositionManager.moving)
+        {
+            editMissilePositionManager.exitMissilePositionEditMode();
+
+            missileEditPanelObj.SetActive(false);
+            missilePositionKeyboardControlsObj.SetActive(false);
+            openEditMissilePositinModeButtonObj.SetActive(true);
+        }
+
         resetTransform();
         characterController = playerCamera.GetComponent<CharacterController>();
         editingMode = true;
