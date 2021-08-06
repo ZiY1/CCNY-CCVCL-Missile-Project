@@ -15,7 +15,14 @@ public class CameraManager : MonoBehaviour
 
     public List<Button> camButtons;
 
+
+    // TODO: Add more missiles when ready - ziyi
+    public GameObject missile1;
+    public GameObject missile2;
+
+    // assign it to active Missile - ziyi
     public GameObject missile_obj;
+
 
     public bool lock_on = true;
 
@@ -32,6 +39,10 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
+        // Defualt missile - ziyi
+        missile_obj = missile1;
+
+
         createCamSelectionButtons();
         missile_height = focusedCamMissileHeight;
         switchCamera(0);
@@ -200,6 +211,19 @@ public class CameraManager : MonoBehaviour
             //camButtons[i].GetComponent<ButtonPressed>().cs = camButtons[0].GetComponent<CameraSettings>();
         }
         switchCamera(0);
+    }
+
+    // Reassign missile_obj to active missile whenever dorpdown menu is clicked. - ziyi
+    public void ReassignMissile()
+    {
+        if (missile1.activeSelf)
+        {
+            missile_obj = missile1;
+        }
+        else if (missile2.activeSelf)
+        {
+            missile_obj = missile2;
+        }
     }
 
     /*public Transform GetSpawnRocketTransform()

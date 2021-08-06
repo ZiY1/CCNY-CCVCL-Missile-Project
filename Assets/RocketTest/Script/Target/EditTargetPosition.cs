@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EditMissilePosition : MonoBehaviour
+public class EditTargetPosition : MonoBehaviour
 {
     public Camera missile_cam;
     public CharacterController characterController;
 
 
-    // TODO: Add more missiles when ready - ziyi
-    public GameObject missile1;
-    public GameObject missile2;
-
-
     // assign it to active Missile - ziyi
-    public GameObject missile;
-    public GameObject platform;
-    public GameObject ground;
+    public GameObject taregt;
+    //public GameObject surface;
+    //public GameObject mark;
 
     public bool moving = false;
 
@@ -37,10 +32,6 @@ public class EditMissilePosition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Defualt missile - ziyi
-        missile = missile1;
-
-
         missile_cam.gameObject.SetActive(false);
         characterController.enabled = false;
     }
@@ -54,7 +45,7 @@ public class EditMissilePosition : MonoBehaviour
         }
     }
 
-    public void moveMissile()
+    public void moveTarget()
     {
         if (cameraPlacement.editingMode)
         {
@@ -71,16 +62,16 @@ public class EditMissilePosition : MonoBehaviour
 
         original_Transform = new GameObject();
 
-        missile_cam.gameObject.transform.position = missile.transform.position + new Vector3(0, 1, -3);
-        missile_cam.gameObject.transform.LookAt(missile.transform);
+        missile_cam.gameObject.transform.position = taregt.transform.position + new Vector3(0, 1, -3);
+        missile_cam.gameObject.transform.LookAt(taregt.transform);
 
-        missile.transform.parent = missile_cam.gameObject.transform;
-        platform.transform.parent = missile_cam.gameObject.transform;
-        ground.transform.parent = missile_cam.gameObject.transform;
+        taregt.transform.parent = missile_cam.gameObject.transform;
+        //surface.transform.parent = missile_cam.gameObject.transform;
+        //mark.transform.parent = missile_cam.gameObject.transform;
 
         original_Transform.transform.SetPositionAndRotation(missile_cam.gameObject.transform.position, missile_cam.gameObject.transform.rotation);
 
-        missile.GetComponent<Rigidbody>().isKinematic = true;
+        taregt.GetComponent<Rigidbody>().isKinematic = true;
 
         characterController.enabled = true;
         moving = true;
@@ -121,7 +112,7 @@ public class EditMissilePosition : MonoBehaviour
         {
             missile_cam.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
         }
-        current_position_text.text = "Missile Position: (" + missile.transform.position.x.ToString("F2") + ", " + missile.transform.position.y.ToString("F2") + ", " + missile.transform.position.z.ToString("F2") + ")";
+        current_position_text.text = "Missile Position: (" + taregt.transform.position.x.ToString("F2") + ", " + taregt.transform.position.y.ToString("F2") + ", " + taregt.transform.position.z.ToString("F2") + ")";
     }
 
     public void setPosition()
@@ -139,7 +130,7 @@ public class EditMissilePosition : MonoBehaviour
         missile_cam.gameObject.transform.SetPositionAndRotation(original_Transform.transform.position, original_Transform.transform.rotation);
     }
 
-    public void exitMissilePositionEditMode()
+    public void exitTargetPositionEditMode()
     {
         missile_cam.depth = -2;
 
@@ -150,27 +141,13 @@ public class EditMissilePosition : MonoBehaviour
         moving = false;
         characterController.enabled = false;
 
-        missile.transform.parent = null;
-        platform.transform.parent = null;
-        ground.transform.parent = null;
+        taregt.transform.parent = null;
+        //surface.transform.parent = null;
+        //mark.transform.parent = null;
 
-        
+
         Destroy(original_Transform);
 
-        missile.GetComponent<Rigidbody>().isKinematic = false;
-    }
-
-
-    // Reassign missile to active missile whenever dorpdown menu is clicked. - ziyi
-    public void ReassignEditMissile()
-    {
-        if (missile1.activeSelf)
-        {
-            missile = missile1;
-        }
-        else if (missile2.activeSelf)
-        {
-            missile = missile2;
-        }
+        //taregt.GetComponent<Rigidbody>().isKinematic = false;
     }
 }

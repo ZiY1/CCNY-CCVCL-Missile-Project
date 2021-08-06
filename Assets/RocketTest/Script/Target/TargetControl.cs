@@ -29,11 +29,11 @@ public class TargetControl : MonoBehaviour
 
     public void GetTargetUserInput()
     {
-        try
+       /* try
         {
-            InputField input_xAxis = GameObject.Find("xAxis").GetComponent<InputField>();
-            InputField input_yAxis = GameObject.Find("yAxis").GetComponent<InputField>();
-            InputField input_zAxis = GameObject.Find("zAxis").GetComponent<InputField>();
+            InputField input_xAxis = GameObject.Find("XaxisInput").GetComponent<InputField>();
+            InputField input_yAxis = GameObject.Find("YaxisInput").GetComponent<InputField>();
+            InputField input_zAxis = GameObject.Find("ZaxisInput").GetComponent<InputField>();
 
             xAxis = float.Parse(input_xAxis.text);
             yAxis = float.Parse(input_yAxis.text);
@@ -44,8 +44,10 @@ public class TargetControl : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.Log("Please enter float or integer");
-        }
+            Debug.Log(ex.ToString());
+        }*/
+
+
     }
 
     void ResetTargetLocation()
