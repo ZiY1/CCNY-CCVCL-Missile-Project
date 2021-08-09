@@ -34,11 +34,20 @@ public class EditMissilePosition : MonoBehaviour
     public GameObject enterCamEditingModeButtonObj;
     public GameObject camKeyboardControlsObj;
 
+    public bool startWithEditorPlacement;
+
     // Start is called before the first frame update
     void Start()
     {
         // Defualt missile - ziyi
         missile = missile1;
+
+        if (startWithEditorPlacement || !(PlayerPrefs.HasKey("missilePosX")))
+        {
+            savePosition();
+        }
+
+        loadMissilePosition();
 
 
         missile_cam.gameObject.SetActive(false);
@@ -127,11 +136,54 @@ public class EditMissilePosition : MonoBehaviour
     public void setPosition()
     {
         original_Transform.transform.SetPositionAndRotation(missile_cam.gameObject.transform.position, missile_cam.gameObject.transform.rotation);
+
+        savePosition();
+    }
+
+    public void savePosition()
+    {
+        PlayerPrefs.SetFloat("missilePosX", missile.transform.position.x);
+        PlayerPrefs.SetFloat("missilePosY", missile.transform.position.y);
+        PlayerPrefs.SetFloat("missilePosZ", missile.transform.position.z);
+
+
+        PlayerPrefs.SetFloat("platformPosX", platform.transform.position.x);
+        PlayerPrefs.SetFloat("platformPosY", platform.transform.position.y);
+        PlayerPrefs.SetFloat("platformPosZ", platform.transform.position.z);
+
+        PlayerPrefs.SetFloat("platformRotX", platform.transform.rotation.eulerAngles.x);
+        PlayerPrefs.SetFloat("platformRotY", platform.transform.rotation.eulerAngles.y);
+        PlayerPrefs.SetFloat("platformRotZ", platform.transform.rotation.eulerAngles.z);
+
+
+        PlayerPrefs.SetFloat("groundPosX", ground.transform.position.x);
+        PlayerPrefs.SetFloat("groundPosY", ground.transform.position.y);
+        PlayerPrefs.SetFloat("groundPosZ", ground.transform.position.z);
+
+        PlayerPrefs.SetFloat("groundRotX", ground.transform.rotation.eulerAngles.x);
+        PlayerPrefs.SetFloat("groundRotY", ground.transform.rotation.eulerAngles.y);
+        PlayerPrefs.SetFloat("groundRotZ", ground.transform.rotation.eulerAngles.z);
     }
 
     void loadMissilePosition()
     {
+        var missile_pos = new Vector3(PlayerPrefs.GetFloat("missilePosX"), PlayerPrefs.GetFloat("missilePosY"), PlayerPrefs.GetFloat("missilePosZ"));
 
+        missile.transform.position = missile_pos;
+
+
+        var platform_pos = new Vector3(PlayerPrefs.GetFloat("platformPosX"), PlayerPrefs.GetFloat("platformPosY"), PlayerPrefs.GetFloat("platformPosZ"));
+        var platform_rot = new Vector3(PlayerPrefs.GetFloat("platformRotX"), PlayerPrefs.GetFloat("platformRotY"), PlayerPrefs.GetFloat("platformRotZ"));
+
+        platform.transform.position = platform_pos;
+        platform.transform.eulerAngles = platform_rot;
+
+
+        var ground_pos = new Vector3(PlayerPrefs.GetFloat("groundPosX"), PlayerPrefs.GetFloat("groundPosY"), PlayerPrefs.GetFloat("groundPosZ"));
+        var ground_rot = new Vector3(PlayerPrefs.GetFloat("groundRotX"), PlayerPrefs.GetFloat("groundRotY"), PlayerPrefs.GetFloat("groundRotZ"));
+
+        ground.transform.position = ground_pos;
+        ground.transform.eulerAngles = ground_rot;
     }
 
     public void Reset()

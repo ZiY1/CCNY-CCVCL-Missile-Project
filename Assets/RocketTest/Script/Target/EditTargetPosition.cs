@@ -29,9 +29,20 @@ public class EditTargetPosition : MonoBehaviour
     public GameObject enterCamEditingModeButtonObj;
     public GameObject camKeyboardControlsObj;
 
+    public bool startWithEditorPlacement;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (startWithEditorPlacement || !(PlayerPrefs.HasKey("targetPosX")))
+        {
+            savePosition();
+        }
+
+
+        loadtargetPosition();
+
+
         missile_cam.gameObject.SetActive(false);
         characterController.enabled = false;
     }
@@ -112,17 +123,34 @@ public class EditTargetPosition : MonoBehaviour
         {
             missile_cam.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
         }
-        current_position_text.text = "Missile Position: (" + taregt.transform.position.x.ToString("F2") + ", " + taregt.transform.position.y.ToString("F2") + ", " + taregt.transform.position.z.ToString("F2") + ")";
+        current_position_text.text = "Target Position: (" + taregt.transform.position.x.ToString("F2") + ", " + taregt.transform.position.y.ToString("F2") + ", " + taregt.transform.position.z.ToString("F2") + ")";
     }
 
     public void setPosition()
     {
         original_Transform.transform.SetPositionAndRotation(missile_cam.gameObject.transform.position, missile_cam.gameObject.transform.rotation);
+
+        savePosition();
     }
 
-    void loadMissilePosition()
+    public void savePosition()
     {
+        PlayerPrefs.SetFloat("targetPosX", taregt.transform.position.x);
+        PlayerPrefs.SetFloat("targetPosY", taregt.transform.position.y);
+        PlayerPrefs.SetFloat("targetPosZ", taregt.transform.position.z);
 
+        PlayerPrefs.SetFloat("targetRotX", taregt.transform.rotation.eulerAngles.x);
+        PlayerPrefs.SetFloat("targetRotY", taregt.transform.rotation.eulerAngles.y);
+        PlayerPrefs.SetFloat("targetRotZ", taregt.transform.rotation.eulerAngles.z);
+    }
+
+    void loadtargetPosition()
+    {
+        var pos = new Vector3(PlayerPrefs.GetFloat("targetPosX"), PlayerPrefs.GetFloat("targetPosY"), PlayerPrefs.GetFloat("targetPosZ"));
+        var rot = new Vector3(PlayerPrefs.GetFloat("targetRotX"), PlayerPrefs.GetFloat("targetRotY"), PlayerPrefs.GetFloat("targetRotZ"));
+
+        taregt.transform.position = pos;
+        taregt.transform.eulerAngles = rot;
     }
 
     public void Reset()

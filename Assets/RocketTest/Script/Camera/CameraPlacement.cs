@@ -36,14 +36,27 @@ public class CameraPlacement : MonoBehaviour
     public Button removeLocationButton;
 
     public EditMissilePosition editMissilePositionManager;
+    
 
     public GameObject missileEditPanelObj;
     public GameObject missilePositionKeyboardControlsObj;
     public GameObject openEditMissilePositinModeButtonObj;
 
+    public EditTargetPosition editTargetPositionManager;
+
+    public GameObject targetEditPanelObj;
+    public GameObject targetPositionKeyboardControlsObj;
+    public GameObject openEditTargetPositinModeButtonObj;
+
     private void Awake()
     {
         if (startWithEditorPlacements)
+        {
+            saveCamPlacements();
+        }
+
+        // if there is no saved placement data -> save
+        if (!PlayerPrefs.HasKey("numberOfCams"))
         {
             saveCamPlacements();
         }
@@ -151,19 +164,22 @@ public class CameraPlacement : MonoBehaviour
 
     public void saveCamPlacements()
     {
-        if(camPlacement.Count < PlayerPrefs.GetInt("numberOfCams"))
+        if (PlayerPrefs.HasKey("numberOfCams"))
         {
-            for(int i = camPlacement.Count; i < PlayerPrefs.GetInt("numberOfCams"); i++)
+            if (camPlacement.Count < PlayerPrefs.GetInt("numberOfCams"))
             {
-                PlayerPrefs.DeleteKey("xPosPlacement" + i.ToString());
-                PlayerPrefs.DeleteKey("yPosPlacement" + i.ToString());
-                PlayerPrefs.DeleteKey("zPosPlacement" + i.ToString());
+                for (int i = camPlacement.Count; i < PlayerPrefs.GetInt("numberOfCams"); i++)
+                {
+                    PlayerPrefs.DeleteKey("xPosPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("yPosPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("zPosPlacement" + i.ToString());
 
-                PlayerPrefs.DeleteKey("xRotPlacement" + i.ToString());
-                PlayerPrefs.DeleteKey("yRotPlacement" + i.ToString());
-                PlayerPrefs.DeleteKey("zRotPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("xRotPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("yRotPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("zRotPlacement" + i.ToString());
 
-                PlayerPrefs.DeleteKey("fovcam" + i.ToString());
+                    PlayerPrefs.DeleteKey("fovcam" + i.ToString());
+                }
             }
         }
 
@@ -178,9 +194,9 @@ public class CameraPlacement : MonoBehaviour
             PlayerPrefs.SetFloat("zRotPlacement" + i.ToString(), camPlacement[i].transform.rotation.eulerAngles.z);
 
             PlayerPrefs.SetFloat("fovcam" + i.ToString(), wideCamFoVs[i]);
-
-            PlayerPrefs.SetInt("numberOfCams", camPlacement.Count);
         }
+
+        PlayerPrefs.SetInt("numberOfCams", camPlacement.Count);
 
     }
 
@@ -234,13 +250,25 @@ public class CameraPlacement : MonoBehaviour
             b.image.color = Color.white;
         }
 
-        if (editMissilePositionManager.moving)
+        if (editMissilePositionManager.moving || editTargetPositionManager.moving)
         {
-            editMissilePositionManager.exitMissilePositionEditMode();
+            if (editMissilePositionManager.moving)
+            {
+                editMissilePositionManager.exitMissilePositionEditMode();
+            }
+
+            if (editTargetPositionManager.moving)
+            {
+                editTargetPositionManager.exitTargetPositionEditMode();
+            }
 
             missileEditPanelObj.SetActive(false);
             missilePositionKeyboardControlsObj.SetActive(false);
             openEditMissilePositinModeButtonObj.SetActive(true);
+
+            targetEditPanelObj.SetActive(false);
+            targetPositionKeyboardControlsObj.SetActive(false);
+            openEditTargetPositinModeButtonObj.SetActive(true);
         }
 
         resetTransform();
