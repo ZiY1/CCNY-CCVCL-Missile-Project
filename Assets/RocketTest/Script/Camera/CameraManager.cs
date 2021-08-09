@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraManager : MonoBehaviour
 {
@@ -137,6 +139,12 @@ public class CameraManager : MonoBehaviour
         else if(cam_mode == 1)
         {
             switchToWideCam();
+        }
+        DepthOfField dph;
+        if (cameraPlacement.postProcessingVolume.profile.TryGet<DepthOfField>(out dph))
+        {
+            dph.focusDistance.value = PlayerPrefs.GetFloat("dphDist" + cameraPlacement.selectedCamIndex.ToString());
+            dph.focalLength.value = PlayerPrefs.GetFloat("dphIntensity" + cameraPlacement.selectedCamIndex.ToString());
         }
     }
 

@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraPlacement : MonoBehaviour
 {
+    public bool startWithEditorPlacements = false;
     [SerializeField] GameObject playerCamPrefab;
     //[SerializeField] public List<GameObject> playerCamera;
     [SerializeField] public GameObject playerCamera;
@@ -19,8 +22,9 @@ public class CameraPlacement : MonoBehaviour
 
     public GameObject fovpanel;
     public Slider fovSlider;
-    public List<float> wideCamFoVs;
     public InputField FoVInputField;
+    public List<float> wideCamFoVs;
+    
 
     public int selectedCamIndex = -1;
 
@@ -28,7 +32,7 @@ public class CameraPlacement : MonoBehaviour
     public float moveSpeed = 50f;
     public float rotSpeed = 50f;
 
-    public bool startWithEditorPlacements = false;
+    
     public GameObject camSelectionButtonPrefab;
     public GameObject newButtonParent;
 
@@ -47,6 +51,18 @@ public class CameraPlacement : MonoBehaviour
     public GameObject targetEditPanelObj;
     public GameObject targetPositionKeyboardControlsObj;
     public GameObject openEditTargetPositinModeButtonObj;
+
+    public Volume postProcessingVolume;
+
+    public Slider dphDistSlider;
+    public InputField dphDistInputField;
+    public List<float> dphDistances;
+    
+
+    public Slider dphIntensitySlider;
+    public InputField dphIntensityInputField;
+    public List<float> dphIntensities;
+    
 
     private void Awake()
     {
@@ -179,6 +195,8 @@ public class CameraPlacement : MonoBehaviour
                     PlayerPrefs.DeleteKey("zRotPlacement" + i.ToString());
 
                     PlayerPrefs.DeleteKey("fovcam" + i.ToString());
+                    PlayerPrefs.DeleteKey("dphDist" + i.ToString());
+                    PlayerPrefs.DeleteKey("dphIntensity" + i.ToString());
                 }
             }
         }
@@ -194,6 +212,8 @@ public class CameraPlacement : MonoBehaviour
             PlayerPrefs.SetFloat("zRotPlacement" + i.ToString(), camPlacement[i].transform.rotation.eulerAngles.z);
 
             PlayerPrefs.SetFloat("fovcam" + i.ToString(), wideCamFoVs[i]);
+            PlayerPrefs.SetFloat("dphDist" + i.ToString(), dphDistances[i]);
+            PlayerPrefs.SetFloat("dphIntensity" + i.ToString(), dphIntensities[i]);
         }
 
         PlayerPrefs.SetInt("numberOfCams", camPlacement.Count);
@@ -206,11 +226,13 @@ public class CameraPlacement : MonoBehaviour
         addMissingPlacements();
         for(int i = 0; i < PlayerPrefs.GetInt("numberOfCams"); i++)
         {
-                var pos = new Vector3(PlayerPrefs.GetFloat("xPosPlacement" + i.ToString()), PlayerPrefs.GetFloat("yPosPlacement" + i.ToString()), PlayerPrefs.GetFloat("zPosPlacement" + i.ToString()));
-                var rot = new Vector3(PlayerPrefs.GetFloat("xRotPlacement" + i.ToString()), PlayerPrefs.GetFloat("yRotPlacement" + i.ToString()), PlayerPrefs.GetFloat("zRotPlacement" + i.ToString()));
-                camPlacement[i].transform.position = pos;
-                camPlacement[i].transform.eulerAngles = rot;
-                wideCamFoVs[i] = PlayerPrefs.GetFloat("fovcam" + i.ToString());
+            var pos = new Vector3(PlayerPrefs.GetFloat("xPosPlacement" + i.ToString()), PlayerPrefs.GetFloat("yPosPlacement" + i.ToString()), PlayerPrefs.GetFloat("zPosPlacement" + i.ToString()));
+            var rot = new Vector3(PlayerPrefs.GetFloat("xRotPlacement" + i.ToString()), PlayerPrefs.GetFloat("yRotPlacement" + i.ToString()), PlayerPrefs.GetFloat("zRotPlacement" + i.ToString()));
+            camPlacement[i].transform.position = pos;
+            camPlacement[i].transform.eulerAngles = rot;
+            wideCamFoVs[i] = PlayerPrefs.GetFloat("fovcam" + i.ToString());
+            dphDistances[i] = PlayerPrefs.GetFloat("dphDist" + i.ToString());
+            dphIntensities[i] = PlayerPrefs.GetFloat("dphIntensity" + i.ToString());
         }
     }
 
@@ -238,6 +260,8 @@ public class CameraPlacement : MonoBehaviour
                 addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
 
                 wideCamFoVs.Add(70f);
+                dphDistances.Add(15f);
+                dphIntensities.Add(10f);
             }
         }
     }
@@ -354,6 +378,17 @@ public class CameraPlacement : MonoBehaviour
         fovSlider.value = wideCamFoVs[selectedCamIndex];
         playerCamera.GetComponent<Camera>().fieldOfView = fovSlider.value;
         FoVInputField.text = wideCamFoVs[selectedCamIndex].ToString();
+
+        dphDistSlider.value = dphDistances[selectedCamIndex];
+        dphIntensitySlider.value = dphIntensities[selectedCamIndex];
+        DepthOfField dph;
+        if (postProcessingVolume.profile.TryGet<DepthOfField>(out dph))
+        {
+            dph.focusDistance.value = dphDistSlider.value;
+            dph.focalLength.value = dphIntensitySlider.value;
+        }
+        dphDistInputField.text = dphDistances[selectedCamIndex].ToString();
+        dphIntensityInputField.text = dphIntensities[selectedCamIndex].ToString();
     }
 
     public void previewFocusedCam()
@@ -389,6 +424,58 @@ public class CameraPlacement : MonoBehaviour
         FoVInputField.text = newfov.ToString();
     }
 
+    public void changeBlurDistance()
+    {
+        DepthOfField dph;
+
+        if(postProcessingVolume.profile.TryGet<DepthOfField>(out dph))
+        {
+            dph.focusDistance.value = dphDistSlider.value;
+        }
+
+        if (selectedCamIndex != -1)
+        {
+            dphDistances[selectedCamIndex] = dph.focusDistance.value;
+        }
+        dphDistInputField.text = dphDistSlider.value.ToString();
+    }
+
+    public void updateBlurDistance()
+    {
+        float.TryParse(dphDistInputField.text, out float dphdist);
+
+        float newphdDist = Mathf.Clamp(dphdist, dphDistSlider.minValue, dphDistSlider.maxValue);
+
+        dphDistSlider.value = newphdDist;
+        dphDistInputField.text = newphdDist.ToString();
+    }
+
+    public void changeBlurIntensity()
+    {
+        DepthOfField dph;
+
+        if (postProcessingVolume.profile.TryGet<DepthOfField>(out dph))
+        {
+            dph.focalLength.value = dphIntensitySlider.value;
+        }
+
+        if (selectedCamIndex != -1)
+        {
+            dphIntensities[selectedCamIndex] = dph.focalLength.value;
+        }
+        dphIntensityInputField.text = dphIntensitySlider.value.ToString();
+    }
+
+    public void updateBlurIntensity()
+    {
+        float.TryParse(dphIntensityInputField.text, out float dphInt);
+
+        float newphdInt = Mathf.Clamp(dphInt, dphIntensitySlider.minValue, dphIntensitySlider.maxValue);
+
+        dphIntensitySlider.value = newphdInt;
+        dphIntensityInputField.text = newphdInt.ToString();
+    }
+
     public void addNewCamPlacement()
     {
         int newButtonIndex = camSelectionButtons.Count;
@@ -408,6 +495,8 @@ public class CameraPlacement : MonoBehaviour
         camPlacement[newButtonIndex].transform.SetPositionAndRotation(playerCamera.transform.position, playerCamera.transform.rotation);
 
         wideCamFoVs.Add(70f);
+        dphDistances.Add(15f);
+        dphIntensities.Add(10f);
 
         //playerCamera.Add(Instantiate(playerCamPrefab));
         //playerCamera[newButtonIndex].transform.SetPositionAndRotation(playerCamera[selectedCamIndex].transform.position, playerCamera[selectedCamIndex].transform.rotation);
@@ -460,6 +549,8 @@ public class CameraPlacement : MonoBehaviour
 
 
             wideCamFoVs.RemoveAt(camToRemove);
+            dphDistances.RemoveAt(camToRemove);
+            dphIntensities.RemoveAt(camToRemove);
 
             selectCameraPlacement(0);
 
@@ -495,6 +586,8 @@ public class CameraPlacement : MonoBehaviour
                 Destroy(temp);
 
                 wideCamFoVs.RemoveAt(i);
+                dphDistances.RemoveAt(i);
+                dphIntensities.RemoveAt(i);
 
                 addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(-40, 0);
             }
