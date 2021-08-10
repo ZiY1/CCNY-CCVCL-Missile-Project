@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class CubeMovement : MonoBehaviour
 {
+    public bool debugInfo;
+
     public Vector3 changePos;
+    public Vector3 changeRot;
 
     // Update is called once per frame
     void Update()
     {
         gameObject.transform.position += changePos;
-        Debug.Log(gameObject.transform.position);
+        gameObject.transform.Rotate(changeRot);
+
+        if (debugInfo)
+            Debug.Log(gameObject.transform.position);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RocketLabelConfig
   m_EditorClassIdentifier: 
   m_LabelEntries:
-  - label: PfCruiseMissileMod
+  - label: CruiseMissile
     id: 1
   autoAssignIds: 1
   startingLabelId: 1

@@ -2,19 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Perception.GroundTruth;
+using UnityEngine.UI;
+using UnityEngine.Perception.Randomization.Scenarios;
 
 public class StartPerception : MonoBehaviour
 {
     public PerceptionCamera pc;
-    // Start is called before the first frame update
-    void Start()
+    public FixedLengthScenario fls;
+
+    bool perceptionOn = false;
+
+    public void BeginCapture()
     {
-        
+        Debug.Log("button pressed");
+        perceptionOn = true;
+        fls.enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        pc.RequestCapture();
+        if(perceptionOn)
+        {
+            pc.RequestCapture();
+        }
     }
 }

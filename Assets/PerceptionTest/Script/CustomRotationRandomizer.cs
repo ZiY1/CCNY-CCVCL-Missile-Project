@@ -23,9 +23,8 @@ namespace UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers
             z = new UniformSampler(-5, 5)
         };
 
-        public float iniFloatX = 0;
-        public Vector3 initRocketRotation;
         public GameObject rocket;
+        [SerializeField] Vector3 initRocketRotation; //takes initial rotation of rocket
 
         /// <summary>
         /// Get initial rotation settings for rocket so randomize rotation does not rotate too much
@@ -34,6 +33,7 @@ namespace UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers
         {
             base.OnScenarioStart();
             //get init rotation for x;
+            //Quaternion rot = rocket.transform.rotation;
             initRocketRotation = rocket.transform.eulerAngles;
             Debug.Log("InitRocketRotataion: " + initRocketRotation);
         }

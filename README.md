@@ -5,7 +5,7 @@
 
 ## Description
 A project that launches a missile/rocket.
-To test Perception, go to Asset > Perception Test > Scene and open it. 
+To test Perception, go to Asset > Perception Test > Scene and open it.
 
 ## Problem
 Seems like Unity's physics is not as consistent as I like. When testing the same angle and power for the missile, it produces different results. Sometime the missile lands on its head, other times it lands on its body. Need to create a custom physics script for the missile or look into Unity's current physics to understand and adjust.
@@ -20,6 +20,8 @@ Other issues is that for the camera tracking the missile/rocket, there is a limi
 - Find a way to index the information
 
 ## ChangeLog
+### Aug 10
+- Added a button to start perception capture and randomization
 ### Aug 4
 - Created a simple scene for testing.
 ### Jul 7

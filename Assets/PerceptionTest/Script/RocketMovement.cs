@@ -11,6 +11,6 @@ public class RocketMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = transform.up * initVelocity;
+        rb.velocity = transform.forward * initVelocity;
     }
 }
