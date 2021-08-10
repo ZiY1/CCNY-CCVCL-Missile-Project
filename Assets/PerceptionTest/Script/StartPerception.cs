@@ -10,19 +10,23 @@ public class StartPerception : MonoBehaviour
     public PerceptionCamera pc;
     public FixedLengthScenario fls;
 
-    bool perceptionOn = false;
+    private void Awake()
+    {
+        pc.enabled = false;
+        fls.enabled = false;
+    }
 
     public void BeginCapture()
     {
         Debug.Log("button pressed");
-        perceptionOn = true;
+        pc.enabled = true;
         fls.enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(perceptionOn)
+        if(pc.enabled)
         {
             pc.RequestCapture();
         }
