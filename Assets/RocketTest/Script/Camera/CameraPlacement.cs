@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraPlacement : MonoBehaviour
 {
+    public bool startWithEditorPlacements = false;
     [SerializeField] GameObject playerCamPrefab;
-    [SerializeField] public List<GameObject> playerCamera;
+    //[SerializeField] public List<GameObject> playerCamera;
+    [SerializeField] public GameObject playerCamera;
     [SerializeField] CameraManager cameraManager;
     [SerializeField] CharacterController characterController;
 
@@ -18,19 +22,47 @@ public class CameraPlacement : MonoBehaviour
 
     public GameObject fovpanel;
     public Slider fovSlider;
-    public List<float> wideCamFoVs;
     public InputField FoVInputField;
+    public List<float> wideCamFoVs;
+    
 
     public int selectedCamIndex = -1;
 
     public bool editingMode = false;
-    public float moveSpeed = 100f;
-    public float rotSpeed = 25f;
+    public float moveSpeed = 50f;
+    public float rotSpeed = 50f;
 
-    public bool startWithEditorPlacements = false;
+    
     public GameObject camSelectionButtonPrefab;
     public GameObject newButtonParent;
+
     public Button addNewLocationButton;
+    public Button removeLocationButton;
+
+    public EditMissilePosition editMissilePositionManager;
+    
+
+    public GameObject missileEditPanelObj;
+    public GameObject missilePositionKeyboardControlsObj;
+    public GameObject openEditMissilePositinModeButtonObj;
+
+    public EditTargetPosition editTargetPositionManager;
+
+    public GameObject targetEditPanelObj;
+    public GameObject targetPositionKeyboardControlsObj;
+    public GameObject openEditTargetPositinModeButtonObj;
+
+    public Volume postProcessingVolume;
+
+    public Slider dphDistSlider;
+    public InputField dphDistInputField;
+    public List<float> dphDistances;
+    
+
+    public Slider dphIntensitySlider;
+    public InputField dphIntensityInputField;
+    public List<float> dphIntensities;
+    
 
     private void Awake()
     {
@@ -38,21 +70,23 @@ public class CameraPlacement : MonoBehaviour
         {
             saveCamPlacements();
         }
+
+        // if there is no saved placement data -> save
+        if (!PlayerPrefs.HasKey("numberOfCams"))
+        {
+            saveCamPlacements();
+        }
+
         loadCamPlacement();
 
         characterController.enabled = false;
-        foreach (GameObject location in camPlacement)
+        /*foreach (GameObject location in camPlacement)
         {
             GameObject cam = Instantiate(playerCamPrefab);
             playerCamera.Add(cam);
             cam.transform.SetPositionAndRotation(location.transform.position, location.transform.rotation);
             cam.GetComponent<CharacterController>().enabled = false;
-        }
-    }
-
-    private void Start()
-    {
-        
+        }*/
     }
 
     // Update is called once per frame
@@ -69,19 +103,19 @@ public class CameraPlacement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    characterController.Move(playerCamera[selectedCamIndex].transform.forward * moveSpeed * Time.deltaTime);
+                    characterController.Move(playerCamera.transform.forward * moveSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.A))
                 {
-                    characterController.Move(-playerCamera[selectedCamIndex].transform.right * moveSpeed * Time.deltaTime);
+                    characterController.Move(-playerCamera.transform.right * moveSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.S))
                 {
-                    characterController.Move(-playerCamera[selectedCamIndex].transform.forward * moveSpeed * Time.deltaTime);
+                    characterController.Move(-playerCamera.transform.forward * moveSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.D))
                 {
-                    characterController.Move(playerCamera[selectedCamIndex].transform.right * moveSpeed * Time.deltaTime);
+                    characterController.Move(playerCamera.transform.right * moveSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
@@ -93,27 +127,27 @@ public class CameraPlacement : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.Q))
                 {
-                    playerCamera[selectedCamIndex].transform.Rotate(-Vector3.up * rotSpeed * Time.deltaTime, Space.World);
+                    playerCamera.transform.Rotate(-Vector3.up * rotSpeed * Time.deltaTime, Space.World);
                 }
                 if (Input.GetKey(KeyCode.E))
                 {
-                    playerCamera[selectedCamIndex].transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
+                    playerCamera.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
                 }
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
-                    playerCamera[selectedCamIndex].transform.Rotate(-Vector3.right * rotSpeed * Time.deltaTime);
+                    playerCamera.transform.Rotate(-Vector3.right * rotSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.LeftAlt))
                 {
-                    playerCamera[selectedCamIndex].transform.Rotate(Vector3.right * rotSpeed * Time.deltaTime);
+                    playerCamera.transform.Rotate(Vector3.right * rotSpeed * Time.deltaTime);
                 }
-                if(playerCamera[selectedCamIndex].transform.position != camPlacement[selectedCamIndex].transform.position)
+                if(playerCamera.transform.position != camPlacement[selectedCamIndex].transform.position)
                 {
-                    camPlacement[selectedCamIndex].transform.position = playerCamera[selectedCamIndex].transform.position;
+                    camPlacement[selectedCamIndex].transform.position = playerCamera.transform.position;
                 }
-                if (playerCamera[selectedCamIndex].transform.rotation != camPlacement[selectedCamIndex].transform.rotation)
+                if (playerCamera.transform.rotation != camPlacement[selectedCamIndex].transform.rotation)
                 {
-                    camPlacement[selectedCamIndex].transform.rotation = playerCamera[selectedCamIndex].transform.rotation;
+                    camPlacement[selectedCamIndex].transform.rotation = playerCamera.transform.rotation;
                 }
             }
         }
@@ -125,18 +159,19 @@ public class CameraPlacement : MonoBehaviour
         {
             if(selectedCamIndex != n && selectedCamIndex != -1)
             {
+
                 camSelectionButtons[selectedCamIndex].image.color = Color.white;
                 characterController.enabled = false;
-                playerCamera[selectedCamIndex].GetComponent<Camera>().depth = -1;
+                //playerCamera[selectedCamIndex].GetComponent<Camera>().depth = -1;
             }
 
             selectedCamIndex = n;
-            playerCamera[selectedCamIndex].GetComponent<Camera>().depth = 0;
+            playerCamera.GetComponent<Camera>().depth = 0;
 
-            playerCamera[selectedCamIndex].transform.SetPositionAndRotation(camPlacement[n].transform.position, camPlacement[n].transform.rotation);
+            playerCamera.transform.SetPositionAndRotation(camPlacement[n].transform.position, camPlacement[n].transform.rotation);
             camSelectionButtons[n].image.color = Color.yellow;
 
-            characterController = playerCamera[selectedCamIndex].GetComponent<CharacterController>();
+            characterController = playerCamera.GetComponent<CharacterController>();
             characterController.enabled = true;
 
             previewWideCam();
@@ -145,19 +180,24 @@ public class CameraPlacement : MonoBehaviour
 
     public void saveCamPlacements()
     {
-        if(camPlacement.Count < PlayerPrefs.GetInt("numberOfCams"))
+        if (PlayerPrefs.HasKey("numberOfCams"))
         {
-            for(int i = camPlacement.Count; i < PlayerPrefs.GetInt("numberOfCams"); i++)
+            if (camPlacement.Count < PlayerPrefs.GetInt("numberOfCams"))
             {
-                PlayerPrefs.DeleteKey("xPosPlacement" + i.ToString());
-                PlayerPrefs.DeleteKey("yPosPlacement" + i.ToString());
-                PlayerPrefs.DeleteKey("zPosPlacement" + i.ToString());
+                for (int i = camPlacement.Count; i < PlayerPrefs.GetInt("numberOfCams"); i++)
+                {
+                    PlayerPrefs.DeleteKey("xPosPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("yPosPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("zPosPlacement" + i.ToString());
 
-                PlayerPrefs.DeleteKey("xRotPlacement" + i.ToString());
-                PlayerPrefs.DeleteKey("yRotPlacement" + i.ToString());
-                PlayerPrefs.DeleteKey("zRotPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("xRotPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("yRotPlacement" + i.ToString());
+                    PlayerPrefs.DeleteKey("zRotPlacement" + i.ToString());
 
-                PlayerPrefs.DeleteKey("fovcam" + i.ToString());
+                    PlayerPrefs.DeleteKey("fovcam" + i.ToString());
+                    PlayerPrefs.DeleteKey("dphDist" + i.ToString());
+                    PlayerPrefs.DeleteKey("dphIntensity" + i.ToString());
+                }
             }
         }
 
@@ -172,23 +212,60 @@ public class CameraPlacement : MonoBehaviour
             PlayerPrefs.SetFloat("zRotPlacement" + i.ToString(), camPlacement[i].transform.rotation.eulerAngles.z);
 
             PlayerPrefs.SetFloat("fovcam" + i.ToString(), wideCamFoVs[i]);
-
-            PlayerPrefs.SetInt("numberOfCams", camPlacement.Count);
+            PlayerPrefs.SetFloat("dphDist" + i.ToString(), dphDistances[i]);
+            PlayerPrefs.SetFloat("dphIntensity" + i.ToString(), dphIntensities[i]);
         }
+
+        PlayerPrefs.SetInt("numberOfCams", camPlacement.Count);
 
     }
 
     public void loadCamPlacement()
     {
+        removeExtraPlacements();
+        addMissingPlacements();
         for(int i = 0; i < PlayerPrefs.GetInt("numberOfCams"); i++)
         {
-                var pos = new Vector3(PlayerPrefs.GetFloat("xPosPlacement" + i.ToString()), PlayerPrefs.GetFloat("yPosPlacement" + i.ToString()), PlayerPrefs.GetFloat("zPosPlacement" + i.ToString()));
-                var rot = new Vector3(PlayerPrefs.GetFloat("xRotPlacement" + i.ToString()), PlayerPrefs.GetFloat("yRotPlacement" + i.ToString()), PlayerPrefs.GetFloat("zRotPlacement" + i.ToString()));
-                camPlacement[i].transform.position = pos;
-                camPlacement[i].transform.eulerAngles = rot;
-                wideCamFoVs[i] = PlayerPrefs.GetFloat("fovcam" + i.ToString());
+            var pos = new Vector3(PlayerPrefs.GetFloat("xPosPlacement" + i.ToString()), PlayerPrefs.GetFloat("yPosPlacement" + i.ToString()), PlayerPrefs.GetFloat("zPosPlacement" + i.ToString()));
+            var rot = new Vector3(PlayerPrefs.GetFloat("xRotPlacement" + i.ToString()), PlayerPrefs.GetFloat("yRotPlacement" + i.ToString()), PlayerPrefs.GetFloat("zRotPlacement" + i.ToString()));
+            camPlacement[i].transform.position = pos;
+            camPlacement[i].transform.eulerAngles = rot;
+            wideCamFoVs[i] = PlayerPrefs.GetFloat("fovcam" + i.ToString());
+            dphDistances[i] = PlayerPrefs.GetFloat("dphDist" + i.ToString());
+            dphIntensities[i] = PlayerPrefs.GetFloat("dphIntensity" + i.ToString());
         }
     }
+
+    public void addMissingPlacements()
+    {
+        if(camPlacement.Count < PlayerPrefs.GetInt("numberOfCams"))
+        {
+            int n = camPlacement.Count;
+
+            for(int i = n; i < PlayerPrefs.GetInt("numberOfCams"); i++)
+            {
+                camPlacement.Add(new GameObject("Location " + (i+1).ToString()));
+
+                GameObject new_button = GameObject.Instantiate(camSelectionButtonPrefab, newButtonParent.transform);
+                new_button.GetComponent<RectTransform>().anchoredPosition = camSelectionButtons[i - 1].GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
+                new_button.name = "Select placement " + (i + 1).ToString() + " button";
+
+                camSelectionButtons.Add(new_button.gameObject.GetComponent<Button>());
+
+                int j = i;
+
+                camSelectionButtons[i].gameObject.GetComponentInChildren<Text>().text = camSelectionButtons.Count.ToString();
+                camSelectionButtons[i].onClick.AddListener(() => { int tmp = j; this.selectCameraPlacement(tmp); });
+
+                addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
+
+                wideCamFoVs.Add(70f);
+                dphDistances.Add(15f);
+                dphIntensities.Add(10f);
+            }
+        }
+    }
+
 
     public void openEditMode()
     {
@@ -196,7 +273,30 @@ public class CameraPlacement : MonoBehaviour
         {
             b.image.color = Color.white;
         }
-        characterController = playerCamera[selectedCamIndex].GetComponent<CharacterController>();
+
+        if (editMissilePositionManager.moving || editTargetPositionManager.moving)
+        {
+            if (editMissilePositionManager.moving)
+            {
+                editMissilePositionManager.exitMissilePositionEditMode();
+            }
+
+            if (editTargetPositionManager.moving)
+            {
+                editTargetPositionManager.exitTargetPositionEditMode();
+            }
+
+            missileEditPanelObj.SetActive(false);
+            missilePositionKeyboardControlsObj.SetActive(false);
+            openEditMissilePositinModeButtonObj.SetActive(true);
+
+            targetEditPanelObj.SetActive(false);
+            targetPositionKeyboardControlsObj.SetActive(false);
+            openEditTargetPositinModeButtonObj.SetActive(true);
+        }
+
+        resetTransform();
+        characterController = playerCamera.GetComponent<CharacterController>();
         editingMode = true;
         cameraManager.lock_on = false;
         selectCameraPlacement(selectedCamIndex);
@@ -209,39 +309,16 @@ public class CameraPlacement : MonoBehaviour
     {
         selectedCamIndex = -1;
 
-        if (PlayerPrefs.GetInt("numberOfCams") < playerCamera.Count)
-        {
-            int cam_count = playerCamera.Count;
-            for (int i = cam_count-1; i >= PlayerPrefs.GetInt("numberOfCams"); i--) 
-            {
-                GameObject temp = playerCamera[i];
-                playerCamera.RemoveAt(i);
-                Destroy(temp);
-
-                temp = camSelectionButtons[i].gameObject;
-                camSelectionButtons.RemoveAt(i);
-                Destroy(temp);
-
-                temp = camPlacement[i];
-                camPlacement.RemoveAt(i);
-                Destroy(temp);
-
-                wideCamFoVs.RemoveAt(i);
-
-                addNewLocationButton.gameObject.transform.position = addNewLocationButton.gameObject.transform.position + new Vector3(-40, 0, 0);
-            }
-        }
-        foreach(GameObject cam in playerCamera)
+        /*foreach(GameObject cam in playerCamera)
         {
             cam.GetComponent<Camera>().depth = -1;
-        }
-        for (int i = 0; i < cameraManager.camButtons.Count; i++)
+        }*/
+        /*for (int i = 0; i < cameraManager.camButtons.Count; i++)
         {
             cameraManager.camButtons[i].image.color = Color.white;
-        }
+        }*/
         resetTransform();
 
-        cameraManager.switchToFocusedCamera(0);
         characterController.enabled = false;
         editingMode = false;
 
@@ -253,37 +330,71 @@ public class CameraPlacement : MonoBehaviour
     {
         if (selectedCamIndex > -1)
         {
-            camPlacement[selectedCamIndex].transform.SetPositionAndRotation(playerCamera[selectedCamIndex].transform.position, playerCamera[selectedCamIndex].transform.rotation);
+            camPlacement[selectedCamIndex].transform.SetPositionAndRotation(playerCamera.transform.position, playerCamera.transform.rotation);
         }
     }
 
     public void resetTransform()
     {
         loadCamPlacement();
-        if (selectedCamIndex > -1) 
+        if (selectedCamIndex > -1 && selectedCamIndex < PlayerPrefs.GetInt("numberOfCams")) 
         {
-            playerCamera[selectedCamIndex].transform.SetPositionAndRotation(camPlacement[selectedCamIndex].transform.position, camPlacement[selectedCamIndex].transform.rotation);
+            playerCamera.transform.SetPositionAndRotation(camPlacement[selectedCamIndex].transform.position, camPlacement[selectedCamIndex].transform.rotation);
             previewWideCam();
+        }
+        else
+        {
+            selectedCamIndex = -1;
+            selectCameraPlacement(0);
+        }
+
+        if (camPlacement.Count < 5)
+        {
+            addNewLocationButton.gameObject.SetActive(true);
+        }
+        if(camPlacement.Count == 5)
+        {
+            addNewLocationButton.gameObject.SetActive(false);
+        }
+
+        if(camPlacement.Count > 1)
+        {
+            removeLocationButton.gameObject.SetActive(true);
+        }
+        if(camPlacement.Count == 1)
+        {
+            removeLocationButton.gameObject.SetActive(false);
         }
     }
 
     public void previewWideCam()
     {
-        playerCamera[selectedCamIndex].transform.eulerAngles = camPlacement[selectedCamIndex].transform.eulerAngles;
+        playerCamera.transform.eulerAngles = camPlacement[selectedCamIndex].transform.eulerAngles;
 
         wideViewButton.gameObject.SetActive(false);
         focusedViewButton.gameObject.SetActive(true);
         fovpanel.SetActive(true);
 
         fovSlider.value = wideCamFoVs[selectedCamIndex];
-        playerCamera[selectedCamIndex].GetComponent<Camera>().fieldOfView = fovSlider.value;
+        playerCamera.GetComponent<Camera>().fieldOfView = fovSlider.value;
         FoVInputField.text = wideCamFoVs[selectedCamIndex].ToString();
+
+        dphDistSlider.value = dphDistances[selectedCamIndex];
+        dphIntensitySlider.value = dphIntensities[selectedCamIndex];
+        DepthOfField dph;
+        if (postProcessingVolume.profile.TryGet<DepthOfField>(out dph))
+        {
+            dph.focusDistance.value = dphDistSlider.value;
+            dph.focalLength.value = dphIntensitySlider.value;
+        }
+        dphDistInputField.text = dphDistances[selectedCamIndex].ToString();
+        dphIntensityInputField.text = dphIntensities[selectedCamIndex].ToString();
     }
 
     public void previewFocusedCam()
     {
-        playerCamera[selectedCamIndex].transform.LookAt(cameraManager.missile_obj.transform);
-        playerCamera[selectedCamIndex].GetComponent<Camera>().fieldOfView = cameraManager.GetFieldOfView(cameraManager.missile_obj.transform.position, cameraManager.focusedCamMissileHeight, playerCamera[selectedCamIndex].GetComponent<Camera>());
+        playerCamera.transform.LookAt(cameraManager.missile_obj.transform);
+        playerCamera.GetComponent<Camera>().fieldOfView = cameraManager.GetFieldOfView(cameraManager.missile_obj.transform.position, cameraManager.focusedCamMissileHeight, playerCamera.GetComponent<Camera>());
         focusedViewButton.gameObject.SetActive(false);
         wideViewButton.gameObject.SetActive(true);
         fovpanel.SetActive(false);
@@ -291,7 +402,7 @@ public class CameraPlacement : MonoBehaviour
 
     public void changeWideFoV()
     {
-        playerCamera[selectedCamIndex].GetComponent<Camera>().fieldOfView = fovSlider.value;
+        playerCamera.GetComponent<Camera>().fieldOfView = fovSlider.value;
         if(selectedCamIndex != -1)
         {
             wideCamFoVs[selectedCamIndex] = fovSlider.value;
@@ -305,10 +416,64 @@ public class CameraPlacement : MonoBehaviour
 
         float newfov = Mathf.Clamp(fov, fovSlider.minValue, fovSlider.maxValue);
 
-        playerCamera[selectedCamIndex].GetComponent<Camera>().fieldOfView = newfov;
+        //playerCamera[selectedCamIndex].GetComponent<Camera>().fieldOfView = newfov;
+
+        playerCamera.GetComponent<Camera>().fieldOfView = newfov;
 
         fovSlider.value = newfov;
         FoVInputField.text = newfov.ToString();
+    }
+
+    public void changeBlurDistance()
+    {
+        DepthOfField dph;
+
+        if(postProcessingVolume.profile.TryGet<DepthOfField>(out dph))
+        {
+            dph.focusDistance.value = dphDistSlider.value;
+        }
+
+        if (selectedCamIndex != -1)
+        {
+            dphDistances[selectedCamIndex] = dph.focusDistance.value;
+        }
+        dphDistInputField.text = dphDistSlider.value.ToString();
+    }
+
+    public void updateBlurDistance()
+    {
+        float.TryParse(dphDistInputField.text, out float dphdist);
+
+        float newphdDist = Mathf.Clamp(dphdist, dphDistSlider.minValue, dphDistSlider.maxValue);
+
+        dphDistSlider.value = newphdDist;
+        dphDistInputField.text = newphdDist.ToString();
+    }
+
+    public void changeBlurIntensity()
+    {
+        DepthOfField dph;
+
+        if (postProcessingVolume.profile.TryGet<DepthOfField>(out dph))
+        {
+            dph.focalLength.value = dphIntensitySlider.value;
+        }
+
+        if (selectedCamIndex != -1)
+        {
+            dphIntensities[selectedCamIndex] = dph.focalLength.value;
+        }
+        dphIntensityInputField.text = dphIntensitySlider.value.ToString();
+    }
+
+    public void updateBlurIntensity()
+    {
+        float.TryParse(dphIntensityInputField.text, out float dphInt);
+
+        float newphdInt = Mathf.Clamp(dphInt, dphIntensitySlider.minValue, dphIntensitySlider.maxValue);
+
+        dphIntensitySlider.value = newphdInt;
+        dphIntensityInputField.text = newphdInt.ToString();
     }
 
     public void addNewCamPlacement()
@@ -316,30 +481,117 @@ public class CameraPlacement : MonoBehaviour
         int newButtonIndex = camSelectionButtons.Count;
 
         GameObject new_button = GameObject.Instantiate(camSelectionButtonPrefab, newButtonParent.transform);
-        new_button.transform.position = camSelectionButtons[newButtonIndex - 1].transform.position + new Vector3(40, 0, 0);
+        new_button.GetComponent<RectTransform>().anchoredPosition = camSelectionButtons[newButtonIndex - 1].GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
+        new_button.name = "Select placement " + (newButtonIndex + 1).ToString() + " button";
 
         camSelectionButtons.Add(new_button.gameObject.GetComponent<Button>());
 
         camSelectionButtons[newButtonIndex].gameObject.GetComponentInChildren<Text>().text = camSelectionButtons.Count.ToString();
         camSelectionButtons[newButtonIndex].onClick.AddListener(() => { int tmp = newButtonIndex; this.selectCameraPlacement(tmp); });
 
-        addNewLocationButton.gameObject.transform.position = addNewLocationButton.gameObject.transform.position + new Vector3(40, 0, 0);
+        addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
 
         camPlacement.Add(new GameObject("Location " + (newButtonIndex + 1).ToString()));
-        camPlacement[newButtonIndex].transform.SetPositionAndRotation(playerCamera[selectedCamIndex].transform.position, playerCamera[selectedCamIndex].transform.rotation);
+        camPlacement[newButtonIndex].transform.SetPositionAndRotation(playerCamera.transform.position, playerCamera.transform.rotation);
 
         wideCamFoVs.Add(70f);
+        dphDistances.Add(15f);
+        dphIntensities.Add(10f);
 
-        playerCamera.Add(Instantiate(playerCamPrefab));
-        playerCamera[newButtonIndex].transform.SetPositionAndRotation(playerCamera[selectedCamIndex].transform.position, playerCamera[selectedCamIndex].transform.rotation);
+        //playerCamera.Add(Instantiate(playerCamPrefab));
+        //playerCamera[newButtonIndex].transform.SetPositionAndRotation(playerCamera[selectedCamIndex].transform.position, playerCamera[selectedCamIndex].transform.rotation);
 
         selectCameraPlacement(newButtonIndex);
 
-        if(newButtonIndex == 2)
+        if(newButtonIndex == 4)
         {
             addNewLocationButton.gameObject.SetActive(false);
         }
 
+        if (!removeLocationButton.gameObject.activeInHierarchy)
+        {
+            removeLocationButton.gameObject.SetActive(true);
+        }
+
+
+    }
+
+    public void removeCamPlacement()
+    {
+        int camToRemove = selectedCamIndex;
+
+        if (camToRemove != -1)
+        {
+            selectedCamIndex = -1;
+            
+            for(int i = camToRemove + 1; i < camSelectionButtons.Count; i++)
+            {
+                camSelectionButtons[i].GetComponent<RectTransform>().anchoredPosition -= new Vector2(40, 0);
+                camSelectionButtons[i].GetComponentInChildren<Text>().text = i.ToString();
+                camSelectionButtons[i].onClick.RemoveAllListeners();
+
+                int n = i - 1;
+
+                camSelectionButtons[i].onClick.AddListener(() => { int tmp = n; this.selectCameraPlacement(tmp); });
+
+                camSelectionButtons[i].name = "Select placement " + i.ToString() + " button";
+
+                camPlacement[i].name = "Location " + i.ToString();
+            }
+
+            Destroy(camPlacement[camToRemove], 1f);
+            camPlacement.RemoveAt(camToRemove);
+
+            addNewLocationButton.GetComponent<RectTransform>().anchoredPosition -= new Vector2(40, 0);
+
+            Destroy(camSelectionButtons[camToRemove].gameObject);
+            camSelectionButtons.RemoveAt(camToRemove);
+
+
+            wideCamFoVs.RemoveAt(camToRemove);
+            dphDistances.RemoveAt(camToRemove);
+            dphIntensities.RemoveAt(camToRemove);
+
+            selectCameraPlacement(0);
+
+            if (camPlacement.Count < 5)
+            {
+                addNewLocationButton.gameObject.SetActive(true);
+            }
+            if (camPlacement.Count == 1)
+            {
+                removeLocationButton.gameObject.SetActive(false);
+            }
+        }
+
+    }
+
+    public void removeExtraPlacements()
+    {
+        if (PlayerPrefs.GetInt("numberOfCams") < camPlacement.Count)
+        {
+            int cam_count = camPlacement.Count;
+            for (int i = cam_count - 1; i >= PlayerPrefs.GetInt("numberOfCams"); i--)
+            {
+                /*GameObject temp = playerCamera[i];
+                playerCamera.RemoveAt(i);
+                Destroy(temp);*/
+
+                GameObject temp = camSelectionButtons[i].gameObject;
+                camSelectionButtons.RemoveAt(i);
+                Destroy(temp);
+
+                temp = camPlacement[i];
+                camPlacement.RemoveAt(i);
+                Destroy(temp);
+
+                wideCamFoVs.RemoveAt(i);
+                dphDistances.RemoveAt(i);
+                dphIntensities.RemoveAt(i);
+
+                addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(-40, 0);
+            }
+        }
     }
 
 }

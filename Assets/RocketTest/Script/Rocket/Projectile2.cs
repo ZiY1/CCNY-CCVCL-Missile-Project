@@ -133,9 +133,9 @@ public class Projectile2 : MonoBehaviour
     // Resets the projectile to its initial position
     public void ResetToInitialState()
     {
-        /*rigid.velocity = Vector3.zero;
-        this.transform.SetPositionAndRotation(initialPosition, initialRotation);
-        bTargetReady = true;*/
+        /*bTargetReady = true;
+        rigid.velocity = Vector3.zero;
+        this.transform.SetPositionAndRotation(initialPosition, initialRotation);*/
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -174,6 +174,7 @@ public class Projectile2 : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         bTouchingGround = true;
+        rigid.velocity = Vector3.zero;
     }
 
     void OnCollisionExit()

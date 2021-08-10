@@ -10,8 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f09f279848e42cea259348b13bce4c5, type: 3}
-  m_Name: RocketIPLabeler
+  m_Name: RocketIDLabeler
   m_EditorClassIdentifier: 
-  m_LabelEntries: []
+  m_LabelEntries:
+  - label: Missile_5_NEW (1)
+    id: 1
+  - label: Missile_four
+    id: 2
+  - label: Missile 3
+    id: 3
+  - label: Missile_6
+    id: 4
+  - label: Second_Rocket
+    id: 5
+  - label: Missile_9
+    id: 6
   autoAssignIds: 1
   startingLabelId: 1

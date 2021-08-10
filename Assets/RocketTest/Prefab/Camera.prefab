@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6467261107186278233}
   - component: {fileID: 6467261107186278239}
   - component: {fileID: 6467261107186278238}
-  - component: {fileID: -7084095935164281419}
+  - component: {fileID: 1815815264714863772}
+  - component: {fileID: -2965844379314162185}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -127,7 +128,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7084095935164281419
+--- !u!114 &1815815264714863772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,10 +143,10 @@ MonoBehaviour:
   m_Labelers:
   - id: 0
   - id: 1
-  description: 
+  description: Camera01
   captureRgbImages: 1
   firstCaptureFrame: 0
-  captureTriggerMode: 0
+  captureTriggerMode: 1
   manualSensorAffectSimulationTiming: 0
   simulationDeltaTime: 0.0166
   framesBetweenCaptures: 0
@@ -158,14 +159,26 @@ MonoBehaviour:
       data:
         enabled: 1
         annotationId: 0bfbe00d-00fa-4555-88d1-471b58449f5c
-        idLabelConfig: {fileID: 11400000, guid: 0f8efaf249b6c42039cb6b0fbf68ddf3,
-          type: 2}
+        idLabelConfig: {fileID: 0}
         visualizationColor: {r: 0, g: 1, b: 0, a: 1}
     00000001:
-      type: {class: SemanticSegmentationLabeler, ns: UnityEngine.Perception.GroundTruth,
+      type: {class: RenderedObjectInfoLabeler, ns: UnityEngine.Perception.GroundTruth,
         asm: Unity.Perception.Runtime}
       data:
         enabled: 1
-        annotationId: 12f94d8d-5425-4deb-9b21-5e53ad957d66
-        labelConfig: {fileID: 11400000, guid: 4d51f50766a2241c18377a5b64cf22a7, type: 2}
-        m_TargetTextureOverride: {fileID: 0}
+        objectInfoMetricId: 5ba92024-b3b7-41a7-9d3f-c03a6a8ddd01
+        idLabelConfig: {fileID: 0}
+--- !u!114 &-2965844379314162185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6467261107186278235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e60c2001630d40bb84147a840871658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  target2: {fileID: 0}
