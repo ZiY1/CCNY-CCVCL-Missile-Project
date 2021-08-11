@@ -106,6 +106,8 @@ public class Projectile2 : MonoBehaviour
             float tanAlpha = Mathf.Tan(LaunchAngle * Mathf.Deg2Rad); //in radius
             float height = (TargetObject.position.y + GetPlatformOffset()) - transform.position.y;
 
+            //Debug.Log(string.Format("tanAlpha: {0}", tanAlpha));
+
             // Calculate the initial speed required to land the projecile on the target object
             float Vz = Mathf.Sqrt(gravity * distance * distance / (2.0f * (height - distance * tanAlpha)));
             float Vy = tanAlpha * Vz;

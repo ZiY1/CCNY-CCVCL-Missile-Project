@@ -25,3 +25,9 @@ MonoBehaviour:
     color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   - label: Missile_9
     color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  - label: Missile_9_Remake (1)
+    color: {r: 0.10725534, g: 0.6936209, b: 1, a: 1}
+  - label: TestChild
+    color: {r: 1, g: 0.12970483, b: 0.26988813, a: 1}
+  - label: CruiseMissile
+    color: {r: 0.04266709, g: 0.889403, b: 1, a: 1}

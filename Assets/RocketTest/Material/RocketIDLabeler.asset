@@ -25,5 +25,11 @@ MonoBehaviour:
     id: 5
   - label: Missile_9
     id: 6
+  - label: Missile_9_Remake (1)
+    id: 7
+  - label: TestChild
+    id: 8
+  - label: CruiseMissile
+    id: 9
   autoAssignIds: 1
   startingLabelId: 1

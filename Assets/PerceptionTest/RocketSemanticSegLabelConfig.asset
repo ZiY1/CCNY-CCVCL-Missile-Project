@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: RocketSemanticSegLabelConfig
   m_EditorClassIdentifier: 
   m_LabelEntries:
-  - label: Missile_9_Remake (1)
-    color: {r: 0, g: 0, b: 1, a: 1}
   - label: Missile_5_NEW (1)
     color: {r: 0, g: 1, b: 0, a: 1}
   - label: Missile_four

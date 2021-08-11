@@ -176,7 +176,7 @@ MonoBehaviour:
             id: 2
           z:
             id: 3
-        rocket: {fileID: 1578818700}
+        missileParent: {fileID: 895348817}
         initRocketRotation: {x: 0, y: 0, z: 0}
     00000001:
       type: {class: UniformSampler, ns: UnityEngine.Perception.Randomization.Samplers,
@@ -719,8 +719,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e60c2001630d40bb84147a840871658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 895348817}
-  target2: {fileID: 1578818700}
 --- !u!114 &256393977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1889,8 +1887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e60c2001630d40bb84147a840871658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 895348817}
-  target2: {fileID: 0}
 --- !u!1 &1028733545
 GameObject:
   m_ObjectHideFlags: 0

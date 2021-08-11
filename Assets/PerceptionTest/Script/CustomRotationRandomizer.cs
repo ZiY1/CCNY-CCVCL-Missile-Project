@@ -23,7 +23,7 @@ namespace UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers
             z = new UniformSampler(-5, 5)
         };
 
-        public GameObject missileParent { get; set; }
+        public GameObject missileParent;
         [SerializeField] Vector3 initRocketRotation; //takes initial rotation of rocket
 
         /// <summary>
@@ -34,8 +34,9 @@ namespace UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers
             base.OnScenarioStart();
             //get init rotation for x;
             //Quaternion rot = rocket.transform.rotation;
-            initRocketRotation = missileParent.transform.eulerAngles;
             //Debug.Log("InitRocketRotataion: " + initRocketRotation);
+
+            //initRocketRotation = missileParent.transform.eulerAngles;
         }
 
         /// <summary>
@@ -46,7 +47,11 @@ namespace UnityEngine.Perception.Randomization.Randomizers.SampleRandomizers
         {
             var tags = tagManager.Query<RotationRandomizerTag>();
             foreach (var tag in tags)
-                tag.transform.rotation = Quaternion.Euler(rotation.Sample() + initRocketRotation);
+            {
+                tag.transform.rotation = Quaternion.Euler(rotation.Sample() + missileParent.transform.eulerAngles);
+
+                //tag.transform.rotation = Quaternion.Euler(rotation.Sample());
+            }
         }
     }
 }
