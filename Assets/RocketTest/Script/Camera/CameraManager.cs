@@ -21,6 +21,13 @@ public class CameraManager : MonoBehaviour
     // TODO: Add more missiles when ready - ziyi
     public GameObject missile1;
     public GameObject missile2;
+    public GameObject missile3;
+    public GameObject missile4;
+    public GameObject missile5;
+    public GameObject missile6;
+    public GameObject missile7;
+    public GameObject missile8;
+    public GameObject missile9;
 
     // assign it to active Missile - ziyi
     public GameObject missile_obj;
@@ -231,6 +238,34 @@ public class CameraManager : MonoBehaviour
         else if (missile2.activeSelf)
         {
             missile_obj = missile2;
+        }
+        else if (missile3.activeSelf)
+        {
+            missile_obj = missile3;
+        }
+        else if (missile4.activeSelf)
+        {
+            missile_obj = missile4;
+        }
+        else if (missile5.activeSelf)
+        {
+            missile_obj = missile5;
+        }
+        else if (missile6.activeSelf)
+        {
+            missile_obj = missile6;
+        }
+        else if (missile7.activeSelf)
+        {
+            missile_obj = missile7;
+        }
+        else if (missile8.activeSelf)
+        {
+            missile_obj = missile8;
+        }
+        else if (missile9.activeSelf)
+        {
+            missile_obj = missile9;
         }
     }
 
