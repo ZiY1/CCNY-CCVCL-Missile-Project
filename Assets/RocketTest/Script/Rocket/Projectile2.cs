@@ -133,12 +133,14 @@ public class Projectile2 : MonoBehaviour
     // Resets the projectile to its initial position
     public void ResetToInitialState()
     {
-        /*rigid.useGravity = false;
-        rigid.useGravity = true;
+        this.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        this.GetComponent<Rigidbody>().isKinematic = true;
+        this.GetComponent<Rigidbody>().isKinematic = false;
+        this.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
         bTargetReady = true;
         rigid.velocity = Vector3.zero;
-        this.transform.SetPositionAndRotation(initialPosition, initialRotation);*/
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        this.transform.SetPositionAndRotation(initialPosition, initialRotation);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 
