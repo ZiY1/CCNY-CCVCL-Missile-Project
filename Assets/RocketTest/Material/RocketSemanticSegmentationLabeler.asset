@@ -31,3 +31,13 @@ MonoBehaviour:
     color: {r: 1, g: 0.12970483, b: 0.26988813, a: 1}
   - label: CruiseMissile
     color: {r: 0.04266709, g: 0.889403, b: 1, a: 1}
+  - label: Missile_1
+    color: {r: 1, g: 0.34303704, b: 0.32187808, a: 1}
+  - label: missile_2
+    color: {r: 0.16316342, g: 0.7123785, b: 1, a: 1}
+  - label: Missile_3
+    color: {r: 0.09505427, g: 1, b: 0.932707, a: 1}
+  - label: Missile_4
+    color: {r: 0.12102449, g: 0.92207694, b: 1, a: 1}
+  - label: Missile_5
+    color: {r: 0.5970189, g: 1, b: 0.4555841, a: 1}

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EditMissilePosition : MonoBehaviour
 {
+    public bool startWithEditorPlacement;
+
     public Camera missile_cam;
     public CharacterController characterController;
 
@@ -12,6 +14,13 @@ public class EditMissilePosition : MonoBehaviour
     // TODO: Add more missiles when ready - ziyi
     public GameObject missile1;
     public GameObject missile2;
+    public GameObject missile3;
+    public GameObject missile4;
+    public GameObject missile5;
+    public GameObject missile6;
+    public GameObject missile7;
+    public GameObject missile8;
+    public GameObject missile9;
 
 
     // assign it to active Missile - ziyi
@@ -33,8 +42,6 @@ public class EditMissilePosition : MonoBehaviour
     public GameObject editingModeOpenObj;
     public GameObject enterCamEditingModeButtonObj;
     public GameObject camKeyboardControlsObj;
-
-    public bool startWithEditorPlacement;
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +96,7 @@ public class EditMissilePosition : MonoBehaviour
 
         original_Transform.transform.SetPositionAndRotation(missile_cam.gameObject.transform.position, missile_cam.gameObject.transform.rotation);
 
+        missile.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         missile.GetComponent<Rigidbody>().isKinematic = true;
 
         characterController.enabled = true;
@@ -210,6 +218,7 @@ public class EditMissilePosition : MonoBehaviour
         Destroy(original_Transform);
 
         missile.GetComponent<Rigidbody>().isKinematic = false;
+        missile.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
     }
 
 
@@ -218,11 +227,59 @@ public class EditMissilePosition : MonoBehaviour
     {
         if (missile1.activeSelf)
         {
+            missile1.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
             missile = missile1;
         }
         else if (missile2.activeSelf)
         {
+            missile2.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
             missile = missile2;
         }
+        else if (missile3.activeSelf)
+        {
+            missile3.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
+            missile = missile3;
+        }
+        else if (missile4.activeSelf)
+        {
+            missile4.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
+            missile = missile4;
+        }
+        else if (missile5.activeSelf)
+        {
+            missile5.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
+            missile = missile5;
+        }
+        else if (missile6.activeSelf)
+        {
+            missile6.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
+            missile = missile6;
+        }
+        else if (missile7.activeSelf)
+        {
+            missile7.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
+            missile = missile7;
+        }
+        else if (missile8.activeSelf)
+        {
+            missile8.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
+            missile = missile8;
+        }
+        else if (missile9.activeSelf)
+        {
+            missile9.transform.SetPositionAndRotation(missile.transform.position, missile.transform.rotation);
+            missile = missile9;
+        }
+    }
+
+    // Return current missile position and rotation
+    public Vector3 ReturnPosition()
+    {
+        return missile.transform.position;
+    }
+
+    public Quaternion ReturnRotation()
+    {
+        return missile.transform.rotation;
     }
 }
