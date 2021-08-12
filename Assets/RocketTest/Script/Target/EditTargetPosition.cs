@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EditTargetPosition : MonoBehaviour
 {
+    public bool startWithEditorPlacement;
+
     public Camera missile_cam;
     public CharacterController characterController;
 
@@ -28,8 +30,6 @@ public class EditTargetPosition : MonoBehaviour
     public GameObject editingModeOpenObj;
     public GameObject enterCamEditingModeButtonObj;
     public GameObject camKeyboardControlsObj;
-
-    public bool startWithEditorPlacement;
 
     // Start is called before the first frame update
     void Start()

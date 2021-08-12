@@ -135,7 +135,9 @@ public class Projectile2 : MonoBehaviour
     // Resets the projectile to its initial position
     public void ResetToInitialState()
     {
-        /*bTargetReady = true;
+        /*rigid.useGravity = false;
+        rigid.useGravity = true;
+        bTargetReady = true;
         rigid.velocity = Vector3.zero;
         this.transform.SetPositionAndRotation(initialPosition, initialRotation);*/
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

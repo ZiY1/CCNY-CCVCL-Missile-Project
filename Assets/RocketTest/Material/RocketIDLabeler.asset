@@ -31,5 +31,19 @@ MonoBehaviour:
     id: 8
   - label: CruiseMissile
     id: 9
+  - label: Missile_1
+    id: 10
+  - label: missile_2
+    id: 11
+  - label: Missile_3
+    id: 12
+  - label: Missile_4
+    id: 13
+  - label: Missile_5
+    id: 14
+  - label: missile_8
+    id: 15
+  - label: missile_7
+    id: 16
   autoAssignIds: 1
   startingLabelId: 1

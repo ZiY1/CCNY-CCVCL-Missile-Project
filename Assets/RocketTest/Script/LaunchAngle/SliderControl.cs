@@ -10,8 +10,8 @@ public class SliderControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //myText.text = string.Format("Launch Angle: {0:0,0.0}", mySlider.value);
-        //Debug.Log(string.Format("Launch Angle: {0:0,0.0}", mySlider.value));
+        myText.text = string.Format("Launch Angle: {0:0,0.0}", mySlider.value);
+        Debug.Log(string.Format("Launch Angle: {0:0,0.0}", mySlider.value));
     }
 }
 
