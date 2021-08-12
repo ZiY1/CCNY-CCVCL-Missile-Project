@@ -41,5 +41,9 @@ MonoBehaviour:
     id: 13
   - label: Missile_5
     id: 14
+  - label: missile_8
+    id: 15
+  - label: missile_7
+    id: 16
   autoAssignIds: 1
   startingLabelId: 1
