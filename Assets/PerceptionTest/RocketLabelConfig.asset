@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f09f279848e42cea259348b13bce4c5, type: 3}
   m_Name: RocketLabelConfig
   m_EditorClassIdentifier: 
-  m_LabelEntries: []
+  m_LabelEntries:
+  - label: CruiseMissile
+    id: 0
   autoAssignIds: 1
   startingLabelId: 1

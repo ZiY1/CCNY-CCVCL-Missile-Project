@@ -156,7 +156,7 @@ MonoBehaviour:
   - id: 0
   constants:
     randomSeed: 539662031
-    totalIterations: 100
+    totalIterations: 10
     instanceCount: 1
     instanceIndex: 0
     framesPerIteration: 1
@@ -719,6 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e60c2001630d40bb84147a840871658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missile: {fileID: 1578818700}
 --- !u!114 &256393977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,7 +739,7 @@ MonoBehaviour:
   description: Camera01
   captureRgbImages: 1
   firstCaptureFrame: 0
-  captureTriggerMode: 1
+  captureTriggerMode: 0
   manualSensorAffectSimulationTiming: 0
   simulationDeltaTime: 0.0166
   framesBetweenCaptures: 0
@@ -1887,6 +1888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e60c2001630d40bb84147a840871658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missile: {fileID: 0}
 --- !u!1 &1028733545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,7 +2915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1729253488
 Transform:
   m_ObjectHideFlags: 0

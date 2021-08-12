@@ -20,30 +20,46 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
 
     //public GameObject targetLight;
     //public GameObject camera; //not yet implemented. Possibly need both camera's nad target's position. For now, just target
-    public GameObject missile { get; set; }
-    //public GameObject target2;
 
-    MetricDefinition lightMetricDefinition;
-    AnnotationDefinition boundingBoxAnnotationDefinition;
-    SensorHandle cameraSensorHandle;
-    BoundingBox3DLabeler boundingBox3DLabeler;
+    //MetricDefinition lightMetricDefinition;
+    //AnnotationDefinition boundingBoxAnnotationDefinition;
+    //SensorHandle cameraSensorHandle;
+    //BoundingBox3DLabeler boundingBox3DLabeler;
 
+    public GameObject missile;
+    Quaternion v;
+
+    MetricDefinition missileMetricDefinition;
+    AnnotationDefinition targetPositionAnnotationDefinition;
+    AnnotationDefinition targetRotationAnnotationDefinition;
 
     public void Start()
     {
         //Metrics and annotations are registered up-front
-        lightMetricDefinition = DatasetCapture.RegisterMetricDefinition(
-            "Light position",
-            "The world-space position of the light",
-            Guid.Parse("1F6BFF46-F884-4CC5-A878-DB987278FE35"));
-        boundingBoxAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Target bounding box",
-            "The position of the target in the camera's local space",
-            id: Guid.Parse("C0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        boundingBoxAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+        //lightMetricDefinition = DatasetCapture.RegisterMetricDefinition(
+        //    "Light position",
+        //    "The world-space position of the light",
+        //    Guid.Parse("1F6BFF46-F884-4CC5-A878-DB987278FE35"));
+        //boundingBoxAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+        //    "Target bounding box",
+        //    "The position of the target in the camera's local space",
+        //    id: Guid.Parse("C0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+
+        //Missile's World Quaternion
+        missileMetricDefinition = DatasetCapture.RegisterMetricDefinition(
+            "Missile's World Quaternion",
+            "The world-quaternion of the missile",
+            Guid.Parse("2F6BFF46-F884-4CC5-A878-DB987278FE35"));
+        //Missile's World Position
+        targetPositionAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
             "Target bounding box position",
             "The position of the target in Unity's World Space",
             id: Guid.Parse("D0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Missile's World Rotation in eulerAngle
+        targetRotationAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Target bounding box position",
+            "The position of the target in Unity's World Space",
+            id: Guid.Parse("E0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
 
         //int testID = 10009;
         //string testName = "Tester";
@@ -64,22 +80,30 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
     {
         if(missile == true)
         {
+            v = Quaternion.Euler(missile.transform.eulerAngles);
+            //Debug.Log("Quaternion: " + v);
             //Report the light's position by manually creating the json array string.
             //var lightPos = targetLight.transform.position;
-            //DatasetCapture.ReportMetric(lightMetricDefinition,
-            //    $@"[{{ ""x"": {lightPos.x}, ""y"": {lightPos.y}, ""z"": {lightPos.z} }}]");
+            DatasetCapture.ReportMetric(missileMetricDefinition,
+                $@"[{{ ""x"": {v.x}, ""y"": {v.y}, ""z"": {v.z}, ""w"": {v.w} }}]");
             //compute the location of the object in the camera's local space
             //Vector3 targetPos = transform.worldToLocalMatrix * target.transform.position;
             //just taking the gameobjects position, no camera position considered
             Vector3 targetPos = missile.transform.position;
+            Vector3 targetRot = missile.transform.eulerAngles;
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
             var sensorHandle = GetComponent<PerceptionCamera>().SensorHandle;
             if (sensorHandle.ShouldCaptureThisFrame)
             {
                 sensorHandle.ReportAnnotationValues(
-                    boundingBoxAnnotationDefinition,
+                    targetPositionAnnotationDefinition,
                     new[] { targetPos });
+                sensorHandle.ReportAnnotationValues(
+                    targetRotationAnnotationDefinition,
+                    new[] { targetRot });
             }
+
+
         }
 
         //Debug.Log("Target01 Rotation: " + target.transform.eulerAngles + "\nTarget02 Rotation: " + target2.transform.eulerAngles);

@@ -8,18 +8,16 @@ A project that launches a missile/rocket.
 To test Perception, go to Asset > Perception Test > Scene and open it.
 
 ## Problem
-Seems like Unity's physics is not as consistent as I like. When testing the same angle and power for the missile, it produces different results. Sometime the missile lands on its head, other times it lands on its body. Need to create a custom physics script for the missile or look into Unity's current physics to understand and adjust.
-
-Other issues is that for the camera tracking the missile/rocket, there is a limit to how far the camera will follow the rocket before the rocket disappears. While this can be adjusted in camera settings via changing the field of view and increasing the clipping plane's far variable, the right values have not been found yet.
+- One possible problem is the physics of Unity. Usually as a missile sores through the air, they start to come down at an angle. This would be due to the missile's rotation and speed. However, if we randomize the rotation of the missile, would that not affect its flight path? Need to look into this
 
 ## What needs to be done
+- Find a way to output the data that verifies camera's position is similar to its other angles
 - A better way to handle the physics of the missile or a better way to implement Unity's rigidbody
-- Add a filter for the camera
-- Learn to use Perception and create multiple images to be fed to a Machine Learning program
 - Learn to use Machine Learning program
-- Find a way to index the information
 
 ## ChangeLog
+### Aug 12
+- Data Capture now includes the objects world position, world rotation, and world quaternion values
 ### Aug 10
 - Added a button to start perception capture and randomization
 ### Aug 4
