@@ -11,7 +11,7 @@ public class SliderControl : MonoBehaviour
     void Update()
     {
         myText.text = string.Format("Launch Angle: {0:0,0.0}", mySlider.value);
-        Debug.Log(string.Format("Launch Angle: {0:0,0.0}", mySlider.value));
+       // Debug.Log(string.Format("Launch Angle: {0:0,0.0}", mySlider.value));
     }
 }
 
