@@ -30,7 +30,7 @@ public class PerceptionInterface : MonoBehaviour
     }*/
     private void Start()
     {
-
+        // sets folder where the dataset will be stored
         Configuration.localPersistentDataPath = Application.persistentDataPath;
         //Debug.Log(Application.persistentDataPath + "/Datasets");
 
@@ -38,7 +38,7 @@ public class PerceptionInterface : MonoBehaviour
         totalIterationsText.text = "\tTotal Iterations: " + fls.constants.totalIterations.ToString();
     }
 
-
+    // Function to open the scenario editing interface
     public void openEditScenarioSettings()
     {
         newSeed = fls.constants.randomSeed;
@@ -47,18 +47,22 @@ public class PerceptionInterface : MonoBehaviour
         seedInputfield.text = newSeed.ToString();
         totalIterationsInputfield.text = newTotalIterations.ToString();
     }
+
+    // Function to read input for the scenario seed from the input field
     public void editSeed()
     {
         uint.TryParse(seedInputfield.text, out uint seed);
         newSeed = seed;
     }
 
+    // Function to read input for the total iterations from the input field
     public void editTotalIterations()
     {
         int.TryParse(totalIterationsInputfield.text, out int totalIterations);
         newTotalIterations = totalIterations;
     }
 
+    // Function to save changes made to scenario seed and total iterations
     public void save()
     {
         fls.constants.randomSeed = newSeed;
@@ -68,6 +72,7 @@ public class PerceptionInterface : MonoBehaviour
         totalIterationsText.text = "\tTotal Iterations: " + fls.constants.totalIterations.ToString();
     }
 
+    // Function to open file explorer where the folder containing the datasets is located
     public void ShowDatasetsFolder()
     {
         UnityEditor.EditorUtility.RevealInFinder(Application.persistentDataPath + "/.");
