@@ -21,6 +21,7 @@ public class MissileSelection : MonoBehaviour
 
     public CameraManager CameraManager;
     public EditMissilePosition EditMissilePosition;
+    public CustomAnnotationAndMetricReporter customAnnotationAndMetricReporter;
 
     private Vector3 currentPosition;
     private Quaternion currentRotation;
@@ -217,6 +218,7 @@ public class MissileSelection : MonoBehaviour
         }
 
         fixedLengthScenario.GetRandomizer<CustomRotationRandomizer>().missileParent = CameraManager.missile_obj;
+        customAnnotationAndMetricReporter.missile = CameraManager.missile_obj;
     }
     // Debug only
     void CheckActive()

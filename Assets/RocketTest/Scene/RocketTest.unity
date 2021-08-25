@@ -5757,7 +5757,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 3fe2fdddfac663245abc4e0994053a70, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -10350,6 +10350,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6467261107039561235}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &841929881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2965844379314162185, guid: 7d45adc06eae5d14391cb4b7a9408e75,
+    type: 3}
+  m_PrefabInstance: {fileID: 6467261107039561235}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841929880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e60c2001630d40bb84147a840871658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &841929883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16270,6 +16282,7 @@ MonoBehaviour:
   Missile9: {fileID: 1283867522}
   CameraManager: {fileID: 294421596}
   EditMissilePosition: {fileID: 1390934172}
+  customAnnotationAndMetricReporter: {fileID: 841929881}
 --- !u!1 &1390934171
 GameObject:
   m_ObjectHideFlags: 0
@@ -17703,7 +17716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1509050137
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25153,7 +25166,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 3fe2fdddfac663245abc4e0994053a70, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -36175,6 +36188,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2965844379314162185, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
+      propertyPath: missile
+      value: 
+      objectReference: {fileID: 2141801261665413578}
+    - target: {fileID: -2965844379314162185, guid: 7d45adc06eae5d14391cb4b7a9408e75,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -36295,7 +36313,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 8400000, guid: 3fe2fdddfac663245abc4e0994053a70, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 6467261107186278235, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
       propertyPath: m_Name
