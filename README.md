@@ -18,7 +18,7 @@ To test Perception, go to Asset > Perception Test > Scene and open it.
 ## ChangeLog
 ### Aug 25
 - Updated the Rocket Test folder to Team 1's newest version.
-- Fixed and error in script StartPerception.cs
+- Fixed an error in script StartPerception.cs
 ### Aug 12
 - Data Capture now includes the objects world position, world rotation, and world quaternion values
 ### Aug 10
