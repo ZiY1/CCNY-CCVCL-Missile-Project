@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LabelEntries:
   - label: CruiseMissile
-    id: 0
+    id: 1
+  - label: SmokeTrail
+    id: 2
   autoAssignIds: 1
   startingLabelId: 1

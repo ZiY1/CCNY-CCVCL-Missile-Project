@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EditMissilePosition : MonoBehaviour
 {
+    // if true, will start with position and rotation of missile from the editor instead of saved P&R
     public bool startWithEditorPlacement;
 
     public Camera missile_cam;
@@ -28,13 +29,16 @@ public class EditMissilePosition : MonoBehaviour
     public GameObject platform;
     public GameObject ground;
 
+    // true = missile position editing mode --> open
     public bool moving = false;
 
+    // speed at which the missile is moved and rotated
     public float moveSpeed = 50f;
     public float rotSpeed = 50f;
 
     public Text current_position_text;
 
+    // original position and rotation of missile when editing mode is opened
     GameObject original_Transform;
 
     public CameraPlacement cameraPlacement;
@@ -70,8 +74,10 @@ public class EditMissilePosition : MonoBehaviour
         }
     }
 
+    // Function to open missile position editing mode
     public void moveMissile()
     {
+        // exits cam placement edit mode and target position edit mode
         if (cameraPlacement.editingMode)
         {
             cameraPlacement.exitEditMode();
@@ -82,20 +88,25 @@ public class EditMissilePosition : MonoBehaviour
 
         }
 
+        // turns on camera to move missile
         missile_cam.gameObject.SetActive(true);
         missile_cam.depth = 2;
 
         original_Transform = new GameObject();
 
+        // moves missile camera to be at an offset from the missile
         missile_cam.gameObject.transform.position = missile.transform.position + new Vector3(0, 1, -3);
         missile_cam.gameObject.transform.LookAt(missile.transform);
 
+        // sets the missile camera as the parent of the missile, platform and ground so that they move together
         missile.transform.parent = missile_cam.gameObject.transform;
         platform.transform.parent = missile_cam.gameObject.transform;
         ground.transform.parent = missile_cam.gameObject.transform;
 
+        // keeps track of initial position and rotation
         original_Transform.transform.SetPositionAndRotation(missile_cam.gameObject.transform.position, missile_cam.gameObject.transform.rotation);
 
+        // prevents missile from moving due to physics
         missile.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         missile.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -104,43 +115,47 @@ public class EditMissilePosition : MonoBehaviour
 
     }
 
+    // Function to move missile with keyboard input
     public void move()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W)) // move forward
         {
             characterController.Move(missile_cam.transform.forward * moveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A)) // move left
         {
             characterController.Move(-missile_cam.transform.right * moveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S)) // move back
         {
             characterController.Move(-missile_cam.transform.forward * moveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D)) // move right
         {
             characterController.Move(missile_cam.transform.right * moveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift)) // move down
         {
             characterController.Move(Vector3.down * moveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space)) // move up
         {
             characterController.Move(Vector3.up * moveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q)) // rotate left
         {
             missile_cam.transform.Rotate(-Vector3.up * rotSpeed * Time.deltaTime, Space.World);
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E)) // move right
         {
             missile_cam.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
         }
+
+        // update UI text that shows current missile's position
         current_position_text.text = "Missile Position: (" + missile.transform.position.x.ToString("F2") + ", " + missile.transform.position.y.ToString("F2") + ", " + missile.transform.position.z.ToString("F2") + ")";
     }
 
+    // Function that updates the original position of the missile
     public void setPosition()
     {
         original_Transform.transform.SetPositionAndRotation(missile_cam.gameObject.transform.position, missile_cam.gameObject.transform.rotation);
@@ -148,6 +163,7 @@ public class EditMissilePosition : MonoBehaviour
         savePosition();
     }
 
+    // Function to save the new position and rotation of the missile, platform, and ground to PlayerPrefs
     public void savePosition()
     {
         PlayerPrefs.SetFloat("missilePosX", missile.transform.position.x);
@@ -173,6 +189,7 @@ public class EditMissilePosition : MonoBehaviour
         PlayerPrefs.SetFloat("groundRotZ", ground.transform.rotation.eulerAngles.z);
     }
 
+    // Function to load saved missile position
     void loadMissilePosition()
     {
         var missile_pos = new Vector3(PlayerPrefs.GetFloat("missilePosX"), PlayerPrefs.GetFloat("missilePosY"), PlayerPrefs.GetFloat("missilePosZ"));
@@ -194,16 +211,19 @@ public class EditMissilePosition : MonoBehaviour
         ground.transform.eulerAngles = ground_rot;
     }
 
+    // Function to reset position of missile
     public void Reset()
     {
         missile_cam.gameObject.transform.SetPositionAndRotation(original_Transform.transform.position, original_Transform.transform.rotation);
     }
 
+    // Function to exit missile position editing mode
     public void exitMissilePositionEditMode()
     {
+        // turns off missile camera
         missile_cam.depth = -2;
 
-        Reset();
+        Reset(); // deletes unsaved changes
 
         missile_cam.gameObject.SetActive(false);
 
@@ -217,6 +237,7 @@ public class EditMissilePosition : MonoBehaviour
         
         Destroy(original_Transform);
 
+        // missile will be affected by physics engine
         missile.GetComponent<Rigidbody>().isKinematic = false;
         missile.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
     }

@@ -7,13 +7,16 @@ using UnityEngine.Rendering.Universal;
 
 public class CameraPlacement : MonoBehaviour
 {
+    // if true, will start with position and rotation of placements from the editor instead of saved placements
     public bool startWithEditorPlacements = false;
+
     [SerializeField] GameObject playerCamPrefab;
-    //[SerializeField] public List<GameObject> playerCamera;
     [SerializeField] public GameObject playerCamera;
+
     [SerializeField] CameraManager cameraManager;
     [SerializeField] CharacterController characterController;
 
+    // list containing camera placements
     public List<GameObject> camPlacement;
 
     public List<Button> camSelectionButtons;
@@ -25,10 +28,12 @@ public class CameraPlacement : MonoBehaviour
     public InputField FoVInputField;
     public List<float> wideCamFoVs;
     
-
+    // indicates which cam placement is selected (-1 = none selected)
     public int selectedCamIndex = -1;
 
     public bool editingMode = false;
+
+    // speed at which cam moves and rotates
     public float moveSpeed = 50f;
     public float rotSpeed = 50f;
 
@@ -54,6 +59,7 @@ public class CameraPlacement : MonoBehaviour
 
     public Volume postProcessingVolume;
 
+    // dph = depth of field (controls camera blur)
     public Slider dphDistSlider;
     public InputField dphDistInputField;
     public List<float> dphDistances;
@@ -77,7 +83,7 @@ public class CameraPlacement : MonoBehaviour
             saveCamPlacements();
         }
 
-        loadCamPlacement();
+        loadCamPlacement(); // load saved placements
 
         characterController.enabled = false;
         /*foreach (GameObject location in camPlacement)
@@ -95,56 +101,60 @@ public class CameraPlacement : MonoBehaviour
         moveCam();
     }
 
+    // Function to move the camera in editing mode
     public void moveCam()
     {
-        if (editingMode)
+        if (editingMode) // can only move cam in cam editing mode
         {
             if (selectedCamIndex > -1)
             {
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKey(KeyCode.W)) // move forward
                 {
                     characterController.Move(playerCamera.transform.forward * moveSpeed * Time.deltaTime);
                 }
-                if (Input.GetKey(KeyCode.A))
+                if (Input.GetKey(KeyCode.A)) // move left
                 {
                     characterController.Move(-playerCamera.transform.right * moveSpeed * Time.deltaTime);
                 }
-                if (Input.GetKey(KeyCode.S))
+                if (Input.GetKey(KeyCode.S)) // move back
                 {
                     characterController.Move(-playerCamera.transform.forward * moveSpeed * Time.deltaTime);
                 }
-                if (Input.GetKey(KeyCode.D))
+                if (Input.GetKey(KeyCode.D)) // move right
                 {
                     characterController.Move(playerCamera.transform.right * moveSpeed * Time.deltaTime);
                 }
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftShift))  // move down
                 {
                     characterController.Move(Vector3.down * moveSpeed * Time.deltaTime);
                 }
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space)) // move up
                 {
                     characterController.Move(Vector3.up * moveSpeed * Time.deltaTime);
                 }
-                if (Input.GetKey(KeyCode.Q))
+                if (Input.GetKey(KeyCode.Q)) // rotate left
                 {
                     playerCamera.transform.Rotate(-Vector3.up * rotSpeed * Time.deltaTime, Space.World);
                 }
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKey(KeyCode.E)) // rotate right
                 {
                     playerCamera.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
                 }
-                if (Input.GetKey(KeyCode.LeftControl))
+                if (Input.GetKey(KeyCode.LeftControl)) // tilt up
                 {
                     playerCamera.transform.Rotate(-Vector3.right * rotSpeed * Time.deltaTime);
                 }
-                if (Input.GetKey(KeyCode.LeftAlt))
+                if (Input.GetKey(KeyCode.LeftAlt))  // tilt down
                 {
                     playerCamera.transform.Rotate(Vector3.right * rotSpeed * Time.deltaTime);
                 }
+
+                // moves selected cam placement object to current location of camera
                 if(playerCamera.transform.position != camPlacement[selectedCamIndex].transform.position)
                 {
                     camPlacement[selectedCamIndex].transform.position = playerCamera.transform.position;
                 }
+                // sets selected cam placement obect rotation to current camera rotation
                 if (playerCamera.transform.rotation != camPlacement[selectedCamIndex].transform.rotation)
                 {
                     camPlacement[selectedCamIndex].transform.rotation = playerCamera.transform.rotation;
@@ -153,33 +163,41 @@ public class CameraPlacement : MonoBehaviour
         }
     }
 
-    public void selectCameraPlacement(int n)
+    // Function to select a camera placement to edit its position/rotation
+    public void selectCameraPlacement(int n) // index in array (first placement = 0)
     {
         if (selectedCamIndex != n)
         {
+            // sets color of previously selected button in UI to white
             if(selectedCamIndex != n && selectedCamIndex != -1)
             {
-
                 camSelectionButtons[selectedCamIndex].image.color = Color.white;
                 characterController.enabled = false;
                 //playerCamera[selectedCamIndex].GetComponent<Camera>().depth = -1;
             }
 
+            // update index for currently selected cam placement
             selectedCamIndex = n;
             playerCamera.GetComponent<Camera>().depth = 0;
 
+            // sets camera position/rotation to that of the selected cam placement
             playerCamera.transform.SetPositionAndRotation(camPlacement[n].transform.position, camPlacement[n].transform.rotation);
+
+            // changes color of selected cam placement button to yellow
             camSelectionButtons[n].image.color = Color.yellow;
 
             characterController = playerCamera.GetComponent<CharacterController>();
             characterController.enabled = true;
 
+            // switches to wide view
             previewWideCam();
         }
     }
 
+    // Function to save/update camera placement settings
     public void saveCamPlacements()
     {
+        // deletes saved extra placements
         if (PlayerPrefs.HasKey("numberOfCams"))
         {
             if (camPlacement.Count < PlayerPrefs.GetInt("numberOfCams"))
@@ -201,6 +219,7 @@ public class CameraPlacement : MonoBehaviour
             }
         }
 
+        // saves position, rotation or each cam placement and their blur settings and wide view FoV
         for (int i = 0; i < camPlacement.Count; i++)
         {
             PlayerPrefs.SetFloat("xPosPlacement" + i.ToString(), camPlacement[i].transform.position.x);
@@ -216,10 +235,12 @@ public class CameraPlacement : MonoBehaviour
             PlayerPrefs.SetFloat("dphIntensity" + i.ToString(), dphIntensities[i]);
         }
 
+        // saved number of cam placements
         PlayerPrefs.SetInt("numberOfCams", camPlacement.Count);
 
     }
 
+    // loads saved cam placement settings
     public void loadCamPlacement()
     {
         removeExtraPlacements();
@@ -236,6 +257,7 @@ public class CameraPlacement : MonoBehaviour
         }
     }
 
+    // Function to add missing placements in case they were deleted in edit mode but exited without saving changes
     public void addMissingPlacements()
     {
         if(camPlacement.Count < PlayerPrefs.GetInt("numberOfCams"))
@@ -266,7 +288,7 @@ public class CameraPlacement : MonoBehaviour
         }
     }
 
-
+    // Function to open camera placement editing mode
     public void openEditMode()
     {
         foreach(Button b in camSelectionButtons)
@@ -274,6 +296,7 @@ public class CameraPlacement : MonoBehaviour
             b.image.color = Color.white;
         }
 
+        // exits from missile/target position editing mode
         if (editMissilePositionManager.moving || editTargetPositionManager.moving)
         {
             if (editMissilePositionManager.moving)
@@ -305,6 +328,7 @@ public class CameraPlacement : MonoBehaviour
         characterController.enabled = true;
     }
 
+    // Function to exit cam placement editing mode
     public void exitEditMode()
     {
         selectedCamIndex = -1;
@@ -317,7 +341,8 @@ public class CameraPlacement : MonoBehaviour
         {
             cameraManager.camButtons[i].image.color = Color.white;
         }*/
-        resetTransform();
+
+        resetTransform(); // delete unsaved changes
 
         characterController.enabled = false;
         editingMode = false;
@@ -326,6 +351,7 @@ public class CameraPlacement : MonoBehaviour
 
     }
 
+    // Function to update the position/rotation of currently selected cam placement object to that of the camera
     public void setTransform()
     {
         if (selectedCamIndex > -1)
@@ -334,6 +360,7 @@ public class CameraPlacement : MonoBehaviour
         }
     }
 
+    // Function to reset camera placements to that of the saved settings
     public void resetTransform()
     {
         loadCamPlacement();
@@ -367,6 +394,7 @@ public class CameraPlacement : MonoBehaviour
         }
     }
 
+    // Function to change the camera's FoV to wide view mode FoV
     public void previewWideCam()
     {
         playerCamera.transform.eulerAngles = camPlacement[selectedCamIndex].transform.eulerAngles;
@@ -391,6 +419,7 @@ public class CameraPlacement : MonoBehaviour
         dphIntensityInputField.text = dphIntensities[selectedCamIndex].ToString();
     }
 
+    // Function to change the camera's FoV to how it would look in focused mode
     public void previewFocusedCam()
     {
         playerCamera.transform.LookAt(cameraManager.missile_obj.transform);
@@ -400,6 +429,7 @@ public class CameraPlacement : MonoBehaviour
         fovpanel.SetActive(false);
     }
 
+    // Function to edit that current cam placement's wide FoV based on the slider
     public void changeWideFoV()
     {
         playerCamera.GetComponent<Camera>().fieldOfView = fovSlider.value;
@@ -410,6 +440,7 @@ public class CameraPlacement : MonoBehaviour
         FoVInputField.text = fovSlider.value.ToString();
     }
 
+    // function to edit the FoV of the wide view cam based on the input field input
     public void updateFoV()
     {
         int.TryParse(FoVInputField.text, out int fov);
@@ -424,6 +455,7 @@ public class CameraPlacement : MonoBehaviour
         FoVInputField.text = newfov.ToString();
     }
 
+    // Function to edit the blur distance for the current cam placement based on the slider
     public void changeBlurDistance()
     {
         DepthOfField dph;
@@ -440,6 +472,7 @@ public class CameraPlacement : MonoBehaviour
         dphDistInputField.text = dphDistSlider.value.ToString();
     }
 
+    // Function to edit the blur distance for the current cam placement based on the input field
     public void updateBlurDistance()
     {
         float.TryParse(dphDistInputField.text, out float dphdist);
@@ -450,6 +483,7 @@ public class CameraPlacement : MonoBehaviour
         dphDistInputField.text = newphdDist.ToString();
     }
 
+    // Function to edit the blur intensity for the current cam placement based on the slider
     public void changeBlurIntensity()
     {
         DepthOfField dph;
@@ -466,6 +500,7 @@ public class CameraPlacement : MonoBehaviour
         dphIntensityInputField.text = dphIntensitySlider.value.ToString();
     }
 
+    // Function to edit the blur intensity for the current cam placement based on the input field
     public void updateBlurIntensity()
     {
         float.TryParse(dphIntensityInputField.text, out float dphInt);
@@ -476,10 +511,12 @@ public class CameraPlacement : MonoBehaviour
         dphIntensityInputField.text = newphdInt.ToString();
     }
 
+    // Function to add new cam placement
     public void addNewCamPlacement()
     {
         int newButtonIndex = camSelectionButtons.Count;
 
+        // create new UI button - start
         GameObject new_button = GameObject.Instantiate(camSelectionButtonPrefab, newButtonParent.transform);
         new_button.GetComponent<RectTransform>().anchoredPosition = camSelectionButtons[newButtonIndex - 1].GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
         new_button.name = "Select placement " + (newButtonIndex + 1).ToString() + " button";
@@ -490,12 +527,19 @@ public class CameraPlacement : MonoBehaviour
         camSelectionButtons[newButtonIndex].onClick.AddListener(() => { int tmp = newButtonIndex; this.selectCameraPlacement(tmp); });
 
         addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(40, 0);
+        // create new UI button - end
 
+        // create new cam placement game object
         camPlacement.Add(new GameObject("Location " + (newButtonIndex + 1).ToString()));
         camPlacement[newButtonIndex].transform.SetPositionAndRotation(playerCamera.transform.position, playerCamera.transform.rotation);
 
+        // add new wide cam FoV to list
         wideCamFoVs.Add(70f);
+
+        // add new blur distance to list
         dphDistances.Add(15f);
+
+        // add new blur intensity to list
         dphIntensities.Add(10f);
 
         //playerCamera.Add(Instantiate(playerCamPrefab));
@@ -503,7 +547,7 @@ public class CameraPlacement : MonoBehaviour
 
         selectCameraPlacement(newButtonIndex);
 
-        if(newButtonIndex == 4)
+        if(newButtonIndex == 4) // max. 5 cam placements (can be changed)
         {
             addNewLocationButton.gameObject.SetActive(false);
         }
@@ -516,6 +560,7 @@ public class CameraPlacement : MonoBehaviour
 
     }
 
+    // Function to remove the currently selected camera placement
     public void removeCamPlacement()
     {
         int camToRemove = selectedCamIndex;
@@ -524,6 +569,7 @@ public class CameraPlacement : MonoBehaviour
         {
             selectedCamIndex = -1;
             
+            // shifts cam placement buttons after the deleted placement to the left
             for(int i = camToRemove + 1; i < camSelectionButtons.Count; i++)
             {
                 camSelectionButtons[i].GetComponent<RectTransform>().anchoredPosition -= new Vector2(40, 0);
@@ -532,6 +578,7 @@ public class CameraPlacement : MonoBehaviour
 
                 int n = i - 1;
 
+                // fixes the subsequent buttons and their on click events
                 camSelectionButtons[i].onClick.AddListener(() => { int tmp = n; this.selectCameraPlacement(tmp); });
 
                 camSelectionButtons[i].name = "Select placement " + i.ToString() + " button";
@@ -539,6 +586,7 @@ public class CameraPlacement : MonoBehaviour
                 camPlacement[i].name = "Location " + i.ToString();
             }
 
+            // destroys the currently selected cam placement and its other elements
             Destroy(camPlacement[camToRemove], 1f);
             camPlacement.RemoveAt(camToRemove);
 
@@ -552,6 +600,7 @@ public class CameraPlacement : MonoBehaviour
             dphDistances.RemoveAt(camToRemove);
             dphIntensities.RemoveAt(camToRemove);
 
+            // switches to the cam placement 1
             selectCameraPlacement(0);
 
             if (camPlacement.Count < 5)
@@ -566,6 +615,7 @@ public class CameraPlacement : MonoBehaviour
 
     }
 
+    // Function to remove any extra cam placements and its other elements in case user exits edit mode without saving changes
     public void removeExtraPlacements()
     {
         if (PlayerPrefs.GetInt("numberOfCams") < camPlacement.Count)

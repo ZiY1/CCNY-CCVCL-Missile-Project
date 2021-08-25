@@ -9,10 +9,12 @@ public class StartPerception : MonoBehaviour
 {
     public PerceptionCamera pc;
     public FixedLengthScenario fls;
+    public CustomAnnotationAndMetricReporter cus;
 
     private void Awake()
     {
         pc.enabled = false;
+        cus.enabled = false;
         fls.enabled = false;
     }
 
@@ -20,6 +22,7 @@ public class StartPerception : MonoBehaviour
     {
         Debug.Log("button pressed");
         pc.enabled = true;
+        cus.enabled = true;
         fls.enabled = true;
     }
 
