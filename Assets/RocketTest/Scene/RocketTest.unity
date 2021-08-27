@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.99999905, g: 0, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.35582882, g: 0.54491353, b: 0.7812971, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23727,9 +23727,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1946647029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a6346b21dd1bbd46845cad2ab6916a7, type: 3}
+  m_Script: {fileID: 11500000, guid: bb47a2335b8c7984dabd1c4c8b21e413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fls: {fileID: 462480558}
+  seedText: {fileID: 841749726}
+  totalIterationsText: {fileID: 162084477}
+  rotRandXMin_Text: {fileID: 841431200}
+  rotRandYMin_Text: {fileID: 974795110}
+  rotRandZMin_Text: {fileID: 589884849}
+  rotRandXMax_Text: {fileID: 1040613873}
+  rotRandYMax_Text: {fileID: 1283975601}
+  rotRandZMax_Text: {fileID: 1435359039}
+  dataSetDirectoyPath_Text: {fileID: 536668051}
+  copyPathButton_Text: {fileID: 761136342}
+  seedInputfield: {fileID: 812667393}
+  totalIterationsInputfield: {fileID: 138059268}
+  rotRandXmin_Inputfield: {fileID: 1486907481}
+  rotRandXmax_Inputfield: {fileID: 56187217}
+  rotRandYmin_Inputfield: {fileID: 1003266003}
+  rotRandYmax_Inputfield: {fileID: 887386}
+  rotRandZmin_Inputfield: {fileID: 1883353741}
+  rotRandZmax_Inputfield: {fileID: 1764358429}
 --- !u!1 &1952796169
 GameObject:
   m_ObjectHideFlags: 0
