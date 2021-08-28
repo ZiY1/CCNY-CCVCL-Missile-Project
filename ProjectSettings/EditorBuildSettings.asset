@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/RocketTest/Scene/RocketTest.unity
     guid: a2098f75a56ed4474aaf9c27d97a340f
+  - enabled: 1
+    path: Assets/RocketTest/ShapePrior/Scene/ShapePriorGenerator.unity
+    guid: 0c278bcfec8870d449d81c2d4929f3dc
   m_configObjects: {}
