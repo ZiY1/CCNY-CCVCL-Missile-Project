@@ -16,6 +16,9 @@ To test Perception, go to Asset > Perception Test > Scene and open it.
 - Learn to use Machine Learning program
 
 ## ChangeLog
+### Aug 28
+- Added BoundingBox2D
+- Made varies small changes such as renaming some variables to make it easier to understand
 ### Aug 25
 - Updated the Rocket Test folder to Team 1's newest version.
 - Fixed an error in script StartPerception.cs

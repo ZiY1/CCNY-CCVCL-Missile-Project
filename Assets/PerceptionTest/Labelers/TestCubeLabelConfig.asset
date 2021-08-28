@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LabelEntries:
   - label: New Label
-    id: 0
-  - label: TestCube
     id: 1
+  - label: TestCube
+    id: 2
   autoAssignIds: 1
   startingLabelId: 1

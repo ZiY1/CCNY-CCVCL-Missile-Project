@@ -28,6 +28,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
 
     public GameObject missile;
     Quaternion v;
+    Quaternion t;
 
     MetricDefinition missileMetricDefinition;
     AnnotationDefinition targetPositionAnnotationDefinition;
@@ -83,7 +84,9 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
         if(missile == true)
         {
             v = Quaternion.Euler(missile.transform.eulerAngles);
-            //Debug.Log("Quaternion: " + v);
+            //t = missile.transform.rotation;
+            Debug.Log("Quaternion.Euler: " + v);
+            //Debug.Log("Quaternion: " + t); //t == v
             //Report the light's position by manually creating the json array string.
             //var lightPos = targetLight.transform.position;
             DatasetCapture.ReportMetric(missileMetricDefinition,

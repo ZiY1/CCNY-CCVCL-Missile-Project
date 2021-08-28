@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollowTemp : MonoBehaviour
 {
-    public GameObject rocket;
+    public GameObject observeObject;
 
     float timer = 0.5f;
 
@@ -15,6 +15,6 @@ public class CameraFollowTemp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(rocket.transform);
+        transform.LookAt(observeObject.transform);
     }
 }

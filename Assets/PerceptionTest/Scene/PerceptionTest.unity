@@ -156,7 +156,7 @@ MonoBehaviour:
   - id: 0
   constants:
     randomSeed: 539662031
-    totalIterations: 10
+    totalIterations: 60
     instanceCount: 1
     instanceIndex: 0
     framesPerIteration: 1
@@ -685,6 +685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pc: {fileID: 256393977}
   fls: {fileID: 19996829}
+  cus: {fileID: 256393976}
 --- !u!1 &256393975
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +736,7 @@ MonoBehaviour:
   - id: 0
   - id: 1
   - id: 2
+  - id: 3
   description: Camera01
   captureRgbImages: 1
   firstCaptureFrame: 0
@@ -746,6 +748,14 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
+      type: {class: BoundingBox2DLabeler, ns: UnityEngine.Perception.GroundTruth,
+        asm: Unity.Perception.Runtime}
+      data:
+        enabled: 1
+        annotationId: f9f22e05-443f-4602-a422-ebe4ea9b55cb
+        idLabelConfig: {fileID: 11400000, guid: 0950cd7951437462db5acc34d2cd2db9,
+          type: 2}
+    00000001:
       type: {class: BoundingBox3DLabeler, ns: UnityEngine.Perception.GroundTruth,
         asm: Unity.Perception.Runtime}
       data:
@@ -754,7 +764,7 @@ MonoBehaviour:
         idLabelConfig: {fileID: 11400000, guid: 0950cd7951437462db5acc34d2cd2db9,
           type: 2}
         visualizationColor: {r: 0, g: 1, b: 0, a: 1}
-    00000001:
+    00000002:
       type: {class: RenderedObjectInfoLabeler, ns: UnityEngine.Perception.GroundTruth,
         asm: Unity.Perception.Runtime}
       data:
@@ -762,7 +772,7 @@ MonoBehaviour:
         objectInfoMetricId: 5ba92024-b3b7-41a7-9d3f-c03a6a8ddd01
         idLabelConfig: {fileID: 11400000, guid: 0950cd7951437462db5acc34d2cd2db9,
           type: 2}
-    00000002:
+    00000003:
       type: {class: SemanticSegmentationLabeler, ns: UnityEngine.Perception.GroundTruth,
         asm: Unity.Perception.Runtime}
       data:
@@ -787,13 +797,13 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -814,7 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c03f700bff7a42e8b9012d7d33afde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocket: {fileID: 3956545707641637502}
+  observeObject: {fileID: 3956545707641637502}
 --- !u!20 &256393981
 Camera:
   m_ObjectHideFlags: 0
@@ -1958,7 +1968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c03f700bff7a42e8b9012d7d33afde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocket: {fileID: 3956545707641637502}
+  observeObject: {fileID: 0}
 --- !u!114 &982063150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3092,7 +3102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c03f700bff7a42e8b9012d7d33afde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocket: {fileID: 3956545707641637502}
+  observeObject: {fileID: 0}
 --- !u!114 &2099901651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3252,6 +3262,7 @@ GameObject:
   - component: {fileID: 5673703212686195052}
   - component: {fileID: 895348822}
   - component: {fileID: 895348821}
+  - component: {fileID: 3956545707641637503}
   m_Layer: 0
   m_Name: PfCruiseMissileMod
   m_TagString: Untagged
@@ -3259,6 +3270,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3956545707641637503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956545707641637502}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc623ee8c4e244c4ae5dc4cf8a359f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tran: {fileID: 0}
+  q: {x: 0, y: 0, z: 0, w: 0}
+  qu: {x: 0, y: 0, z: 0, w: 0}
 --- !u!23 &4169351631315290288
 MeshRenderer:
   m_ObjectHideFlags: 0
