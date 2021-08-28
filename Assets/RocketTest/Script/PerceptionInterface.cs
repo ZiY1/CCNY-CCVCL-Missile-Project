@@ -71,7 +71,7 @@ public class PerceptionInterface : MonoBehaviour
         //Debug.Log(Application.persistentDataPath + "/Datasets");
 
         seedText.text = "\tSeed: " + fls.constants.randomSeed.ToString();
-        totalIterationsText.text = "\tTotal Iterations: " + fls.constants.totalIterations.ToString();
+        totalIterationsText.text = "\tNumber of Frames\n\t(Iterations): " + fls.constants.totalIterations.ToString();
 
         rotRandXMin_Text.text = "\tX: min " + min_x.ToString(); rotRandXMax_Text.text = "\tmax " + max_x.ToString();
         rotRandYMin_Text.text = "\tY: min " + min_y.ToString(); rotRandYMax_Text.text = "\tmax " + max_y.ToString();
@@ -132,7 +132,7 @@ public class PerceptionInterface : MonoBehaviour
         fls.constants.totalIterations = newTotalIterations;
 
         seedText.text = "\tSeed: " + fls.constants.randomSeed.ToString();
-        totalIterationsText.text = "\tTotal Iterations: " + fls.constants.totalIterations.ToString();
+        totalIterationsText.text = "\tNumber of Frames\n\t(Iterations): " + fls.constants.totalIterations.ToString();
 
         fls.GetRandomizer<CustomRotationRandomizer>().rotation = new Vector3Parameter
         {
