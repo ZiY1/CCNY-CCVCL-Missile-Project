@@ -10,7 +10,7 @@ public class Trajectory : MonoBehaviour
   private ArrayList arrayListRotation;
 
   private static int counter = 0;
-  private float timeInterval = 0.05f;
+  private float timeInterval = 0.1f;
   private float nextTime = 0.0f;
 
   // Start is called before the first frame update
@@ -40,8 +40,8 @@ public class Trajectory : MonoBehaviour
         //StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox2.csv");
 
         // Anthony's ground truth data
-        StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/target_annotation3.csv");
-        //StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox3.csv");
+        //StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/target_annotation3.csv");
+        StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox3.csv");
 
         bool endOfFile = false;
 
@@ -94,7 +94,7 @@ public class Trajectory : MonoBehaviour
           //arrayListRotation.Add(new Quaternion(float.Parse(data_values[7].ToString()), float.Parse(data_values[8].ToString()), float.Parse(data_values[9].ToString()), float.Parse(data_values[10].ToString())));
 
           // For 3D Bounding Box CSV files, store the Quaternion values (x, y, w, z) as Quaternion and add it to an ArrayList
-          //arrayListRotation.Add(new Quaternion(float.Parse(data_values[4].ToString()), float.Parse(data_values[5].ToString()), float.Parse(data_values[6].ToString()), float.Parse(data_values[7].ToString())));
+          arrayListRotation.Add(new Quaternion(float.Parse(data_values[4].ToString()), float.Parse(data_values[5].ToString()), float.Parse(data_values[6].ToString()), float.Parse(data_values[7].ToString())));
 
         }
 
@@ -137,12 +137,12 @@ public class Trajectory : MonoBehaviour
                 transform.Rotate(float.Parse(sdata[0]), float.Parse(sdata[1]), float.Parse(sdata[2]), Space.World);
                 */
 
-                /*
+                
                 // Method 2: Rotation using Quaternion
 
                 Quaternion tempQ = (Quaternion)arrayListRotation[counter];
                 transform.rotation = tempQ;
-                */
+                
 
                 counter++;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour
+public class CameraControl2 : MonoBehaviour
 {
     public Transform missile;
     // Start is called before the first frame update
