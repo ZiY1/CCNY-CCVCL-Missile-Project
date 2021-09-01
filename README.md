@@ -16,6 +16,8 @@ To test Perception, go to Asset > Perception Test > Scene and open it.
 - Learn to use Machine Learning program
 
 ## ChangeLog
+### Sept 1
+- Added annotations for Camera's FOV
 ### Aug 28
 - Added BoundingBox2D
 - Made varies small changes such as renaming some variables to make it easier to understand

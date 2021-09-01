@@ -27,10 +27,12 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
     //BoundingBox3DLabeler boundingBox3DLabeler;
 
     public GameObject missile;
+    Camera cam;
     Quaternion v;
-    Quaternion t;
+    //Quaternion t;
 
     MetricDefinition missileMetricDefinition;
+    AnnotationDefinition cameraFOVAnnotationDefinition;
     AnnotationDefinition targetPositionAnnotationDefinition;
     AnnotationDefinition targetRotationAnnotationDefinition;
 
@@ -47,7 +49,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
         //    "Target bounding box",
         //    "The position of the target in the camera's local space",
         //    id: Guid.Parse("C0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-
+        cam = GetComponent<Camera>();
         //Missile's World Quaternion
         missileMetricDefinition = DatasetCapture.RegisterMetricDefinition(
             "Missile's World Quaternion",
@@ -63,6 +65,11 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             "Target bounding box position",
             "The position of the target in Unity's World Space",
             id: Guid.Parse("E0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Camera's FOV value
+        cameraFOVAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's FOV",
+            "Camera's FOV value",
+            id: Guid.Parse("F0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
 
         //int testID = 10009;
         //string testName = "Tester";
@@ -96,6 +103,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             //just taking the gameobjects position, no camera position considered
             Vector3 targetPos = missile.transform.position;
             Vector3 targetRot = missile.transform.eulerAngles;
+            double cameraFOV = cam.fieldOfView;
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
             var sensorHandle = GetComponent<PerceptionCamera>().SensorHandle;
             if (sensorHandle.ShouldCaptureThisFrame)
@@ -106,9 +114,12 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
                 sensorHandle.ReportAnnotationValues(
                     targetRotationAnnotationDefinition,
                     new[] { targetRot });
+                sensorHandle.ReportAnnotationValues(
+                    cameraFOVAnnotationDefinition,
+                    new[] { cameraFOV });
             }
 
-
+            Debug.Log("Camera's FOV: " + cameraFOV);
         }
 
         //Debug.Log("Target01 Rotation: " + target.transform.eulerAngles + "\nTarget02 Rotation: " + target2.transform.eulerAngles);
