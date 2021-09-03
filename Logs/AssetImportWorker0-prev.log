@@ -15,11 +15,11 @@ C:/Users/kelvi/Documents/GitHub/MissileProject
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-59999
+54926
 Successfully changed project path to: C:/Users/kelvi/Documents/GitHub/MissileProject
 C:/Users/kelvi/Documents/GitHub/MissileProject
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 70.13 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 73.69 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
@@ -35,141 +35,157 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56936
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56344
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001938 seconds.
+Registered in 0.001618 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 66.14 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 63.98 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.206 seconds
+- Completed reload, in  2.023 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005543 seconds.
+Registered in 0.004716 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 68.46 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 65.37 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.080 seconds
+- Completed reload, in  2.016 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.72 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 0.73 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3341 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 154.2 MB.
-System memory in use after: 154.4 MB.
+System memory in use before: 153.9 MB.
+System memory in use after: 154.1 MB.
 
 Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 3773.
-Total: 3.509900 ms (FindLiveObjects: 0.317100 ms CreateObjectMapping: 0.174200 ms MarkObjects: 2.949700 ms  DeleteObjects: 0.068000 ms)
+Total: 2.900800 ms (FindLiveObjects: 0.241400 ms CreateObjectMapping: 0.127500 ms MarkObjects: 2.472900 ms  DeleteObjects: 0.058400 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/MissileTrajectory/Ground Truth Data/target_annotation.csv
-  artifactKey: Guid(5dc03178c2b2b38459bb268c681a2b72) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/MissileTrajectory/Ground Truth Data/target_annotation.csv using Guid(5dc03178c2b2b38459bb268c681a2b72) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb1eb4ace21f235c3c561bfed98897d4') in 0.027585 seconds
-  Import took 0.033787 seconds .
+  path: Assets/RocketTest/Scene/RocketTest.unity
+  artifactKey: Guid(a2098f75a56ed4474aaf9c27d97a340f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/RocketTest/Scene/RocketTest.unity using Guid(a2098f75a56ed4474aaf9c27d97a340f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9526d049f99f346411f48467c9741e1') in 0.015988 seconds
+  Import took 0.020507 seconds .
+
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 6.29 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 28 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 81.3 MB.
+System memory in use after: 81.6 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 3773.
+Total: 3.560200 ms (FindLiveObjects: 0.264800 ms CreateObjectMapping: 0.145700 ms MarkObjects: 3.133200 ms  DeleteObjects: 0.015600 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000249 seconds.
-  path: Assets/MissileTrajectory/Ground Truth Data/Missile_Trajectory.ipynb
-  artifactKey: Guid(d808156b01e8fac49b48afd0d5be953f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/MissileTrajectory/Ground Truth Data/Missile_Trajectory.ipynb using Guid(d808156b01e8fac49b48afd0d5be953f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b9e09a3a5d7e6521f038c943978f356') in 0.010315 seconds
-  Import took 0.014721 seconds .
+  Time since last request: 915.840665 seconds.
+  path: Assets/MissileTrajectory/Scenes/Trajectory.unity
+  artifactKey: Guid(d34de057699d00e45858dfe5a22b258a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MissileTrajectory/Scenes/Trajectory.unity using Guid(d34de057699d00e45858dfe5a22b258a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '35e3df9da3305088570f6ee2c744b427') in 0.016993 seconds
+  Import took 0.022882 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.005315 seconds.
+Registered in 0.091657 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.75 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 1.38 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  3.501 seconds
+- Completed reload, in  4.687 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.75 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 1.34 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3205 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 144.5 MB.
-System memory in use after: 144.8 MB.
+System memory in use before: 144.3 MB.
+System memory in use after: 144.6 MB.
 
 Unloading 31 unused Assets to reduce memory usage. Loaded Objects now: 3777.
-Total: 3.094000 ms (FindLiveObjects: 0.308300 ms CreateObjectMapping: 0.131900 ms MarkObjects: 2.630900 ms  DeleteObjects: 0.022000 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 193.706778 seconds.
-  path: Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox_new.csv
-  artifactKey: Guid(de3593811bf2d74419624c6a26f7c1e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox_new.csv using Guid(de3593811bf2d74419624c6a26f7c1e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a431fd8679f9ef12c6b777719927c9c3') in 0.021136 seconds
-  Import took 0.026490 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.012183 seconds.
-  path: Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox_new.csv
-  artifactKey: Guid(de3593811bf2d74419624c6a26f7c1e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox_new.csv using Guid(de3593811bf2d74419624c6a26f7c1e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a431fd8679f9ef12c6b777719927c9c3') in 0.003161 seconds
-  Import took 0.008401 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 51.399073 seconds.
-  path: Assets/MissileTrajectory/Ground Truth Data/ego_annotation_new2.csv
-  artifactKey: Guid(dc038b6a259ce3149bb7ec970a2c16c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/MissileTrajectory/Ground Truth Data/ego_annotation_new2.csv using Guid(dc038b6a259ce3149bb7ec970a2c16c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f65afa54c7615730c09b6b711e1d904') in 0.003116 seconds
-  Import took 0.008323 seconds .
+Total: 3.136100 ms (FindLiveObjects: 0.360400 ms CreateObjectMapping: 0.206500 ms MarkObjects: 2.543200 ms  DeleteObjects: 0.024600 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.005286 seconds.
+Registered in 0.005005 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.75 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 0.81 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.600 seconds
+- Completed reload, in  4.120 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.76 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 0.77 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3205 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 144.6 MB.
-System memory in use after: 144.8 MB.
+System memory in use before: 144.4 MB.
+System memory in use after: 144.6 MB.
 
 Unloading 31 unused Assets to reduce memory usage. Loaded Objects now: 3781.
-Total: 3.061400 ms (FindLiveObjects: 0.292100 ms CreateObjectMapping: 0.152400 ms MarkObjects: 2.595600 ms  DeleteObjects: 0.020300 ms)
+Total: 5.461900 ms (FindLiveObjects: 0.383600 ms CreateObjectMapping: 0.187800 ms MarkObjects: 4.856700 ms  DeleteObjects: 0.032700 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.005452 seconds.
+Registered in 0.004836 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.78 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 0.79 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  5.170 seconds
+- Completed reload, in  6.286 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 0.79 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3205 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 144.6 MB.
-System memory in use after: 144.9 MB.
+System memory in use before: 144.4 MB.
+System memory in use after: 144.7 MB.
 
 Unloading 31 unused Assets to reduce memory usage. Loaded Objects now: 3785.
-Total: 2.961700 ms (FindLiveObjects: 0.265100 ms CreateObjectMapping: 0.148600 ms MarkObjects: 2.527800 ms  DeleteObjects: 0.019200 ms)
+Total: 3.054800 ms (FindLiveObjects: 0.315500 ms CreateObjectMapping: 0.130600 ms MarkObjects: 2.583300 ms  DeleteObjects: 0.024600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004683 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.75 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.321 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.76 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3205 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 144.4 MB.
+System memory in use after: 144.7 MB.
+
+Unloading 31 unused Assets to reduce memory usage. Loaded Objects now: 3789.
+Total: 2.961600 ms (FindLiveObjects: 0.248100 ms CreateObjectMapping: 0.129100 ms MarkObjects: 2.565700 ms  DeleteObjects: 0.018000 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 2568.307816 seconds.
+  path: Assets/MissileTrajectory/Scenes/Trajectory.unity
+  artifactKey: Guid(d34de057699d00e45858dfe5a22b258a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MissileTrajectory/Scenes/Trajectory.unity using Guid(d34de057699d00e45858dfe5a22b258a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11c6e69c341d451b5892696449e547e2') in 0.057288 seconds
+  Import took 0.062261 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

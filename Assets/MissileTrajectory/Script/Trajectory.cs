@@ -11,10 +11,13 @@ public class Trajectory : MonoBehaviour
     private ArrayList arrayListFoV;
 
     private static int counter = 0;
-    private float timeInterval = 0.25f;
+    private float timeInterval = 0.1f;
     private float nextTime = 0.0f;
 
     public Camera cam;
+
+    public string boundingBox3D = "3Dboundingbox.csv";
+    public string egoAnnotation = "ego_annotation_new.csv";
 
   // Start is called before the first frame update
     void Start()
@@ -45,9 +48,9 @@ public class Trajectory : MonoBehaviour
 
         // Anthony's ground truth data
         //StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/target_annotation3.csv");
-        StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox.csv");
+        StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/" + boundingBox3D);
 
-        StreamReader strReaderFoV = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/ego_annotation_new.csv");
+        StreamReader strReaderFoV = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/" + egoAnnotation);
 
 
         bool endOfFile = false;

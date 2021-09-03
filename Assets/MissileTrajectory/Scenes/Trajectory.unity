@@ -645,6 +645,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
+  boundingBox3D: 3Dboundingbox.csv
+  egoAnnotation: ego_annotation_new.csv
 --- !u!4 &976041044
 Transform:
   m_ObjectHideFlags: 0
@@ -679,6 +681,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
+  boundingBox3D: 3Dboundingbox_new.csv
+  egoAnnotation: ego_annotation_new2.csv
 --- !u!1001 &1633397483
 PrefabInstance:
   m_ObjectHideFlags: 0
