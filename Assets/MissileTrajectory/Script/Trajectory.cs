@@ -6,12 +6,15 @@ using System.IO;
 public class Trajectory : MonoBehaviour
 {
 
-  private ArrayList arrayListPosition;
-  private ArrayList arrayListRotation;
+    private ArrayList arrayListPosition;
+    private ArrayList arrayListRotation;
+    private ArrayList arrayListFoV;
 
-  private static int counter = 0;
-  private float timeInterval = 0.1f;
-  private float nextTime = 0.0f;
+    private static int counter = 0;
+    private float timeInterval = 0.25f;
+    private float nextTime = 0.0f;
+
+    public Camera cam;
 
   // Start is called before the first frame update
     void Start()
@@ -20,6 +23,7 @@ public class Trajectory : MonoBehaviour
         // Initialize the two ArrayLists
         arrayListPosition = new ArrayList();
         arrayListRotation = new ArrayList();
+        arrayListFoV = new ArrayList();
 
         ReadCSVFile();
 
@@ -41,7 +45,10 @@ public class Trajectory : MonoBehaviour
 
         // Anthony's ground truth data
         //StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/target_annotation3.csv");
-        StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox3.csv");
+        StreamReader strReader = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/3Dboundingbox.csv");
+
+        StreamReader strReaderFoV = new StreamReader("Assets/MissileTrajectory/Ground Truth Data/ego_annotation_new.csv");
+
 
         bool endOfFile = false;
 
@@ -51,8 +58,11 @@ public class Trajectory : MonoBehaviour
           // Read the CSV file line by line
           string data_String = strReader.ReadLine();
 
-          // Skip the first row which is the column names
-          if (counter < 1)
+            string data_String_ego = strReaderFoV.ReadLine();
+
+
+            // Skip the first row which is the column names
+            if (counter < 1)
           {
               counter++;
               continue;
@@ -69,9 +79,12 @@ public class Trajectory : MonoBehaviour
           // Split the entire line into individual column values
           var data_values = data_String.Split(',');
 
-          /* Store the position values (x, y, z) as a Vector3 and add it to an ArrayList
-             The indexes represent the column number of the position values (x, y, z) from the CSV files */
-          arrayListPosition.Add(new Vector3(float.Parse(data_values[1].ToString()), float.Parse(data_values[2].ToString()), float.Parse(data_values[3].ToString())));
+            var data_values_ego = data_String_ego.Split(',');
+
+
+            /* Store the position values (x, y, z) as a Vector3 and add it to an ArrayList
+               The indexes represent the column number of the position values (x, y, z) from the CSV files */
+            arrayListPosition.Add(new Vector3(float.Parse(data_values[2].ToString()), float.Parse(data_values[3].ToString()), float.Parse(data_values[4].ToString())));
 
           /* Rotation using Euler Angles, multiple methods
              May not be the best idea to use Euler angles due to the possibility of Gimbal Lock, it is suggested to use Quaternion instead */
@@ -94,8 +107,11 @@ public class Trajectory : MonoBehaviour
           //arrayListRotation.Add(new Quaternion(float.Parse(data_values[7].ToString()), float.Parse(data_values[8].ToString()), float.Parse(data_values[9].ToString()), float.Parse(data_values[10].ToString())));
 
           // For 3D Bounding Box CSV files, store the Quaternion values (x, y, w, z) as Quaternion and add it to an ArrayList
-          arrayListRotation.Add(new Quaternion(float.Parse(data_values[4].ToString()), float.Parse(data_values[5].ToString()), float.Parse(data_values[6].ToString()), float.Parse(data_values[7].ToString())));
+          arrayListRotation.Add(new Quaternion(float.Parse(data_values[8].ToString()), float.Parse(data_values[9].ToString()), float.Parse(data_values[10].ToString()), float.Parse(data_values[11].ToString())));
 
+            // get cam FoV from file
+            arrayListFoV.Add(float.Parse(data_values_ego[11].ToString()));
+            //Debug.Log(data_values_ego[11].ToString());
         }
 
     }
@@ -142,7 +158,12 @@ public class Trajectory : MonoBehaviour
 
                 Quaternion tempQ = (Quaternion)arrayListRotation[counter];
                 transform.rotation = tempQ;
-                
+
+                // change cam FoV
+                float tempF = (float)arrayListFoV[counter];
+                cam.fieldOfView = tempF;
+
+                Debug.Log(counter);
 
                 counter++;
 
