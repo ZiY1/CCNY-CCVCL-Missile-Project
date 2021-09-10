@@ -33,7 +33,6 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
 
     MetricDefinition missileMetricDefinition;
     AnnotationDefinition cameraFOVAnnotationDefinition;
-    AnnotationDefinition cameraPositionAnnotationDefinition;
     AnnotationDefinition targetPositionAnnotationDefinition;
     AnnotationDefinition targetRotationAnnotationDefinition;
 
@@ -71,11 +70,6 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             "Camera's FOV",
             "Camera's FOV value",
             id: Guid.Parse("F0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's World Posistion
-        cameraPositionAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's Pos",
-            "Camera's position in Unity's World Space",
-            id: Guid.Parse("A0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
 
 
         //int testID = 10009;
@@ -108,9 +102,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             //compute the location of the object in the camera's local space
             //Vector3 targetPos = transform.worldToLocalMatrix * target.transform.position;
             //just taking the gameobjects position, no camera position considered
-            Vector3 camPos = gameObject.transform.position;
             Vector3 targetPos = missile.transform.position;
-            //Debug.Log("CamPos: " + camPos + "TargetPos: " + targetPos);
             Vector3 targetRot = missile.transform.eulerAngles;
             double cameraFOV = cam.fieldOfView;
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
@@ -126,9 +118,6 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
                 sensorHandle.ReportAnnotationValues(
                     cameraFOVAnnotationDefinition,
                     new[] { cameraFOV });
-                sensorHandle.ReportAnnotationValues(
-                    cameraPositionAnnotationDefinition,
-                    new[] { camPos });
             }
 
             //Debug.Log("Camera's FOV: " + cameraFOV);
