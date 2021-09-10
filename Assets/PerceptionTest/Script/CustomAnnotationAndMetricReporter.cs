@@ -33,6 +33,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
 
     MetricDefinition missileMetricDefinition;
     AnnotationDefinition cameraFOVAnnotationDefinition;
+    AnnotationDefinition cameraPositionAnnotationDefinition;
     AnnotationDefinition targetPositionAnnotationDefinition;
     AnnotationDefinition targetRotationAnnotationDefinition;
 
@@ -62,7 +63,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             id: Guid.Parse("D0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
         //Missile's World Rotation in eulerAngle
         targetRotationAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Target bounding box position",
+            "Target bounding box rotation",
             "The position of the target in Unity's World Space",
             id: Guid.Parse("E0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
         //Camera's FOV value
@@ -70,6 +71,12 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             "Camera's FOV",
             "Camera's FOV value",
             id: Guid.Parse("F0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Camera's World Posistion
+        cameraPositionAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's Pos",
+            "Camera's position in Unity's World Space",
+            id: Guid.Parse("A0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+ 
 
         //int testID = 10009;
         //string testName = "Tester";
@@ -90,9 +97,9 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
     {
         if(missile == true)
         {
-            v = Quaternion.Euler(missile.transform.eulerAngles);
+            //v = Quaternion.Euler(missile.transform.eulerAngles);
             //t = missile.transform.rotation;
-            Debug.Log("Quaternion.Euler: " + v);
+            //Debug.Log("Quaternion.Euler: " + v);
             //Debug.Log("Quaternion: " + t); //t == v
             //Report the light's position by manually creating the json array string.
             //var lightPos = targetLight.transform.position;
@@ -101,7 +108,9 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             //compute the location of the object in the camera's local space
             //Vector3 targetPos = transform.worldToLocalMatrix * target.transform.position;
             //just taking the gameobjects position, no camera position considered
+            Vector3 camPos = gameObject.transform.position;
             Vector3 targetPos = missile.transform.position;
+            //Debug.Log("CamPos: " + camPos + "TargetPos: " + targetPos);
             Vector3 targetRot = missile.transform.eulerAngles;
             double cameraFOV = cam.fieldOfView;
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
@@ -117,9 +126,12 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
                 sensorHandle.ReportAnnotationValues(
                     cameraFOVAnnotationDefinition,
                     new[] { cameraFOV });
+                sensorHandle.ReportAnnotationValues(
+                    cameraPositionAnnotationDefinition,
+                    new[] { camPos });
             }
 
-            Debug.Log("Camera's FOV: " + cameraFOV);
+            //Debug.Log("Camera's FOV: " + cameraFOV);
         }
 
         //Debug.Log("Target01 Rotation: " + target.transform.eulerAngles + "\nTarget02 Rotation: " + target2.transform.eulerAngles);
