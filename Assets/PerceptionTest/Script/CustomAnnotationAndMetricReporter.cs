@@ -64,7 +64,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
         //Missile's World Rotation in eulerAngle
         targetRotationAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
             "Target bounding box rotation",
-            "The position of the target in Unity's World Space",
+            "The rotation of the target in Unity's World Space",
             id: Guid.Parse("E0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
         //Camera's FOV value
         cameraFOVAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
@@ -76,7 +76,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             "Camera's Pos",
             "Camera's position in Unity's World Space",
             id: Guid.Parse("A0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
- 
+
 
         //int testID = 10009;
         //string testName = "Tester";
