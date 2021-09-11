@@ -37,6 +37,8 @@ public class CameraPlacement : MonoBehaviour
     public float moveSpeed = 50f;
     public float rotSpeed = 50f;
 
+    public Text current_position_text;
+
     
     public GameObject camSelectionButtonPrefab;
     public GameObject newButtonParent;
@@ -159,6 +161,9 @@ public class CameraPlacement : MonoBehaviour
                 {
                     camPlacement[selectedCamIndex].transform.rotation = playerCamera.transform.rotation;
                 }
+
+                // update UI text that shows current camera's position
+                current_position_text.text = "Camera Position: (" + playerCamera.transform.position.x.ToString("F2") + ", " + playerCamera.transform.position.y.ToString("F2") + ", " + playerCamera.transform.position.z.ToString("F2") + ")";
             }
         }
     }
