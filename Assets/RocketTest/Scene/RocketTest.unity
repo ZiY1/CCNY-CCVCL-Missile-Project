@@ -37146,8 +37146,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
+        type: 3}
+      propertyPath: m_FocalLength
+      value: 32.96973
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
+        type: 3}
       propertyPath: m_TargetTexture
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
+        type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6467261107186278235, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
