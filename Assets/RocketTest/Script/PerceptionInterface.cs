@@ -132,7 +132,7 @@ public class PerceptionInterface : MonoBehaviour
         fls.constants.totalIterations = newTotalIterations;
 
         seedText.text = "\tSeed: " + fls.constants.randomSeed.ToString();
-        totalIterationsText.text = "\tNumber of Frames\n\t(Iterations): " + fls.constants.totalIterations.ToString();
+        totalIterationsText.text = "\tNumber of Frames: " + fls.constants.totalIterations.ToString();
 
         fls.GetRandomizer<CustomRotationRandomizer>().rotation = new Vector3Parameter
         {
