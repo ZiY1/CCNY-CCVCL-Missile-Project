@@ -114,7 +114,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             Vector3 targetRot = missile.transform.eulerAngles;
             double cameraFOV = cam.fieldOfView;
             double cameraFL = cam.focalLength;
-            Debug.Log("Camera's Focal Length: " + cameraFL);
+            //Debug.Log("Camera's Focal Length: " + cameraFL);
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
             var sensorHandle = GetComponent<PerceptionCamera>().SensorHandle;
             if (sensorHandle.ShouldCaptureThisFrame)
