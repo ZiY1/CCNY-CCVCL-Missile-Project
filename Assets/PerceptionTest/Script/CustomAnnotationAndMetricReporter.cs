@@ -50,6 +50,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
         //    "Target bounding box",
         //    "The position of the target in the camera's local space",
         //    id: Guid.Parse("C0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        gameObject.GetComponent<Camera>().usePhysicalProperties = true; //needed to properly record focal length
         cam = GetComponent<Camera>();
         //Missile's World Quaternion
         missileMetricDefinition = DatasetCapture.RegisterMetricDefinition(
