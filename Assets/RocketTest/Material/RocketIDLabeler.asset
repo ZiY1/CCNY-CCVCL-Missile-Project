@@ -45,5 +45,7 @@ MonoBehaviour:
     id: 15
   - label: Missile_1
     id: 16
+  - label: smoketrail (1)
+    id: 17
   autoAssignIds: 1
   startingLabelId: 1

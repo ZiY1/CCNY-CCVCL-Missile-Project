@@ -16,6 +16,8 @@ To test Perception, go to Asset > Perception Test > Scene and open it.
 - Learn to use Machine Learning program
 
 ## ChangeLog
+### Sept 12
+- Added annotations for Camera's Focal Length
 ### Sept 1
 - Added annotations for Camera's FOV
 ### Aug 28

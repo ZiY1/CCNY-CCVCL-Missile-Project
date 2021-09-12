@@ -33,6 +33,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
 
     MetricDefinition missileMetricDefinition;
     AnnotationDefinition cameraFOVAnnotationDefinition;
+    AnnotationDefinition cameraFocalLengthAnnotationDefinition;
     AnnotationDefinition targetPositionAnnotationDefinition;
     AnnotationDefinition targetRotationAnnotationDefinition;
 
@@ -70,6 +71,12 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             "Camera's FOV",
             "Camera's FOV value",
             id: Guid.Parse("F0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Camera's Focal Length
+        cameraFocalLengthAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's Focal Length",
+            "Camera's Focal Length value",
+            id: Guid.Parse("A0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+
 
 
         //int testID = 10009;
@@ -105,6 +112,8 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             Vector3 targetPos = missile.transform.position;
             Vector3 targetRot = missile.transform.eulerAngles;
             double cameraFOV = cam.fieldOfView;
+            double cameraFL = cam.focalLength;
+            Debug.Log("Camera's Focal Length: " + cameraFL);
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
             var sensorHandle = GetComponent<PerceptionCamera>().SensorHandle;
             if (sensorHandle.ShouldCaptureThisFrame)
@@ -118,6 +127,9 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
                 sensorHandle.ReportAnnotationValues(
                     cameraFOVAnnotationDefinition,
                     new[] { cameraFOV });
+                sensorHandle.ReportAnnotationValues(
+                    cameraFocalLengthAnnotationDefinition,
+                    new[] { cameraFL });
             }
 
             //Debug.Log("Camera's FOV: " + cameraFOV);
