@@ -62,7 +62,7 @@ public class CameraManager : MonoBehaviour
         //missile_obj = spawnRocket.GetRocket();
     }
 
-    void Update()
+    void LateUpdate()
     {
         // rotates camera to follow missile movement & adjusts cam FoV to keep missile at a constant screen size
         if (lock_on)

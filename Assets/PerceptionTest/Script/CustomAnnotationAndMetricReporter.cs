@@ -29,6 +29,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
     public GameObject missile;
     Camera cam;
     Quaternion v;
+    Quaternion camQ;
     //Quaternion t;
 
     MetricDefinition missileMetricDefinition;
@@ -94,12 +95,12 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
     //        label_name = name
     //    };
     //}
-
-    public void Update()
+    public void LateUpdate()
     {
         if(missile == true)
         {
-            //v = Quaternion.Euler(missile.transform.eulerAngles);
+            v = Quaternion.Euler(missile.transform.eulerAngles);
+            camQ = Quaternion.Euler(gameObject.transform.eulerAngles);
             //t = missile.transform.rotation;
             //Debug.Log("Quaternion.Euler: " + v);
             //Debug.Log("Quaternion: " + t); //t == v
@@ -133,7 +134,7 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
                     new[] { cameraFL });
             }
 
-            //Debug.Log("Camera's FOV: " + cameraFOV);
+            Debug.Log("Camera's Quaternion: " + camQ);
         }
 
         //Debug.Log("Target01 Rotation: " + target.transform.eulerAngles + "\nTarget02 Rotation: " + target2.transform.eulerAngles);
