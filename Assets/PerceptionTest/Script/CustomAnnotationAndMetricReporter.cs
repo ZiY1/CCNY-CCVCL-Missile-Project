@@ -30,9 +30,11 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
     Camera cam;
     Quaternion v;
     Quaternion camQ;
+    Vector3 cameraRot;
     //Quaternion t;
 
     MetricDefinition missileMetricDefinition;
+    AnnotationDefinition cameraRotationDefiniation;
     AnnotationDefinition cameraFOVAnnotationDefinition;
     AnnotationDefinition cameraFocalLengthAnnotationDefinition;
     AnnotationDefinition targetPositionAnnotationDefinition;
@@ -78,6 +80,11 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             "Camera's Focal Length",
             "Camera's Focal Length value",
             id: Guid.Parse("A0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Camera's Rotation value
+        cameraRotationDefiniation = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's Rotation",
+            "Camera's Rotation value",
+            id: Guid.Parse("B0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
 
 
 
@@ -115,6 +122,8 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             Vector3 targetRot = missile.transform.eulerAngles;
             double cameraFOV = cam.fieldOfView;
             double cameraFL = cam.focalLength;
+            cameraRot = new Vector3(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+            Debug.Log("Rotation: " + cameraRot);
             //Debug.Log("Camera's Focal Length: " + cameraFL);
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
             var sensorHandle = GetComponent<PerceptionCamera>().SensorHandle;
@@ -132,9 +141,12 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
                 sensorHandle.ReportAnnotationValues(
                     cameraFocalLengthAnnotationDefinition,
                     new[] { cameraFL });
+                sensorHandle.ReportAnnotationValues(
+                    cameraRotationDefiniation,
+                    new[] { cameraRot });
             }
 
-            Debug.Log("Camera's Quaternion: " + camQ);
+            //Debug.Log("Camera's Quaternion: " + camQ);
         }
 
         //Debug.Log("Target01 Rotation: " + target.transform.eulerAngles + "\nTarget02 Rotation: " + target2.transform.eulerAngles);
