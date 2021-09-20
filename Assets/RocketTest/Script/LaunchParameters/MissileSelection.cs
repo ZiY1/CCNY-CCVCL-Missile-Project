@@ -19,6 +19,8 @@ public class MissileSelection : MonoBehaviour
     public GameObject Missile8;
     public GameObject Missile9;
 
+    public List<GameObject> missile_children;
+
     public CameraManager CameraManager;
     public EditMissilePosition EditMissilePosition;
     public CustomAnnotationAndMetricReporter customAnnotationAndMetricReporter;
@@ -218,7 +220,7 @@ public class MissileSelection : MonoBehaviour
         }
 
         fixedLengthScenario.GetRandomizer<CustomRotationRandomizer>().missileParent = CameraManager.missile_obj;
-        customAnnotationAndMetricReporter.missile = CameraManager.missile_obj;
+        customAnnotationAndMetricReporter.missile = missile_children[val];
     }
     // Debug only
     void CheckActive()

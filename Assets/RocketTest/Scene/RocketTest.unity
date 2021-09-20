@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49943203, g: 0.6505408, b: 0.8345964, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5988,7 +5988,7 @@ MonoBehaviour:
   - id: 0
   constants:
     randomSeed: 539662031
-    totalIterations: 50
+    totalIterations: 100
     instanceCount: 1
     instanceIndex: 0
     framesPerIteration: 1
@@ -15858,7 +15858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1301241171
 Transform:
   m_ObjectHideFlags: 0
@@ -15867,7 +15867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301241170}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.01}
+  m_LocalPosition: {x: 0, y: -0, z: -0.00576}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 1653635023162356592}
@@ -15996,7 +15996,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301241170}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b33f0bc2b78db642a758f07826d0dd0, type: 3}
   m_Name: 
@@ -16726,6 +16726,16 @@ MonoBehaviour:
   Missile7: {fileID: 488188522}
   Missile8: {fileID: 180539790}
   Missile9: {fileID: 1283867522}
+  missile_children:
+  - {fileID: 2577089061170144045}
+  - {fileID: 436015005}
+  - {fileID: 757080954}
+  - {fileID: 957720716}
+  - {fileID: 1780257057}
+  - {fileID: 1793519714}
+  - {fileID: 1218878480}
+  - {fileID: 1952796169}
+  - {fileID: 1159406051}
   CameraManager: {fileID: 294421596}
   EditMissilePosition: {fileID: 1390934172}
   customAnnotationAndMetricReporter: {fileID: 841929881}
@@ -20192,7 +20202,7 @@ CapsuleCollider:
   m_Radius: 0.0004
   m_Height: 0.01375
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.00375}
 --- !u!114 &1619365791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26940,7 +26950,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141801261665413578}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -392.569, y: 9, z: -675.341}
+  m_LocalPosition: {x: -392.569, y: 8.466, z: -675.341}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 1301241171}
@@ -37302,7 +37312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2577089061170144045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00379}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5567267990950825642}
