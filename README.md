@@ -16,6 +16,9 @@ To test Perception, go to Asset > Perception Test > Scene and open it.
 - Learn to use Machine Learning program
 
 ## ChangeLog
+### Sept 24
+- Added the rest of the physical camera values into the annotation.
+- Applied spin to missile
 ### Sept 19
 - Changed CustomAnnotation... and CameraManager to use LateUpdate() to attempt a more accurate reading
 ### Sept 12

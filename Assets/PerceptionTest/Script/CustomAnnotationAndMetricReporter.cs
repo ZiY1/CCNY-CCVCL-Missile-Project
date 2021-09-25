@@ -29,18 +29,17 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
     public GameObject missile;
     Camera cam;
     Quaternion v;
-    Quaternion camQ;
     Vector3 cameraRot;
-    //Quaternion t;
 
     MetricDefinition missileMetricDefinition;
+    AnnotationDefinition targetPositionAnnotationDefinition;
+    AnnotationDefinition targetRotationAnnotationDefinition;
     AnnotationDefinition cameraRotationDefiniation;
     AnnotationDefinition cameraFOVAnnotationDefinition;
     AnnotationDefinition cameraFocalLengthAnnotationDefinition;
-    AnnotationDefinition targetPositionAnnotationDefinition;
-    AnnotationDefinition targetRotationAnnotationDefinition;
-
-    //testing testing 123
+    AnnotationDefinition cameraSensorSizeAnnotationDefinition;
+    AnnotationDefinition cameraLensShiftAnnotationDefinition;
+    AnnotationDefinition cameraGateFitAnnotationDefinition;
 
     public void Start()
     {
@@ -70,23 +69,36 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
             "Target bounding box rotation",
             "The rotation of the target in Unity's World Space",
             id: Guid.Parse("E0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's FOV value
-        cameraFOVAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's FOV",
-            "Camera's FOV value",
-            id: Guid.Parse("F0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's Focal Length
-        cameraFocalLengthAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's Focal Length",
-            "Camera's Focal Length value",
-            id: Guid.Parse("A0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
         //Camera's Rotation value
         cameraRotationDefiniation = DatasetCapture.RegisterAnnotationDefinition(
             "Camera's Rotation",
             "Camera's Rotation value",
             id: Guid.Parse("B0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-
-
+        //Camera's FOV value
+        cameraFOVAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's FOV",
+            "The field of view of the camera in degrees",
+            id: Guid.Parse("F0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Camera's Focal Length
+        cameraFocalLengthAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's Focal Length",
+            "The camera focal length, expressed in millimeters. To use this property, enable UsePhysicalProperties",
+            id: Guid.Parse("A0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Camera's Sensor Size
+        cameraSensorSizeAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's Sensor Size",
+            "The size of the camera sensor, expressed in millimeters",
+            id: Guid.Parse("C0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Camera's Lens Shift
+        cameraLensShiftAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's Lens Shift",
+            "The lens offset of the camera. The lens shift is relative to the sensor size. For example, a lens shift of 0.5 offsets the sensor by half its horizontal size",
+            id: Guid.Parse("A1B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Camera's Gate Fit
+        cameraGateFitAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera's Gate Fit",
+            "There are two gates for a camera, the sensor gate and the resolution gate. The physical camera sensor gate is defined by the sensorSize property, the resolution gate is defined by the render target area",
+            id: Guid.Parse("B1B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
 
         //int testID = 10009;
         //string testName = "Tester";
@@ -106,25 +118,37 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
     {
         if(missile == true)
         {
+            //missiles quaternion
             v = Quaternion.Euler(missile.transform.eulerAngles);
-            camQ = Quaternion.Euler(gameObject.transform.eulerAngles);
-            //t = missile.transform.rotation;
-            //Debug.Log("Quaternion.Euler: " + v);
-            //Debug.Log("Quaternion: " + t); //t == v
-            //Report the light's position by manually creating the json array string.
-            //var lightPos = targetLight.transform.position;
+
+            //Writing missile's quaternion to file
             DatasetCapture.ReportMetric(missileMetricDefinition,
                 $@"[{{ ""x"": {v.x}, ""y"": {v.y}, ""z"": {v.z}, ""w"": {v.w} }}]");
-            //compute the location of the object in the camera's local space
-            //Vector3 targetPos = transform.worldToLocalMatrix * target.transform.position;
-            //just taking the gameobjects position, no camera position considered
+
+            //missiles position
             Vector3 targetPos = missile.transform.position;
+
+            //missiles rotation
             Vector3 targetRot = missile.transform.eulerAngles;
+
+            //camera's field of view - "The field of view of the camera in degrees."
             double cameraFOV = cam.fieldOfView;
+
+            //camera's focallength - "The camera focal length, expressed in millimeters. To use this property, enable UsePhysicalProperties"
             double cameraFL = cam.focalLength;
+
+            //camera's sensor size - "The size of the camera sensor, expressed in millimeters."
+            Vector2 camSensorSize = cam.sensorSize;
+
+            //camera's lens shift - "The lens offset of the camera. The lens shift is relative to the sensor size. For example, a lens shift of 0.5 offsets the sensor by half its horizontal size."
+            Vector2 camLensShift = cam.lensShift;
+
+            //Camera's Gate Fit - "There are two gates for a camera, the sensor gate and the resolution gate. The physical camera sensor gate is defined by the sensorSize property, the resolution gate is defined by the render target area"
+            string camGateFit = cam.gateFit.ToString();
+
+            //camera's rotation in vector3
             cameraRot = new Vector3(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
-            Debug.Log("Rotation: " + cameraRot);
-            //Debug.Log("Camera's Focal Length: " + cameraFL);
+
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
             var sensorHandle = GetComponent<PerceptionCamera>().SensorHandle;
             if (sensorHandle.ShouldCaptureThisFrame)
@@ -144,9 +168,20 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
                 sensorHandle.ReportAnnotationValues(
                     cameraRotationDefiniation,
                     new[] { cameraRot });
+                sensorHandle.ReportAnnotationValues(
+                    cameraSensorSizeAnnotationDefinition,
+                    new[] { camSensorSize });
+                sensorHandle.ReportAnnotationValues(
+                    cameraLensShiftAnnotationDefinition,
+                    new[] { camLensShift });
+                sensorHandle.ReportAnnotationValues(
+                    cameraGateFitAnnotationDefinition,
+                    new[] { camGateFit });
             }
 
-            //Debug.Log("Camera's Quaternion: " + camQ);
+            //Debug.Log("Camera's Lens Shift: " + camLensShift);
+            //Debug.Log("Camera's Gate Fit: " + camGateFit);
+
         }
 
         //Debug.Log("Target01 Rotation: " + target.transform.eulerAngles + "\nTarget02 Rotation: " + target2.transform.eulerAngles);

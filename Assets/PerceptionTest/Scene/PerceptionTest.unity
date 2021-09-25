@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &19996829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,7 +372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &67759845
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -444,7 +444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67759844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -8.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256393975}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4467405dbcbd3d64ab4363e9ae8bb813, type: 3}
   m_Name: 
@@ -876,7 +876,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256393975}
   m_LocalRotation: {x: 0.000000014901163, y: -0.7071068, z: -0.000000014901163, w: 0.7071068}
-  m_LocalPosition: {x: 100, y: 0, z: 0}
+  m_LocalPosition: {x: 30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1752,7 +1752,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d690288202c40ee94b665b78521ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initVelocity: 50
+  initVelocity: 100
+  spinValue: 50
 --- !u!54 &895348822
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3263,6 +3264,7 @@ GameObject:
   - component: {fileID: 895348822}
   - component: {fileID: 895348821}
   - component: {fileID: 3956545707641637503}
+  - component: {fileID: 3956545707641637504}
   m_Layer: 0
   m_Name: PfCruiseMissileMod
   m_TagString: Untagged
@@ -3285,6 +3287,20 @@ MonoBehaviour:
   tran: {fileID: 0}
   q: {x: 0, y: 0, z: 0, w: 0}
   qu: {x: 0, y: 0, z: 0, w: 0}
+--- !u!64 &3956545707641637504
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956545707641637502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!23 &4169351631315290288
 MeshRenderer:
   m_ObjectHideFlags: 0

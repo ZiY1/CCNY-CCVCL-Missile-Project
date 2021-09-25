@@ -34,6 +34,10 @@ public class Projectile2 : MonoBehaviour
     /* Quaternions are used to represent rotations. */
     private Quaternion initialRotation;
 
+    //spin stuff
+    bool spin = false;
+    float spinValue = 30.0f;
+    GameObject missileBody;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +47,8 @@ public class Projectile2 : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
+        missileBody = gameObject.transform.GetChild(1).gameObject;
+        Debug.Log(missileBody.name);
         // Testing
         //Debug.Log("initPos: " + initialPosition);
         //Debug.Log("initRot: " + initialRotation);
@@ -120,6 +126,8 @@ public class Projectile2 : MonoBehaviour
             rigid.velocity = globalVelocity;
 
             bTargetReady = false;
+
+            spin = true;
         }
         catch (Exception ex)
         {
@@ -166,11 +174,19 @@ public class Projectile2 : MonoBehaviour
             ResetToInitialState();
         }*/
 
+
+
         if (!bTouchingGround && !bTargetReady)
         {
             // Update the rotation of the projectile during trajectory motion
             transform.rotation = Quaternion.LookRotation(rigid.velocity);
         }
+        if (spin)
+        {
+            Debug.Log("Spinning");
+            missileBody.transform.Rotate(xAngle: 0, yAngle: 0, zAngle: spinValue);
+        }
+
     }
 
 
@@ -179,6 +195,7 @@ public class Projectile2 : MonoBehaviour
     {
         bTouchingGround = true;
         rigid.velocity = Vector3.zero;
+        spin = false;
     }
 
     void OnCollisionExit()
