@@ -21,16 +21,16 @@ public class MissileInitialSetting : MonoBehaviour
     public void SetUpInitialDOF()
     {
         // Set initial 6DOF of the missiles
-        Vector3 initialVec = new Vector3(0, 0, 2);
+        Vector3 initialVec = new Vector3(0, 0, 5);
         Quaternion initialQuat = Quaternion.Euler(-90, 0, 0);
 
-        missile1.transform.localPosition = initialVec;
+        missile1.transform.localPosition = new Vector3(0, 0, 4); // for better virtual effect
         missile1.transform.localRotation = initialQuat;
 
-        missile2.transform.localPosition = new Vector3(0, 0, 3); // for better virtual effect
+        missile2.transform.localPosition = new Vector3(0, 0, 6.5f); // for better virtual effect
         missile2.transform.localRotation = initialQuat;
 
-        missile3.transform.localPosition = initialVec;
+        missile3.transform.localPosition = new Vector3(0, 0, 4); // for better virtual effect
         missile3.transform.localRotation = initialQuat;
 
         missile4.transform.localPosition = initialVec;
@@ -48,7 +48,7 @@ public class MissileInitialSetting : MonoBehaviour
         missile8.transform.localPosition = initialVec;
         missile8.transform.localRotation = initialQuat;
 
-        missile9.transform.localPosition = new Vector3(0, 0, 3); // for better virtual effect
+        missile9.transform.localPosition = initialVec;
         missile9.transform.localRotation = initialQuat;
 
     }
