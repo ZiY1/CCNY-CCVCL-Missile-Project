@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49974123, g: 0.6509565, b: 0.8351435, a: 1}
+  m_IndirectSpecularColor: {r: 0.49943203, g: 0.6505408, b: 0.8345964, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5988,7 +5988,7 @@ MonoBehaviour:
   - id: 0
   constants:
     randomSeed: 539662031
-    totalIterations: 100
+    totalIterations: 30
     instanceCount: 1
     instanceIndex: 0
     framesPerIteration: 1
@@ -37202,12 +37202,17 @@ PrefabInstance:
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
       propertyPath: field of view
-      value: 40
+      value: 57.265137
       objectReference: {fileID: 0}
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
       propertyPath: m_FocalLength
       value: 32.96973
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
+        type: 3}
+      propertyPath: m_SensorSize.y
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}

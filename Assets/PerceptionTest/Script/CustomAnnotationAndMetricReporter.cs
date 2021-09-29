@@ -1,194 +1,95 @@
 using System;
 using UnityEngine;
 using UnityEngine.Perception.GroundTruth;
+//using System.Collections.Generic;
 
 [RequireComponent(typeof(PerceptionCamera))]
 public class CustomAnnotationAndMetricReporter : MonoBehaviour
 {
-    //[Serializable]
-    //public struct BoxData
-    //{
-    //    /// <summary>
-    //    /// Integer identifier of the label
-    //    /// </summary>
-    //    //public int label_id;
-    //    /// <summary>
-    //    /// String identifier of the label
-    //    /// </summary>
-    //    //public string label_name;
-    //}
-
-    //public GameObject targetLight;
-    //public GameObject camera; //not yet implemented. Possibly need both camera's nad target's position. For now, just target
-
-    //MetricDefinition lightMetricDefinition;
-    //AnnotationDefinition boundingBoxAnnotationDefinition;
-    //SensorHandle cameraSensorHandle;
-    //BoundingBox3DLabeler boundingBox3DLabeler;
+    [Serializable]
+    public struct MissileData
+    {
+        public string name;
+        public Vector3 worldPosition;
+        public Vector3 worldRotation;
+        public float[] worldQuaterion;
+    }
+    [Serializable]
+    public struct CameraData
+    {
+        public string name;
+        public Vector3 worldRotation;
+        public double FOV;
+        public double focalLength;
+        public Vector2 sensorSize;
+        public Vector2 lensShift;
+        public string gateFit;
+    }
 
     public GameObject missile;
     Camera cam;
     Quaternion v;
-    Vector3 cameraRot;
 
-    MetricDefinition missileMetricDefinition;
-    AnnotationDefinition targetPositionAnnotationDefinition;
-    AnnotationDefinition targetRotationAnnotationDefinition;
-    AnnotationDefinition cameraRotationDefiniation;
-    AnnotationDefinition cameraFOVAnnotationDefinition;
-    AnnotationDefinition cameraFocalLengthAnnotationDefinition;
-    AnnotationDefinition cameraSensorSizeAnnotationDefinition;
-    AnnotationDefinition cameraLensShiftAnnotationDefinition;
-    AnnotationDefinition cameraGateFitAnnotationDefinition;
+    AnnotationDefinition missileDataAnnotationDefinition;
+    AnnotationDefinition cameraDataAnnotationDefinition;
 
     public void Start()
     {
-        //Metrics and annotations are registered up-front
-        //lightMetricDefinition = DatasetCapture.RegisterMetricDefinition(
-        //    "Light position",
-        //    "The world-space position of the light",
-        //    Guid.Parse("1F6BFF46-F884-4CC5-A878-DB987278FE35"));
-        //boundingBoxAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-        //    "Target bounding box",
-        //    "The position of the target in the camera's local space",
-        //    id: Guid.Parse("C0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
         gameObject.GetComponent<Camera>().usePhysicalProperties = true; //needed to properly record focal length
         cam = GetComponent<Camera>();
-        //Missile's World Quaternion
-        missileMetricDefinition = DatasetCapture.RegisterMetricDefinition(
-            "Missile's World Quaternion",
-            "The world-quaternion of the missile",
-            Guid.Parse("2F6BFF46-F884-4CC5-A878-DB987278FE35"));
-        //Missile's World Position
-        targetPositionAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Target bounding box position",
-            "The position of the target in Unity's World Space",
-            id: Guid.Parse("D0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Missile's World Rotation in eulerAngle
-        targetRotationAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Target bounding box rotation",
-            "The rotation of the target in Unity's World Space",
-            id: Guid.Parse("E0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's Rotation value
-        cameraRotationDefiniation = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's Rotation",
-            "Camera's Rotation value",
-            id: Guid.Parse("B0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's FOV value
-        cameraFOVAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's FOV",
-            "The field of view of the camera in degrees",
-            id: Guid.Parse("F0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's Focal Length
-        cameraFocalLengthAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's Focal Length",
-            "The camera focal length, expressed in millimeters. To use this property, enable UsePhysicalProperties",
-            id: Guid.Parse("A0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's Sensor Size
-        cameraSensorSizeAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's Sensor Size",
-            "The size of the camera sensor, expressed in millimeters",
-            id: Guid.Parse("C0B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's Lens Shift
-        cameraLensShiftAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's Lens Shift",
-            "The lens offset of the camera. The lens shift is relative to the sensor size. For example, a lens shift of 0.5 offsets the sensor by half its horizontal size",
-            id: Guid.Parse("A1B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
-        //Camera's Gate Fit
-        cameraGateFitAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
-            "Camera's Gate Fit",
-            "There are two gates for a camera, the sensor gate and the resolution gate. The physical camera sensor gate is defined by the sensorSize property, the resolution gate is defined by the render target area",
-            id: Guid.Parse("B1B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        
+        cameraDataAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Camera Data",
+            "Camera Data: World Rotation, Field of View, Focal Length, Sensor Size, Lens Shift, Gate Fit",
+            id: Guid.Parse("E1B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
+        //Missile data all in one
+        missileDataAnnotationDefinition = DatasetCapture.RegisterAnnotationDefinition(
+            "Missile Data",
+            "Missile Data: World Rotation, World Position",
+            id: Guid.Parse("D1B4A22C-0420-4D9F-BAFC-954B8F7B35A7"));
 
-        //int testID = 10009;
-        //string testName = "Tester";
-        //BoxData testData = ConvertToBoxData(testID, testName);
-        //camera = gameObject;
     }
 
-    //private BoxData ConvertToBoxData(int id, string name)
-    //{
-    //    return new BoxData
-    //    {
-    //        label_id = id,
-    //        label_name = name
-    //    };
-    //}
     public void LateUpdate()
     {
         if(missile == true)
         {
+            CameraData cameraData;
+            cameraData.name = cam.gameObject.name;
+            cameraData.worldRotation = new Vector3(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+            cameraData.FOV = cam.fieldOfView; //camera's field of view - "The field of view of the camera in degrees."
+            cameraData.focalLength = cam.focalLength; //camera's focallength - "The camera focal length, expressed in millimeters. To use this property, enable UsePhysicalProperties"
+            cameraData.sensorSize = cam.sensorSize; //camera's sensor size - "The size of the camera sensor, expressed in millimeters."
+            cameraData.lensShift = cam.lensShift; //camera's lens shift - "The lens offset of the camera. The lens shift is relative to the sensor size. For example, a lens shift of 0.5 offsets the sensor by half its horizontal size."
+            cameraData.gateFit = cam.gateFit.ToString(); //Camera's Gate Fit - "There are two gates for a camera, the sensor gate and the resolution gate. The physical camera sensor gate is defined by the sensorSize property, the resolution gate is defined by the render target area"
+
             //missiles quaternion
             v = Quaternion.Euler(missile.transform.eulerAngles);
 
-            //Writing missile's quaternion to file
-            DatasetCapture.ReportMetric(missileMetricDefinition,
-                $@"[{{ ""x"": {v.x}, ""y"": {v.y}, ""z"": {v.z}, ""w"": {v.w} }}]");
-
-            //missiles position
-            Vector3 targetPos = missile.transform.position;
-
-            //missiles rotation
-            Vector3 targetRot = missile.transform.eulerAngles;
-
-            //camera's field of view - "The field of view of the camera in degrees."
-            double cameraFOV = cam.fieldOfView;
-
-            //camera's focallength - "The camera focal length, expressed in millimeters. To use this property, enable UsePhysicalProperties"
-            double cameraFL = cam.focalLength;
-
-            //camera's sensor size - "The size of the camera sensor, expressed in millimeters."
-            Vector2 camSensorSize = cam.sensorSize;
-
-            //camera's lens shift - "The lens offset of the camera. The lens shift is relative to the sensor size. For example, a lens shift of 0.5 offsets the sensor by half its horizontal size."
-            Vector2 camLensShift = cam.lensShift;
-
-            //Camera's Gate Fit - "There are two gates for a camera, the sensor gate and the resolution gate. The physical camera sensor gate is defined by the sensorSize property, the resolution gate is defined by the render target area"
-            string camGateFit = cam.gateFit.ToString();
-
-            //camera's rotation in vector3
-            cameraRot = new Vector3(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+            MissileData missileData;
+            missileData.name = missile.name;
+            missileData.worldPosition = missile.transform.position;
+            missileData.worldRotation = missile.transform.eulerAngles;
+            missileData.worldQuaterion = new float[4];
+            missileData.worldQuaterion[0] = v.x;
+            missileData.worldQuaterion[1] = v.y;
+            missileData.worldQuaterion[2] = v.z;
+            missileData.worldQuaterion[3] = v.w;
 
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
             var sensorHandle = GetComponent<PerceptionCamera>().SensorHandle;
             if (sensorHandle.ShouldCaptureThisFrame)
             {
                 sensorHandle.ReportAnnotationValues(
-                    targetPositionAnnotationDefinition,
-                    new[] { targetPos });
+                    cameraDataAnnotationDefinition,
+                    new[] { cameraData });
                 sensorHandle.ReportAnnotationValues(
-                    targetRotationAnnotationDefinition,
-                    new[] { targetRot });
-                sensorHandle.ReportAnnotationValues(
-                    cameraFOVAnnotationDefinition,
-                    new[] { cameraFOV });
-                sensorHandle.ReportAnnotationValues(
-                    cameraFocalLengthAnnotationDefinition,
-                    new[] { cameraFL });
-                sensorHandle.ReportAnnotationValues(
-                    cameraRotationDefiniation,
-                    new[] { cameraRot });
-                sensorHandle.ReportAnnotationValues(
-                    cameraSensorSizeAnnotationDefinition,
-                    new[] { camSensorSize });
-                sensorHandle.ReportAnnotationValues(
-                    cameraLensShiftAnnotationDefinition,
-                    new[] { camLensShift });
-                sensorHandle.ReportAnnotationValues(
-                    cameraGateFitAnnotationDefinition,
-                    new[] { camGateFit });
+                    missileDataAnnotationDefinition,
+                    new[] { missileData });
             }
 
-            //Debug.Log("Camera's Lens Shift: " + camLensShift);
-            //Debug.Log("Camera's Gate Fit: " + camGateFit);
-
+            //Debug.Log("Camera's Intrinsic: " + cam.projectionMatrix); ~values around 35-70 in testing.
         }
-
-        //Debug.Log("Target01 Rotation: " + target.transform.eulerAngles + "\nTarget02 Rotation: " + target2.transform.eulerAngles);
-
-        //Vector3 targetPos = target.transform.position;
-        //var boundingBox = GetComponent<BoundingBox3DLabeler>();
-        //Debug.Log(boundingBox.idLabelConfig);
     }
 }
 

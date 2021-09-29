@@ -36,7 +36,7 @@ public class Projectile2 : MonoBehaviour
 
     //spin stuff
     bool spin = false;
-    float spinValue = 30.0f;
+    float spinValue = 10.0f;
     GameObject missileBody;
 
     // Start is called before the first frame update
