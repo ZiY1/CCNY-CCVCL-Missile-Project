@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LaunchOnClick : MonoBehaviour
@@ -17,53 +15,70 @@ public class LaunchOnClick : MonoBehaviour
 
     private Projectile2 projectile;
 
+    public StartPerception startPerception;
+
+    public GameObject messageBox;
+    public GameObject UI; 
+
+
     public void OnClick()
     {
         if (missile1.activeSelf)
         {
             projectile = (Projectile2)missile1.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
         }
         else if (missile2.activeSelf)
         {
             projectile = (Projectile2)missile2.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
         }
         else if (missile3.activeSelf)
         {
             projectile = (Projectile2)missile3.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
         }
         else if (missile4.activeSelf)
         {
             projectile = (Projectile2)missile4.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
         }
         else if (missile5.activeSelf)
         {
             projectile = (Projectile2)missile5.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
         }
         else if (missile6.activeSelf)
         {
             projectile = (Projectile2)missile6.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
         }
         else if (missile7.activeSelf)
         {
             projectile = (Projectile2)missile7.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
         }
         else if (missile8.activeSelf)
         {
             projectile = (Projectile2)missile8.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
         }
         else if (missile9.activeSelf)
         {
             projectile = (Projectile2)missile9.GetComponent(typeof(Projectile2));
-            projectile.Launch();
+
+        }
+        projectile.Launch();
+        if (projectile.getIsLaunchAngleValid())
+        {
+            startPerception.BeginCapture();
+        }
+        else
+        {
+            //Display message box
+            messageBox.SetActive(true);
+            UI.SetActive(false);
+
         }
     }
 }
-

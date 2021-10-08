@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
+
 
 public class Projectile2 : MonoBehaviour
 {
@@ -19,6 +19,7 @@ public class Projectile2 : MonoBehaviour
 
 
     // State
+    private bool bLaunchAngleValid;
     private bool bTargetReady;
     private bool bTouchingGround;
 
@@ -92,11 +93,13 @@ public class Projectile2 : MonoBehaviour
     // Launches the object towards the TargetObject with a given LaunchAngle
     public void Launch()
     {
-        // Get the launch angle from the user 
-
-        try
+        // Get the launch angle from the user
+        // 10/08-Ziyi
+        String launchAngleStr = GameObject.Find("LaunchAngleInputField").GetComponent<InputField>().text.ToString();
+        if (Regex.IsMatch(launchAngleStr, @"^^\d*[.]?\d*$") && float.Parse(launchAngleStr) >= 1 && float.Parse(launchAngleStr) <= 89)
         {
-            LaunchAngle = GameObject.Find("LaunchAngleSlider").GetComponent<Slider>().value;
+            bLaunchAngleValid = true;
+            LaunchAngle = float.Parse(launchAngleStr);
 
             // Think of it as top-down view of vectors: 
             // we don't care about the y-component(height) of the initial and target position.
@@ -129,16 +132,19 @@ public class Projectile2 : MonoBehaviour
 
             spin = true;
         }
-        catch (Exception ex)
+        else
         {
-            Debug.Log(ex);
-            Debug.Log("\nPlease enter float or integer");
+            bLaunchAngleValid = false;
+            //EditorUtility.DisplayDialog("Warning", "Launch angle must be a positive real number larger or equal to 1 and less or equal to 89.", "OK");
         }
 
     }
 
-
-
+    // Return bLaunchAngleValid
+    public bool getIsLaunchAngleValid()
+    {
+        return bLaunchAngleValid;
+    }
 
     // Resets the projectile to its initial position
     public void ResetToInitialState()
