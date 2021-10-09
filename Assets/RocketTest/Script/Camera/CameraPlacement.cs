@@ -38,8 +38,21 @@ public class CameraPlacement : MonoBehaviour
     public float rotSpeed = 50f;
 
     public Text current_position_text;
+    public InputField x_pos_inputField;
+    public InputField y_pos_inputField;
+    public InputField z_pos_inputField;
+    public Button edit_pos_button;
+    public Button set_pos_button;
+    public Button cancel_set_pos_button;
 
-    
+    public Text current_rotation_text;
+    public InputField x_rot_inputField;
+    public InputField y_rot_inputField;
+    public InputField z_rot_inputField;
+    public Button edit_rot_button;
+    public Button set_rot_button;
+    public Button cancel_set_rot_button;
+
     public GameObject camSelectionButtonPrefab;
     public GameObject newButtonParent;
 
@@ -162,8 +175,10 @@ public class CameraPlacement : MonoBehaviour
                     camPlacement[selectedCamIndex].transform.rotation = playerCamera.transform.rotation;
                 }
 
-                // update UI text that shows current camera's position
+                // update UI text that shows current camera's position and rotation
                 current_position_text.text = "Camera Position: (" + playerCamera.transform.position.x.ToString("F2") + ", " + playerCamera.transform.position.y.ToString("F2") + ", " + playerCamera.transform.position.z.ToString("F2") + ")";
+                current_rotation_text.text = "Camera Rotation: (" + playerCamera.transform.eulerAngles.x.ToString("F2") + ", " + playerCamera.transform.eulerAngles.y.ToString("F2") + ", " + playerCamera.transform.eulerAngles.z.ToString("F2") + ")";
+                
             }
         }
     }
@@ -196,6 +211,9 @@ public class CameraPlacement : MonoBehaviour
 
             // switches to wide view
             previewWideCam();
+
+            cancelEditCamPos();
+            cancelEditCamRot();
         }
     }
 
@@ -368,6 +386,8 @@ public class CameraPlacement : MonoBehaviour
     // Function to reset camera placements to that of the saved settings
     public void resetTransform()
     {
+        cancelEditCamPos();
+        cancelEditCamRot();
         loadCamPlacement();
         if (selectedCamIndex > -1 && selectedCamIndex < PlayerPrefs.GetInt("numberOfCams")) 
         {
@@ -649,4 +669,69 @@ public class CameraPlacement : MonoBehaviour
         }
     }
 
+    public void startEditingCamPos()
+    {
+        x_pos_inputField.text = playerCamera.transform.position.x.ToString("F2");
+        y_pos_inputField.text = playerCamera.transform.position.y.ToString("F2");
+        z_pos_inputField.text = playerCamera.transform.position.z.ToString("F2");
+    }
+
+    public void cancelEditCamPos()
+    {
+        edit_pos_button.gameObject.SetActive(true);
+        x_pos_inputField.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void setCamPos()
+    {
+        float.TryParse(x_pos_inputField.text, out float x_pos);
+        float.TryParse(y_pos_inputField.text, out float y_pos);
+        float.TryParse(z_pos_inputField.text, out float z_pos);
+
+        if(x_pos > 1000)
+        {
+            x_pos = 1000;
+        }
+        if (x_pos < -1000)
+        {
+            x_pos = -1000;
+        }
+        if (z_pos > 1000)
+        {
+            z_pos = 1000;
+        }
+        if (z_pos < -1000)
+        {
+            z_pos = -1000;
+        }
+       
+        if (y_pos < -15)
+        {
+            y_pos = -15;
+        }
+
+        playerCamera.transform.position = new Vector3(x_pos, y_pos, z_pos);
+    }
+
+    public void startEditingCamRot()
+    {
+        x_rot_inputField.text = playerCamera.transform.eulerAngles.x.ToString("F2");
+        y_rot_inputField.text = playerCamera.transform.eulerAngles.y.ToString("F2");
+        z_rot_inputField.text = playerCamera.transform.eulerAngles.z.ToString("F2");
+    }
+
+    public void cancelEditCamRot()
+    {
+        edit_rot_button.gameObject.SetActive(true);
+        x_rot_inputField.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void setCamRot()
+    {
+        float.TryParse(x_rot_inputField.text, out float x_rot);
+        float.TryParse(y_rot_inputField.text, out float y_rot);
+        float.TryParse(z_rot_inputField.text, out float z_rot);
+
+        playerCamera.transform.eulerAngles = new Vector3(x_rot, y_rot, z_rot);
+    }
 }

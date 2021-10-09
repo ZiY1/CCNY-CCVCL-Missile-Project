@@ -25,6 +25,12 @@ public class EditTargetPosition : MonoBehaviour
     public float rotSpeed = 50f;
 
     public Text current_position_text;
+    public InputField x_pos_inputField;
+    public InputField y_pos_inputField;
+    public InputField z_pos_inputField;
+    public Button edit_pos_button;
+    public Button set_pos_button;
+    public Button cancel_set_pos_button;
 
     // original position and rotation of target when editing mode is opened
     GameObject original_Transform;
@@ -169,6 +175,7 @@ public class EditTargetPosition : MonoBehaviour
     public void Reset()
     {
         missile_cam.gameObject.transform.SetPositionAndRotation(original_Transform.transform.position, original_Transform.transform.rotation);
+        cancelEditTargetPos();
     }
 
     // Function to exit target position editing mode
@@ -193,4 +200,62 @@ public class EditTargetPosition : MonoBehaviour
 
         //taregt.GetComponent<Rigidbody>().isKinematic = false;
     }
+
+
+    public void startEditingTargetPos() // using input fields
+    {
+        edit_pos_button.gameObject.SetActive(false);
+        x_pos_inputField.transform.parent.gameObject.SetActive(true);
+
+        x_pos_inputField.text = taregt.transform.position.x.ToString("F2");
+        y_pos_inputField.text = taregt.transform.position.y.ToString("F2");
+        z_pos_inputField.text = taregt.transform.position.z.ToString("F2");
+
+    }
+
+    public void cancelEditTargetPos() // using input fields
+    {
+        edit_pos_button.gameObject.SetActive(true);
+        x_pos_inputField.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void setTargetPos() // from input field values
+    {
+        float.TryParse(x_pos_inputField.text, out float x_pos);
+        float.TryParse(y_pos_inputField.text, out float y_pos);
+        float.TryParse(z_pos_inputField.text, out float z_pos);
+
+        if (x_pos > 1000)
+        {
+            x_pos = 1000;
+        }
+        if (x_pos < -1000)
+        {
+            x_pos = -1000;
+        }
+        if (z_pos > 1000)
+        {
+            z_pos = 1000;
+        }
+        if (z_pos < -1000)
+        {
+            z_pos = -1000;
+        }
+
+        if (y_pos < -15)
+        {
+            y_pos = -15;
+        }
+
+        taregt.transform.parent = null;
+        missile_cam.transform.parent = taregt.gameObject.transform;
+
+        taregt.transform.position = new Vector3(x_pos, y_pos, z_pos);
+
+        missile_cam.transform.parent = gameObject.transform;
+        taregt.transform.parent = missile_cam.gameObject.transform;
+
+        cancelEditTargetPos();
+    }
+
 }

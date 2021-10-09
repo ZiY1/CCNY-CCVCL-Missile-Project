@@ -52,6 +52,9 @@ public class PerceptionInterface : MonoBehaviour
 
     float orig_min_x, orig_max_x, orig_min_y, orig_max_y, orig_min_z, orig_max_z;
 
+    public Text rotRandomizerOffMsg;
+    public InputField spinSpeedInputField;
+
     /*public RawImage raw;
     public Camera cam;
 
@@ -190,6 +193,15 @@ public class PerceptionInterface : MonoBehaviour
         max_y = new_maxY;
         max_z = new_maxZ;
 
+    }
+
+    public void toggleRotRandomizer(Toggle toggle)
+    {
+        fls.GetRandomizer<CustomRotationRandomizer>().enabled = toggle.isOn;
+        rotRandomizerOffMsg.gameObject.SetActive(!toggle.isOn);
+
+        spinSpeedInputField.transform.parent.gameObject.SetActive(!toggle.isOn);
+        spinSpeedInputField.text = Projectile2.spinSpeed.ToString();
     }
 
 }

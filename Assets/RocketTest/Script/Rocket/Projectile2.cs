@@ -37,7 +37,7 @@ public class Projectile2 : MonoBehaviour
 
     //spin stuff
     bool spin = false;
-    float spinValue = 10.0f;
+    public static float spinSpeed = 180f; // degrees per sec
     GameObject missileBody;
 
     // Start is called before the first frame update
@@ -190,7 +190,7 @@ public class Projectile2 : MonoBehaviour
         if (spin)
         {
             Debug.Log("Spinning");
-            missileBody.transform.Rotate(xAngle: 0, yAngle: 0, zAngle: spinValue);
+            missileBody.transform.Rotate(0, 0, -1* spinSpeed * Time.deltaTime, Space.Self);
         }
 
     }
@@ -218,4 +218,17 @@ public class Projectile2 : MonoBehaviour
             //Destroy(gameObject);
         }
     }
+
+
+
+    public void changeRollSpeed(InputField inputField)
+    {
+        float.TryParse(inputField.text, out float newRollSpd);
+
+        spinSpeed = newRollSpd;
+
+        inputField.text = spinSpeed.ToString();
+    }
+
+
 }
