@@ -62,16 +62,26 @@ public class CameraManager : MonoBehaviour
         //missile_obj = spawnRocket.GetRocket();
     }
 
-    void LateUpdate()
+    //void LateUpdate()
+    //{
+    //    // rotates camera to follow missile movement & adjusts cam FoV to keep missile at a constant screen size
+    //    if (lock_on)
+    //    {
+    //        cam.GetComponent<Camera>().transform.LookAt(missile_obj.transform);
+
+    //        cam.GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam.GetComponent<Camera>());
+    //    }
+
+    //}
+
+    public void LockOnToObject()
     {
-        // rotates camera to follow missile movement & adjusts cam FoV to keep missile at a constant screen size
         if (lock_on)
         {
             cam.GetComponent<Camera>().transform.LookAt(missile_obj.transform);
 
             cam.GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam.GetComponent<Camera>());
         }
-
     }
 
     // Function to adjust cam FoV to keep missile at a constant screen size

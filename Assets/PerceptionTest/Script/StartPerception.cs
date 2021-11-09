@@ -7,6 +7,8 @@ using UnityEngine.Perception.Randomization.Scenarios;
 
 public class StartPerception : MonoBehaviour
 {
+    public CameraManager cm;
+
     public PerceptionCamera pc;
     public FixedLengthScenario fls;
     public CustomAnnotationAndMetricReporter cus;
@@ -27,11 +29,18 @@ public class StartPerception : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
+        cm.LockOnToObject();
+
         if(pc.enabled)
         {
             pc.RequestCapture();
+        }
+
+        if(cus.enabled)
+        {
+            cus.CaptureCustomData();
         }
     }
 }

@@ -12,13 +12,16 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
         public string name;
         public Vector3 worldPosition;
         public Vector3 worldRotation;
-        public float[] worldQuaterion;
+        public Quaternion worldQuaterion;
+        public Vector3 relativeDistanceToCamera;
     }
     [Serializable]
     public struct CameraData
     {
         public string name;
+        public Vector3 worldPosition;
         public Vector3 worldRotation;
+        public Quaternion worldQuaternion;
         public double FOV;
         public double focalLength;
         public Vector2 sensorSize;
@@ -28,7 +31,6 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
 
     public GameObject missile;
     Camera cam;
-    Quaternion v;
 
     AnnotationDefinition missileDataAnnotationDefinition;
     AnnotationDefinition cameraDataAnnotationDefinition;
@@ -50,31 +52,37 @@ public class CustomAnnotationAndMetricReporter : MonoBehaviour
 
     }
 
-    public void LateUpdate()
+    public void CaptureCustomData()
     {
         if(missile == true)
         {
             CameraData cameraData;
             cameraData.name = cam.gameObject.name;
-            cameraData.worldRotation = new Vector3(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+            cameraData.worldPosition = cam.transform.position;
+            //cameraData.worldRotation = new Vector3(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+            Vector3 camRot = cam.transform.eulerAngles;
+            cameraData.worldRotation = new Vector3(camRot.x, camRot.y, camRot.z);
+            Quaternion camQuat = Quaternion.Euler(cam.transform.eulerAngles);
+            cameraData.worldQuaternion.x = camQuat.x;
+            cameraData.worldQuaternion.y = camQuat.y;
+            cameraData.worldQuaternion.z = camQuat.z;
+            cameraData.worldQuaternion.w = camQuat.w;
             cameraData.FOV = cam.fieldOfView; //camera's field of view - "The field of view of the camera in degrees."
             cameraData.focalLength = cam.focalLength; //camera's focallength - "The camera focal length, expressed in millimeters. To use this property, enable UsePhysicalProperties"
             cameraData.sensorSize = cam.sensorSize; //camera's sensor size - "The size of the camera sensor, expressed in millimeters."
             cameraData.lensShift = cam.lensShift; //camera's lens shift - "The lens offset of the camera. The lens shift is relative to the sensor size. For example, a lens shift of 0.5 offsets the sensor by half its horizontal size."
             cameraData.gateFit = cam.gateFit.ToString(); //Camera's Gate Fit - "There are two gates for a camera, the sensor gate and the resolution gate. The physical camera sensor gate is defined by the sensorSize property, the resolution gate is defined by the render target area"
 
-            //missiles quaternion
-            v = Quaternion.Euler(missile.transform.eulerAngles);
-
             MissileData missileData;
             missileData.name = missile.name;
             missileData.worldPosition = missile.transform.position;
             missileData.worldRotation = missile.transform.eulerAngles;
-            missileData.worldQuaterion = new float[4];
-            missileData.worldQuaterion[0] = v.x;
-            missileData.worldQuaterion[1] = v.y;
-            missileData.worldQuaterion[2] = v.z;
-            missileData.worldQuaterion[3] = v.w;
+            Quaternion missileQuat = Quaternion.Euler(missile.transform.eulerAngles);
+            missileData.worldQuaterion.x = missileQuat.x;
+            missileData.worldQuaterion.y = missileQuat.y;
+            missileData.worldQuaterion.z = missileQuat.z;
+            missileData.worldQuaterion.w = missileQuat.w;
+            missileData.relativeDistanceToCamera = cam.transform.InverseTransformPoint(missile.transform.position);
 
             //Report using the PerceptionCamera's SensorHandle if scheduled this frame
             var sensorHandle = GetComponent<PerceptionCamera>().SensorHandle;
