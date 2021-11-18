@@ -9,6 +9,9 @@ public class CameraManager : MonoBehaviour
     // main camera
     [SerializeField] Camera cam;
 
+    // second camera
+    [SerializeField] Camera cam2;
+
     //[SerializeField] SpawnRocket spawnRocket;
 
     [SerializeField] CameraPlacement cameraPlacement;
@@ -81,6 +84,10 @@ public class CameraManager : MonoBehaviour
             cam.GetComponent<Camera>().transform.LookAt(missile_obj.transform);
 
             cam.GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam.GetComponent<Camera>());
+
+            cam2.GetComponent<Camera>().transform.LookAt(missile_obj.transform);
+
+            cam2.GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam2.GetComponent<Camera>());
         }
     }
 

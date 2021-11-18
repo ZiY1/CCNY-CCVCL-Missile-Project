@@ -8,15 +8,19 @@ using UnityEngine.Perception.Randomization.Scenarios;
 public class StartPerception : MonoBehaviour
 {
     public CameraManager cm;
-
+    
     public PerceptionCamera pc;
+    public PerceptionCamera pc2;
     public FixedLengthScenario fls;
     public CustomAnnotationAndMetricReporter cus;
+    public CustomAnnotationAndMetricReporter cus2;
 
     private void Awake()
     {
         pc.enabled = false;
+        pc2.enabled = false;
         cus.enabled = false;
+        cus2.enabled = false;
         fls.enabled = false;
     }
 
@@ -24,7 +28,9 @@ public class StartPerception : MonoBehaviour
     {
         Debug.Log("button pressed");
         pc.enabled = true;
+        pc2.enabled = true;
         cus.enabled = true;
+        cus2.enabled = true;
         fls.enabled = true;
     }
 
@@ -38,9 +44,19 @@ public class StartPerception : MonoBehaviour
             pc.RequestCapture();
         }
 
+        if(pc2.enabled)
+        {
+            pc2.RequestCapture();
+        }
+
         if(cus.enabled)
         {
             cus.CaptureCustomData();
+        }
+
+        if(cus.enabled)
+        {
+            cus2.CaptureCustomData();
         }
     }
 }

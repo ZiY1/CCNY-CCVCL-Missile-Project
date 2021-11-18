@@ -16,7 +16,9 @@ To test Perception, go to Asset > Perception Test > Scene and open it.
 - Learn to use Machine Learning program
 
 ## ChangeLog
-### Step 29
+### Nov 18
+- Updated Perception to 0.9.0, now allows two cameras. Set up now has a second camera
+### Sept 29
 - Cleans up the annotation so it is easier to read
 ### Sept 24
 - Added the rest of the physical camera values into the annotation.
