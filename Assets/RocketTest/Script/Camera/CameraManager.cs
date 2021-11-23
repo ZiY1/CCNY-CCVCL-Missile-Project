@@ -7,10 +7,7 @@ using UnityEngine.Rendering.Universal;
 public class CameraManager : MonoBehaviour
 {
     // main camera
-    [SerializeField] Camera cam;
-
-    // second camera
-    [SerializeField] Camera cam2;
+    public List<Camera> cam;
 
     //[SerializeField] SpawnRocket spawnRocket;
 
@@ -23,6 +20,7 @@ public class CameraManager : MonoBehaviour
 
     public List<Button> camButtons;
 
+    
 
     // TODO: Add more missiles when ready - ziyi
     public GameObject missile1;
@@ -39,7 +37,7 @@ public class CameraManager : MonoBehaviour
     public GameObject missile_obj;
 
 
-    public bool lock_on = true;
+    public List<bool> lock_on;
 
     // controls screen size of missile to adjust camera FoV
     public float focusedCamMissileHeight;
@@ -47,22 +45,36 @@ public class CameraManager : MonoBehaviour
 
     float missile_height;
 
-    public int cam_mode = 0; // 0 - focused | 1 - wide
-
     public Button wideCamButton;
     public Button focusedCamButton;
 
 
     private void Start()
     {
+        // lock_on flags for each cam
+        lock_on.Add(true);
+        lock_on.Add(true);
+        lock_on.Add(true);
+        lock_on.Add(true);
+        lock_on.Add(true);
+
         // Defualt missile - ziyi
         missile_obj = missile1;
 
-
         createCamSelectionButtons();
+
+        foreach(Camera c in cam)
+        {
+            if(c)
+                c.depth = -1;
+        }
+
         missile_height = focusedCamMissileHeight;
         switchCamera(0);
         //missile_obj = spawnRocket.GetRocket();
+
+        
+
     }
 
     //void LateUpdate()
@@ -79,15 +91,33 @@ public class CameraManager : MonoBehaviour
 
     public void LockOnToObject()
     {
-        if (lock_on)
+        if (!cameraPlacement.editingMode)
         {
-            cam.GetComponent<Camera>().transform.LookAt(missile_obj.transform);
-
-            cam.GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam.GetComponent<Camera>());
-
-            cam2.GetComponent<Camera>().transform.LookAt(missile_obj.transform);
-
-            cam2.GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam2.GetComponent<Camera>());
+            if (lock_on[0] && cam[0].gameObject.activeSelf)
+            {
+                cam[0].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
+                cam[0].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[0].GetComponent<Camera>());
+            }
+            if (lock_on[1] && cam[1].gameObject.activeSelf)
+            {
+                cam[1].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
+                cam[1].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[1].GetComponent<Camera>());
+            }
+            if (lock_on[2] && cam[2].gameObject.activeSelf)
+            {
+                cam[2].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
+                cam[2].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[2].GetComponent<Camera>());
+            }
+            if (lock_on[3] && cam[3].gameObject.activeSelf)
+            {
+                cam[3].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
+                cam[3].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[3].GetComponent<Camera>());
+            }
+            if (lock_on[4] && cam[4].gameObject.activeSelf)
+            {
+                cam[4].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
+                cam[4].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[4].GetComponent<Camera>());
+            }
         }
     }
 
@@ -108,21 +138,26 @@ public class CameraManager : MonoBehaviour
         if (cameraPlacement.selectedCamIndex != i && cameraPlacement.selectedCamIndex != -1)
         {
             camButtons[cameraPlacement.selectedCamIndex].image.color = Color.white;
+            cam[cameraPlacement.selectedCamIndex].depth = -1;
+
         }
 
         // move camera to selected placement
-        cam.transform.SetPositionAndRotation(cameraLocations[i].transform.position, cameraLocations[i].transform.rotation);
+        //cam.transform.SetPositionAndRotation(cameraLocations[i].transform.position, cameraLocations[i].transform.rotation);
+
+        // Change the depth/priority of the cams to render (highest depth renders).
+        cam[i].depth = 0;
 
         cameraPlacement.selectedCamIndex = i;
 
         // changes color of selected cam placement to yellow
         camButtons[cameraPlacement.selectedCamIndex].image.color = Color.yellow;
 
-        if(cam_mode == 0)
+        if(lock_on[cameraPlacement.selectedCamIndex])
         {
             switchToFocusedCam();
         }
-        else if(cam_mode == 1)
+        else
         {
             switchToWideCam();
         }
@@ -141,17 +176,15 @@ public class CameraManager : MonoBehaviour
     public void switchToWideCam()
     {
         // camera won't move
-        lock_on = false;
+        lock_on[cameraPlacement.selectedCamIndex] = false;
 
         // set cam position and rotation to that of the selected cam placement
-        cam.transform.SetPositionAndRotation(cameraLocations[cameraPlacement.selectedCamIndex].transform.position, cameraLocations[cameraPlacement.selectedCamIndex].transform.rotation);
+        cam[cameraPlacement.selectedCamIndex].transform.SetPositionAndRotation(cameraLocations[cameraPlacement.selectedCamIndex].transform.position, cameraLocations[cameraPlacement.selectedCamIndex].transform.rotation);
 
-        missile_height = wideCamMissileHeight;
+        //missile_height = wideCamMissileHeight;
 
         // sets cam FoV to corresponding wide camera FoV for the selected placement
-        cam.fieldOfView = PlayerPrefs.GetFloat("fovcam" + cameraPlacement.selectedCamIndex.ToString());
-
-        cam_mode = 1; // wide view
+        cam[cameraPlacement.selectedCamIndex].fieldOfView = PlayerPrefs.GetFloat("fovcam" + cameraPlacement.selectedCamIndex.ToString());
 
         wideCamButton.gameObject.SetActive(false);
         focusedCamButton.gameObject.SetActive(true);
@@ -162,11 +195,9 @@ public class CameraManager : MonoBehaviour
     // Camera orientation, and FoV WILL change to follow missile movement
     public void switchToFocusedCam()
     {
-        lock_on = true;
+        lock_on[cameraPlacement.selectedCamIndex] = true;
 
         missile_height = focusedCamMissileHeight;
-
-        cam_mode = 0; // focused view
 
         focusedCamButton.gameObject.SetActive(false);
         wideCamButton.gameObject.SetActive(true);
