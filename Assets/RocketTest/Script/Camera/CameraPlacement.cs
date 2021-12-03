@@ -11,7 +11,7 @@ public class CameraPlacement : MonoBehaviour
     public bool startWithEditorPlacements = false;
 
     [SerializeField] GameObject playerCamPrefab;
-    [SerializeField] public GameObject playerCamera;
+    [SerializeField] List<Camera> playerCamera;
 
     [SerializeField] CameraManager cameraManager;
     [SerializeField] CharacterController characterController;
@@ -87,6 +87,8 @@ public class CameraPlacement : MonoBehaviour
 
     private void Awake()
     {
+        playerCamera = cameraManager.cam;
+
         if (startWithEditorPlacements)
         {
             saveCamPlacements();
@@ -108,6 +110,23 @@ public class CameraPlacement : MonoBehaviour
             cam.transform.SetPositionAndRotation(location.transform.position, location.transform.rotation);
             cam.GetComponent<CharacterController>().enabled = false;
         }*/
+        int count = 0;
+        foreach(Camera c in cameraManager.cam)
+        {
+            if (count < camPlacement.Count)
+            {
+                c.transform.SetPositionAndRotation(camPlacement[count].transform.position, camPlacement[count].transform.rotation);
+                c.gameObject.GetComponent<CharacterController>().enabled = false;
+                c.gameObject.SetActive(true);
+            }
+            else
+            {
+                c.gameObject.SetActive(false);
+            }
+
+            count++;
+        }
+
     }
 
     // Update is called once per frame
@@ -125,19 +144,19 @@ public class CameraPlacement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.W)) // move forward
                 {
-                    characterController.Move(playerCamera.transform.forward * moveSpeed * Time.deltaTime);
+                    characterController.Move(playerCamera[selectedCamIndex].transform.forward * moveSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.A)) // move left
                 {
-                    characterController.Move(-playerCamera.transform.right * moveSpeed * Time.deltaTime);
+                    characterController.Move(-playerCamera[selectedCamIndex].transform.right * moveSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.S)) // move back
                 {
-                    characterController.Move(-playerCamera.transform.forward * moveSpeed * Time.deltaTime);
+                    characterController.Move(-playerCamera[selectedCamIndex].transform.forward * moveSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.D)) // move right
                 {
-                    characterController.Move(playerCamera.transform.right * moveSpeed * Time.deltaTime);
+                    characterController.Move(playerCamera[selectedCamIndex].transform.right * moveSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.LeftShift))  // move down
                 {
@@ -149,35 +168,35 @@ public class CameraPlacement : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.Q)) // rotate left
                 {
-                    playerCamera.transform.Rotate(-Vector3.up * rotSpeed * Time.deltaTime, Space.World);
+                    playerCamera[selectedCamIndex].transform.Rotate(-Vector3.up * rotSpeed * Time.deltaTime, Space.World);
                 }
                 if (Input.GetKey(KeyCode.E)) // rotate right
                 {
-                    playerCamera.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
+                    playerCamera[selectedCamIndex].transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
                 }
                 if (Input.GetKey(KeyCode.LeftControl)) // tilt up
                 {
-                    playerCamera.transform.Rotate(-Vector3.right * rotSpeed * Time.deltaTime);
+                    playerCamera[selectedCamIndex].transform.Rotate(-Vector3.right * rotSpeed * Time.deltaTime);
                 }
                 if (Input.GetKey(KeyCode.LeftAlt))  // tilt down
                 {
-                    playerCamera.transform.Rotate(Vector3.right * rotSpeed * Time.deltaTime);
+                    playerCamera[selectedCamIndex].transform.Rotate(Vector3.right * rotSpeed * Time.deltaTime);
                 }
 
                 // moves selected cam placement object to current location of camera
-                if(playerCamera.transform.position != camPlacement[selectedCamIndex].transform.position)
+                if(playerCamera[selectedCamIndex].transform.position != camPlacement[selectedCamIndex].transform.position)
                 {
-                    camPlacement[selectedCamIndex].transform.position = playerCamera.transform.position;
+                    camPlacement[selectedCamIndex].transform.position = playerCamera[selectedCamIndex].transform.position;
                 }
                 // sets selected cam placement obect rotation to current camera rotation
-                if (playerCamera.transform.rotation != camPlacement[selectedCamIndex].transform.rotation)
+                if (playerCamera[selectedCamIndex].transform.rotation != camPlacement[selectedCamIndex].transform.rotation)
                 {
-                    camPlacement[selectedCamIndex].transform.rotation = playerCamera.transform.rotation;
+                    camPlacement[selectedCamIndex].transform.rotation = playerCamera[selectedCamIndex].transform.rotation;
                 }
 
                 // update UI text that shows current camera's position and rotation
-                current_position_text.text = "Camera Position: (" + playerCamera.transform.position.x.ToString("F2") + ", " + playerCamera.transform.position.y.ToString("F2") + ", " + playerCamera.transform.position.z.ToString("F2") + ")";
-                current_rotation_text.text = "Camera Rotation: (" + playerCamera.transform.eulerAngles.x.ToString("F2") + ", " + playerCamera.transform.eulerAngles.y.ToString("F2") + ", " + playerCamera.transform.eulerAngles.z.ToString("F2") + ")";
+                current_position_text.text = "Camera Position: (" + playerCamera[selectedCamIndex].transform.position.x.ToString("F2") + ", " + playerCamera[selectedCamIndex].transform.position.y.ToString("F2") + ", " + playerCamera[selectedCamIndex].transform.position.z.ToString("F2") + ")";
+                current_rotation_text.text = "Camera Rotation: (" + playerCamera[selectedCamIndex].transform.eulerAngles.x.ToString("F2") + ", " + playerCamera[selectedCamIndex].transform.eulerAngles.y.ToString("F2") + ", " + playerCamera[selectedCamIndex].transform.eulerAngles.z.ToString("F2") + ")";
                 
             }
         }
@@ -193,20 +212,22 @@ public class CameraPlacement : MonoBehaviour
             {
                 camSelectionButtons[selectedCamIndex].image.color = Color.white;
                 characterController.enabled = false;
-                //playerCamera[selectedCamIndex].GetComponent<Camera>().depth = -1;
+                // lower the priority of the previously selected cam
+                playerCamera[selectedCamIndex].depth = -1;
             }
 
             // update index for currently selected cam placement
             selectedCamIndex = n;
-            playerCamera.GetComponent<Camera>().depth = 0;
+            // set the priority of the selected cam higher to render it on top
+            playerCamera[selectedCamIndex].depth = 0;
 
             // sets camera position/rotation to that of the selected cam placement
-            playerCamera.transform.SetPositionAndRotation(camPlacement[n].transform.position, camPlacement[n].transform.rotation);
+            playerCamera[selectedCamIndex].transform.SetPositionAndRotation(camPlacement[n].transform.position, camPlacement[n].transform.rotation);
 
             // changes color of selected cam placement button to yellow
             camSelectionButtons[n].image.color = Color.yellow;
 
-            characterController = playerCamera.GetComponent<CharacterController>();
+            characterController = playerCamera[selectedCamIndex].gameObject.GetComponent<CharacterController>();
             characterController.enabled = true;
 
             // switches to wide view
@@ -277,10 +298,19 @@ public class CameraPlacement : MonoBehaviour
             wideCamFoVs[i] = PlayerPrefs.GetFloat("fovcam" + i.ToString());
             dphDistances[i] = PlayerPrefs.GetFloat("dphDist" + i.ToString());
             dphIntensities[i] = PlayerPrefs.GetFloat("dphIntensity" + i.ToString());
+
+            // set the cameras' transforms
+            playerCamera[i].transform.SetPositionAndRotation(camPlacement[i].transform.position, camPlacement[i].transform.rotation);
+            playerCamera[i].gameObject.SetActive(true);
+
+        }
+        for(int i = PlayerPrefs.GetInt("numberOfCams"); i < cameraManager.cam.Count; i++)
+        {
+            playerCamera[i].gameObject.SetActive(false);
         }
     }
 
-    // Function to add missing placements in case they were deleted in edit mode but exited without saving changes
+    // Function to add missing placements in case they were deleted in edit mode but exited without saving changes, actual values for the transform, FoV, etc., are set by loadCamPlacement().
     public void addMissingPlacements()
     {
         if(camPlacement.Count < PlayerPrefs.GetInt("numberOfCams"))
@@ -342,9 +372,9 @@ public class CameraPlacement : MonoBehaviour
         }
 
         resetTransform();
-        characterController = playerCamera.GetComponent<CharacterController>();
+        characterController = playerCamera[selectedCamIndex].gameObject.GetComponent<CharacterController>();
         editingMode = true;
-        cameraManager.lock_on = false;
+
         selectCameraPlacement(selectedCamIndex);
         previewWideCam();
         camSelectionButtons[selectedCamIndex].image.color = Color.yellow;
@@ -379,7 +409,7 @@ public class CameraPlacement : MonoBehaviour
     {
         if (selectedCamIndex > -1)
         {
-            camPlacement[selectedCamIndex].transform.SetPositionAndRotation(playerCamera.transform.position, playerCamera.transform.rotation);
+            camPlacement[selectedCamIndex].transform.SetPositionAndRotation(playerCamera[selectedCamIndex].transform.position, playerCamera[selectedCamIndex].transform.rotation);
         }
     }
 
@@ -391,7 +421,7 @@ public class CameraPlacement : MonoBehaviour
         loadCamPlacement();
         if (selectedCamIndex > -1 && selectedCamIndex < PlayerPrefs.GetInt("numberOfCams")) 
         {
-            playerCamera.transform.SetPositionAndRotation(camPlacement[selectedCamIndex].transform.position, camPlacement[selectedCamIndex].transform.rotation);
+            playerCamera[selectedCamIndex].transform.SetPositionAndRotation(camPlacement[selectedCamIndex].transform.position, camPlacement[selectedCamIndex].transform.rotation);
             previewWideCam();
         }
         else
@@ -422,14 +452,14 @@ public class CameraPlacement : MonoBehaviour
     // Function to change the camera's FoV to wide view mode FoV
     public void previewWideCam()
     {
-        playerCamera.transform.eulerAngles = camPlacement[selectedCamIndex].transform.eulerAngles;
+        playerCamera[selectedCamIndex].transform.eulerAngles = camPlacement[selectedCamIndex].transform.eulerAngles;
 
         wideViewButton.gameObject.SetActive(false);
         focusedViewButton.gameObject.SetActive(true);
         fovpanel.SetActive(true);
 
         fovSlider.value = wideCamFoVs[selectedCamIndex];
-        playerCamera.GetComponent<Camera>().fieldOfView = fovSlider.value;
+        playerCamera[selectedCamIndex].fieldOfView = fovSlider.value;
         FoVInputField.text = wideCamFoVs[selectedCamIndex].ToString();
 
         dphDistSlider.value = dphDistances[selectedCamIndex];
@@ -447,8 +477,8 @@ public class CameraPlacement : MonoBehaviour
     // Function to change the camera's FoV to how it would look in focused mode
     public void previewFocusedCam()
     {
-        playerCamera.transform.LookAt(cameraManager.missile_obj.transform);
-        playerCamera.GetComponent<Camera>().fieldOfView = cameraManager.GetFieldOfView(cameraManager.missile_obj.transform.position, cameraManager.focusedCamMissileHeight, playerCamera.GetComponent<Camera>());
+        playerCamera[selectedCamIndex].transform.LookAt(cameraManager.missile_obj.transform);
+        playerCamera[selectedCamIndex].fieldOfView = cameraManager.GetFieldOfView(cameraManager.missile_obj.transform.position, cameraManager.focusedCamMissileHeight, playerCamera[selectedCamIndex]);
         focusedViewButton.gameObject.SetActive(false);
         wideViewButton.gameObject.SetActive(true);
         fovpanel.SetActive(false);
@@ -457,7 +487,7 @@ public class CameraPlacement : MonoBehaviour
     // Function to edit that current cam placement's wide FoV based on the slider
     public void changeWideFoV()
     {
-        playerCamera.GetComponent<Camera>().fieldOfView = fovSlider.value;
+        playerCamera[selectedCamIndex].fieldOfView = fovSlider.value;
         if(selectedCamIndex != -1)
         {
             wideCamFoVs[selectedCamIndex] = fovSlider.value;
@@ -472,9 +502,7 @@ public class CameraPlacement : MonoBehaviour
 
         float newfov = Mathf.Clamp(fov, fovSlider.minValue, fovSlider.maxValue);
 
-        //playerCamera[selectedCamIndex].GetComponent<Camera>().fieldOfView = newfov;
-
-        playerCamera.GetComponent<Camera>().fieldOfView = newfov;
+        playerCamera[selectedCamIndex].fieldOfView = newfov;
 
         fovSlider.value = newfov;
         FoVInputField.text = newfov.ToString();
@@ -556,7 +584,7 @@ public class CameraPlacement : MonoBehaviour
 
         // create new cam placement game object
         camPlacement.Add(new GameObject("Location " + (newButtonIndex + 1).ToString()));
-        camPlacement[newButtonIndex].transform.SetPositionAndRotation(playerCamera.transform.position, playerCamera.transform.rotation);
+        camPlacement[newButtonIndex].transform.SetPositionAndRotation(playerCamera[selectedCamIndex].transform.position, playerCamera[selectedCamIndex].transform.rotation);
 
         // add new wide cam FoV to list
         wideCamFoVs.Add(70f);
@@ -569,6 +597,10 @@ public class CameraPlacement : MonoBehaviour
 
         //playerCamera.Add(Instantiate(playerCamPrefab));
         //playerCamera[newButtonIndex].transform.SetPositionAndRotation(playerCamera[selectedCamIndex].transform.position, playerCamera[selectedCamIndex].transform.rotation);
+
+        // set the new camera active and set its porition and rotation
+        playerCamera[newButtonIndex].gameObject.SetActive(true);
+        playerCamera[newButtonIndex].transform.SetPositionAndRotation(camPlacement[newButtonIndex].transform.position, camPlacement[newButtonIndex].transform.rotation);
 
         selectCameraPlacement(newButtonIndex);
 
@@ -593,9 +625,12 @@ public class CameraPlacement : MonoBehaviour
         if (camToRemove != -1)
         {
             selectedCamIndex = -1;
-            
+
+            // turns off the latest active camera, we don't actually destroy the cam.
+            playerCamera[camSelectionButtons.Count - 1].gameObject.SetActive(false);
+
             // shifts cam placement buttons after the deleted placement to the left
-            for(int i = camToRemove + 1; i < camSelectionButtons.Count; i++)
+            for (int i = camToRemove + 1; i < camSelectionButtons.Count; i++)
             {
                 camSelectionButtons[i].GetComponent<RectTransform>().anchoredPosition -= new Vector2(40, 0);
                 camSelectionButtons[i].GetComponentInChildren<Text>().text = i.ToString();
@@ -620,10 +655,14 @@ public class CameraPlacement : MonoBehaviour
             Destroy(camSelectionButtons[camToRemove].gameObject);
             camSelectionButtons.RemoveAt(camToRemove);
 
-
             wideCamFoVs.RemoveAt(camToRemove);
             dphDistances.RemoveAt(camToRemove);
             dphIntensities.RemoveAt(camToRemove);
+
+            for(int i = 0; i < camPlacement.Count; i++)
+            {
+                playerCamera[i].transform.SetPositionAndRotation(camPlacement[i].transform.position, camPlacement[i].transform.rotation);
+            }
 
             // switches to the cam placement 1
             selectCameraPlacement(0);
@@ -648,10 +687,6 @@ public class CameraPlacement : MonoBehaviour
             int cam_count = camPlacement.Count;
             for (int i = cam_count - 1; i >= PlayerPrefs.GetInt("numberOfCams"); i--)
             {
-                /*GameObject temp = playerCamera[i];
-                playerCamera.RemoveAt(i);
-                Destroy(temp);*/
-
                 GameObject temp = camSelectionButtons[i].gameObject;
                 camSelectionButtons.RemoveAt(i);
                 Destroy(temp);
@@ -664,6 +699,8 @@ public class CameraPlacement : MonoBehaviour
                 dphDistances.RemoveAt(i);
                 dphIntensities.RemoveAt(i);
 
+                playerCamera[i].gameObject.SetActive(false);
+
                 addNewLocationButton.GetComponent<RectTransform>().anchoredPosition = addNewLocationButton.GetComponent<RectTransform>().anchoredPosition + new Vector2(-40, 0);
             }
         }
@@ -671,9 +708,9 @@ public class CameraPlacement : MonoBehaviour
 
     public void startEditingCamPos()
     {
-        x_pos_inputField.text = playerCamera.transform.position.x.ToString("F2");
-        y_pos_inputField.text = playerCamera.transform.position.y.ToString("F2");
-        z_pos_inputField.text = playerCamera.transform.position.z.ToString("F2");
+        x_pos_inputField.text = playerCamera[selectedCamIndex].transform.position.x.ToString("F2");
+        y_pos_inputField.text = playerCamera[selectedCamIndex].transform.position.y.ToString("F2");
+        z_pos_inputField.text = playerCamera[selectedCamIndex].transform.position.z.ToString("F2");
     }
 
     public void cancelEditCamPos()
@@ -710,14 +747,14 @@ public class CameraPlacement : MonoBehaviour
             y_pos = -15;
         }
 
-        playerCamera.transform.position = new Vector3(x_pos, y_pos, z_pos);
+        playerCamera[selectedCamIndex].transform.position = new Vector3(x_pos, y_pos, z_pos);
     }
 
     public void startEditingCamRot()
     {
-        x_rot_inputField.text = playerCamera.transform.eulerAngles.x.ToString("F2");
-        y_rot_inputField.text = playerCamera.transform.eulerAngles.y.ToString("F2");
-        z_rot_inputField.text = playerCamera.transform.eulerAngles.z.ToString("F2");
+        x_rot_inputField.text = playerCamera[selectedCamIndex].transform.eulerAngles.x.ToString("F2");
+        y_rot_inputField.text = playerCamera[selectedCamIndex].transform.eulerAngles.y.ToString("F2");
+        z_rot_inputField.text = playerCamera[selectedCamIndex].transform.eulerAngles.z.ToString("F2");
     }
 
     public void cancelEditCamRot()
@@ -732,6 +769,6 @@ public class CameraPlacement : MonoBehaviour
         float.TryParse(y_rot_inputField.text, out float y_rot);
         float.TryParse(z_rot_inputField.text, out float z_rot);
 
-        playerCamera.transform.eulerAngles = new Vector3(x_rot, y_rot, z_rot);
+        playerCamera[selectedCamIndex].transform.eulerAngles = new Vector3(x_rot, y_rot, z_rot);
     }
 }
