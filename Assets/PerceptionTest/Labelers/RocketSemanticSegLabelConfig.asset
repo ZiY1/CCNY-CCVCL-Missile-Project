@@ -17,3 +17,6 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 1, a: 1}
   - label: SmokeTrail
     color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  - label: Missile_9
+    color: {r: 0, g: 1, b: 0, a: 1}
+  skyColor: {r: 0, g: 0, b: 0, a: 1}

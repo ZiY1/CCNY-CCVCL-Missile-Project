@@ -195,8 +195,6 @@ public class Projectile2 : MonoBehaviour
 
     }
 
-
-
     void OnCollisionEnter(Collision collision)
     {
         bTouchingGround = true;

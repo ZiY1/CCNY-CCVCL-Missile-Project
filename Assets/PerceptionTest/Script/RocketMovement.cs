@@ -13,8 +13,12 @@ public class RocketMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = transform.forward * initVelocity;
         startSpin();
+    }
+
+    public void Launch()
+    {
+        rb.velocity = transform.forward * initVelocity;
     }
 
     public void startSpin()

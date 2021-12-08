@@ -44,7 +44,7 @@ public class FakeProjectile2 : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
-        missileBody = gameObject.transform.GetChild(1).gameObject;
+        missileBody = gameObject.transform.GetChild(0).gameObject;
         Debug.Log(missileBody.name);
         // Testing
         //Debug.Log("initPos: " + initialPosition);
