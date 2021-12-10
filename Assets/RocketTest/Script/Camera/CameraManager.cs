@@ -38,25 +38,46 @@ public class CameraManager : MonoBehaviour
 
 
     public List<bool> lock_on;
+    public List<bool> auto_focus;
 
     // controls screen size of missile to adjust camera FoV
-    public float focusedCamMissileHeight;
+    public List<float> focusedCamMissileHeight;
+    public List<float> staticFocusedFieldOfView;
     public float wideCamMissileHeight;
 
-    float missile_height;
+    public List<float> missile_height;
 
     public Button wideCamButton;
     public Button focusedCamButton;
 
 
+    // Smoke trail rendering stuff
+    public Toggle smokeTrailToggle;
+    public Text smokeTrailToggleText;
+
+    // Focused cam settings stuff
+    public Toggle autoFocusToggle;
+    public InputField adjustToValueInputField;
+    public Text autoAdjustValueText;
+
+
     private void Start()
     {
-        // lock_on flags for each cam
-        lock_on.Add(true);
-        lock_on.Add(true);
-        lock_on.Add(true);
-        lock_on.Add(true);
-        lock_on.Add(true);
+        /* // lock_on flags for each cam
+         lock_on.Add(true);
+         lock_on.Add(true);
+         lock_on.Add(true);
+         lock_on.Add(true);
+         lock_on.Add(true);
+
+         // auto-adjust FoV for each cam
+         auto_focus.Add(true);
+         auto_focus.Add(true);
+         auto_focus.Add(true);
+         auto_focus.Add(true);
+         auto_focus.Add(true);*/
+
+        adjustToValueInputField.text = focusedCamMissileHeight[0].ToString();
 
         // Defualt missile - ziyi
         missile_obj = missile1;
@@ -69,7 +90,7 @@ public class CameraManager : MonoBehaviour
                 c.depth = -1;
         }
 
-        missile_height = focusedCamMissileHeight;
+        missile_height = new List<float>(focusedCamMissileHeight);
         switchCamera(0);
         //missile_obj = spawnRocket.GetRocket();
 
@@ -96,27 +117,42 @@ public class CameraManager : MonoBehaviour
             if (lock_on[0] && cam[0].gameObject.activeSelf)
             {
                 cam[0].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
-                cam[0].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[0].GetComponent<Camera>());
+                if (auto_focus[0])
+                {
+                    cam[0].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height[0], cam[0].GetComponent<Camera>());
+                }
             }
             if (lock_on[1] && cam[1].gameObject.activeSelf)
             {
                 cam[1].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
-                cam[1].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[1].GetComponent<Camera>());
+                if (auto_focus[1])
+                {
+                    cam[1].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height[1], cam[1].GetComponent<Camera>());
+                }
             }
             if (lock_on[2] && cam[2].gameObject.activeSelf)
             {
                 cam[2].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
-                cam[2].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[2].GetComponent<Camera>());
+                if (auto_focus[2])
+                {
+                    cam[2].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height[2], cam[2].GetComponent<Camera>());
+                }
             }
             if (lock_on[3] && cam[3].gameObject.activeSelf)
             {
                 cam[3].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
-                cam[3].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[3].GetComponent<Camera>());
+                if (auto_focus[3])
+                {
+                    cam[3].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height[3], cam[3].GetComponent<Camera>());
+                }
             }
             if (lock_on[4] && cam[4].gameObject.activeSelf)
             {
                 cam[4].GetComponent<Camera>().transform.LookAt(missile_obj.transform);
-                cam[4].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height, cam[4].GetComponent<Camera>());
+                if (auto_focus[4])
+                {
+                    cam[4].GetComponent<Camera>().fieldOfView = GetFieldOfView(missile_obj.transform.position, missile_height[4], cam[4].GetComponent<Camera>());
+                }
             }
         }
     }
@@ -153,7 +189,10 @@ public class CameraManager : MonoBehaviour
         // changes color of selected cam placement to yellow
         camButtons[cameraPlacement.selectedCamIndex].image.color = Color.yellow;
 
-        if(lock_on[cameraPlacement.selectedCamIndex])
+        smokeTrailToggle.isOn = cam[cameraPlacement.selectedCamIndex].GetComponent<CullingMaskTest>().smoke_on;
+        smokeTrailToggleText.text = "Render Smoke Trail - Cam: " + (cameraPlacement.selectedCamIndex + 1).ToString();
+
+        if (lock_on[cameraPlacement.selectedCamIndex])
         {
             switchToFocusedCam();
         }
@@ -188,7 +227,7 @@ public class CameraManager : MonoBehaviour
 
         wideCamButton.gameObject.SetActive(false);
         focusedCamButton.gameObject.SetActive(true);
-
+        adjustToValueInputField.transform.parent.parent.gameObject.SetActive(false);
     }
 
     // Function to switch camera mode to focused view
@@ -197,10 +236,23 @@ public class CameraManager : MonoBehaviour
     {
         lock_on[cameraPlacement.selectedCamIndex] = true;
 
-        missile_height = focusedCamMissileHeight;
+        if (auto_focus[cameraPlacement.selectedCamIndex])
+        {
+            missile_height[cameraPlacement.selectedCamIndex] = focusedCamMissileHeight[cameraPlacement.selectedCamIndex];
+            autoFocusToggle.isOn = true;
+            adjustToValueInputField.text = focusedCamMissileHeight[cameraPlacement.selectedCamIndex].ToString();
+            autoAdjustValueText.text = "Adjust to:";
+        }
+        else
+        {
+            autoFocusToggle.isOn = false;
+            adjustToValueInputField.text = staticFocusedFieldOfView[cameraPlacement.selectedCamIndex].ToString();
+            autoAdjustValueText.text = "Field of View:";
+        }
 
         focusedCamButton.gameObject.SetActive(false);
         wideCamButton.gameObject.SetActive(true);
+        adjustToValueInputField.transform.parent.parent.gameObject.SetActive(true);
     }
 
     // Creates UI buttons for each camera placement
@@ -304,4 +356,48 @@ public class CameraManager : MonoBehaviour
     {
         return spawnRocket.transform;
     }*/
+
+    public void toggle_smoke_trail()
+    {
+        cam[cameraPlacement.selectedCamIndex].GetComponent<CullingMaskTest>().toggle_smoke_trail(smokeTrailToggle.isOn);
+        cam[cameraPlacement.selectedCamIndex].GetComponent<CullingMaskTest>().smoke_on = smokeTrailToggle.isOn;
+    }
+
+
+    public void toggleAutoFocus(Toggle toggle)
+    {
+        auto_focus[cameraPlacement.selectedCamIndex] = toggle.isOn;
+        if (toggle.isOn)
+        {
+            autoAdjustValueText.text = "Adjust to:";
+            autoAdjustValueText.fontSize = 18;
+            adjustToValueInputField.text = focusedCamMissileHeight[cameraPlacement.selectedCamIndex].ToString();
+        }
+        else
+        {
+            autoAdjustValueText.text = "Field of View:";
+            autoAdjustValueText.fontSize = 13;
+            adjustToValueInputField.text = staticFocusedFieldOfView[cameraPlacement.selectedCamIndex].ToString();
+            cam[cameraPlacement.selectedCamIndex].fieldOfView = staticFocusedFieldOfView[cameraPlacement.selectedCamIndex];
+        }
+    }
+
+    public void handleFocusedCamAdjustValueInput()
+    {
+        float.TryParse(adjustToValueInputField.text, out float value);
+
+        if (auto_focus[cameraPlacement.selectedCamIndex])
+        {
+            focusedCamMissileHeight[cameraPlacement.selectedCamIndex] = value;
+            missile_height[cameraPlacement.selectedCamIndex] = value;
+        }
+        else
+        {
+            cam[cameraPlacement.selectedCamIndex].fieldOfView = value;
+            adjustToValueInputField.text = cam[cameraPlacement.selectedCamIndex].fieldOfView.ToString();
+            staticFocusedFieldOfView[cameraPlacement.selectedCamIndex] = cam[cameraPlacement.selectedCamIndex].fieldOfView;
+        }
+
+    }
+
 }

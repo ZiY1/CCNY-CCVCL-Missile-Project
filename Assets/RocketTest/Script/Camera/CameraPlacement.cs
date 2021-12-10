@@ -478,7 +478,7 @@ public class CameraPlacement : MonoBehaviour
     public void previewFocusedCam()
     {
         playerCamera[selectedCamIndex].transform.LookAt(cameraManager.missile_obj.transform);
-        playerCamera[selectedCamIndex].fieldOfView = cameraManager.GetFieldOfView(cameraManager.missile_obj.transform.position, cameraManager.focusedCamMissileHeight, playerCamera[selectedCamIndex]);
+        playerCamera[selectedCamIndex].fieldOfView = cameraManager.GetFieldOfView(cameraManager.missile_obj.transform.position, cameraManager.focusedCamMissileHeight[selectedCamIndex], playerCamera[selectedCamIndex]);
         focusedViewButton.gameObject.SetActive(false);
         wideViewButton.gameObject.SetActive(true);
         fovpanel.SetActive(false);
