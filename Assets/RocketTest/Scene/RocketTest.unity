@@ -6778,7 +6778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 374001247}
   - component: {fileID: 374001248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smoketrail (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6849,10 +6849,10 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        value: 0.6388926
+        inSlope: 1.2589339
+        outSlope: 1.2589339
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -16059,7 +16059,7 @@ GameObject:
   m_Component:
   - component: {fileID: 874855115}
   - component: {fileID: 874855116}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smoketrail (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16130,10 +16130,10 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        value: 0.6555552
+        inSlope: 1.2423254
+        outSlope: 1.2423254
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -16934,7 +16934,7 @@ GameObject:
   m_Component:
   - component: {fileID: 927785601}
   - component: {fileID: 927785602}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smoketrail (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17005,10 +17005,10 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        value: 0.6166687
+        inSlope: 1.0485034
+        outSlope: 1.0485034
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -18831,7 +18831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1016662961}
   - component: {fileID: 1016662962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smoketrail (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18901,11 +18901,11 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        time: 0.0024986267
+        value: 0.68333435
+        inSlope: 0.6552449
+        outSlope: 0.6552449
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -23600,7 +23600,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 0.511116
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -23608,11 +23608,11 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.05569219
-        value: 0.4691888
-        inSlope: 1.121904
-        outSlope: 1.121904
-        tangentMode: 0
+        time: 0.025762498
+        value: 0.58292043
+        inSlope: 1.6019365
+        outSlope: 1.6019365
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -25673,7 +25673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1445936559}
   - component: {fileID: 1445936560}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smoketrail (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25744,10 +25744,10 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        value: 0.66667175
+        inSlope: 0.9000884
+        outSlope: 0.9000884
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -26315,7 +26315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1481074907}
   - component: {fileID: 1481074908}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smoketrail (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26386,10 +26386,10 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        value: 0.6055603
+        inSlope: 1.306884
+        outSlope: 1.306884
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -33853,6 +33853,11 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2542582555493855113, guid: 400eae2da0a5346d69929d3f72031ff8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3669557367380565722, guid: 400eae2da0a5346d69929d3f72031ff8,
         type: 3}
       propertyPath: m_RootOrder
@@ -33950,6 +33955,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
         type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
+        type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
       value: 0.058190815
       objectReference: {fileID: 0}
@@ -33961,7 +33971,7 @@ PrefabInstance:
     - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0
+      value: 0.68333435
       objectReference: {fileID: 0}
     - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
         type: 3}
@@ -33975,8 +33985,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
         type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].inSlope
+      value: 1.6663439
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
+        type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inSlope
       value: 1.121904
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outSlope
+      value: 1.6663439
       objectReference: {fileID: 0}
     - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
         type: 3}
@@ -33992,6 +34012,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573006582205560659, guid: 400eae2da0a5346d69929d3f72031ff8,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 5551733971241809871, guid: 400eae2da0a5346d69929d3f72031ff8,
         type: 3}
@@ -34732,7 +34757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1912897273}
   - component: {fileID: 1912897274}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smoketrail (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34803,10 +34828,10 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        value: 0.6055603
+        inSlope: 1.1377821
+        outSlope: 1.1377821
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
