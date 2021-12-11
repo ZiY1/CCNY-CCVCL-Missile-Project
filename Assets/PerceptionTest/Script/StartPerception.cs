@@ -65,11 +65,11 @@ public class StartPerception : MonoBehaviour
             pc4.enabled = true;
             cus4.enabled = true;
         }
-        //if (cm.cam[4].gameObject.activeSelf)
-        //{
-        //    pc5.enabled = true;
-        //    cus5.enabled = true;
-        //}
+        if (cm.cam[4].gameObject.activeSelf)
+        {
+            pc5.enabled = true;
+            cus5.enabled = true;
+        }
         fls.enabled = true;
     }
 
