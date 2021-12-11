@@ -8661,7 +8661,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 693653924}
-        m_TargetAssemblyTypeName: StartPerception, Assembly-CSharp
+        m_TargetAssemblyTypeName: ShapePriorStartPerception, Assembly-CSharp
         m_MethodName: BeginCapture
         m_Mode: 1
         m_Arguments:
@@ -8719,9 +8719,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 693653919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eeb74aa7d82d4bada781e7d9133c4bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c4d2fb43cf25ac4da2ad395e85696b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cm: {fileID: 0}
   pc: {fileID: 1097247096}
   fls: {fileID: 1903711178}
   cus: {fileID: 1097247095}
@@ -11147,7 +11148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e60c2001630d40bb84147a840871658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missile: {fileID: 0}
+  missile: {fileID: 1085114904}
 --- !u!114 &1097247096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19846,6 +19847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Randomizers: []
+  configuration: {fileID: 0}
   constants:
     randomSeed: 539662031
     totalIterations: 1
