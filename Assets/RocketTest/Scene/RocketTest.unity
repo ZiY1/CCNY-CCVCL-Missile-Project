@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49965087, g: 0.65079767, b: 0.8349025, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3073,9 +3073,9 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 2
-  m_GateFitMode: 0
+  m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
+  m_SensorSize: {x: 36, y: 36}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 32.96973
   m_NormalizedViewPortRect:
@@ -3086,7 +3086,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 4000
-  field of view: 40
+  field of view: 57.265137
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -13806,9 +13806,9 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 2
-  m_GateFitMode: 0
+  m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
+  m_SensorSize: {x: 36, y: 36}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 32.96973
   m_NormalizedViewPortRect:
@@ -13819,7 +13819,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 4000
-  field of view: 40
+  field of view: 57.265137
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -20445,9 +20445,9 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 2
-  m_GateFitMode: 0
+  m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
+  m_SensorSize: {x: 36, y: 36}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 32.96973
   m_NormalizedViewPortRect:
@@ -20458,7 +20458,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 4000
-  field of view: 40
+  field of view: 57.265137
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -49790,9 +49790,9 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 2
-  m_GateFitMode: 0
+  m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
+  m_SensorSize: {x: 36, y: 36}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 32.96973
   m_NormalizedViewPortRect:
@@ -49803,7 +49803,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 4000
-  field of view: 40
+  field of view: 57.265137
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -50124,7 +50124,7 @@ PrefabInstance:
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
       propertyPath: field of view
-      value: 43.5
+      value: 61.795925
       objectReference: {fileID: 0}
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
@@ -50134,12 +50134,12 @@ PrefabInstance:
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
       propertyPath: m_GateFitMode
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
       propertyPath: m_SensorSize.y
-      value: 24
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 6467261107186278233, guid: 7d45adc06eae5d14391cb4b7a9408e75,
         type: 3}
